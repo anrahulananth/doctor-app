@@ -1,0 +1,10 @@
+{
+    "name": "Diva Care",
+    "short_name": "Diva Care",
+    "description": "Diva Care",
+    "lang": "en-US",
+    "start_url": "/?utm_source=homescreen",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": ""
+}
