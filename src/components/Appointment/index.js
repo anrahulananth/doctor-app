@@ -70,7 +70,7 @@ export default function Appointment() {
                         [SLOT_SELECTION]:
                             <SelectSlot />,
                         [USER_INFORMATION]: <>
-                            <Auth />
+                            {/* <Auth /> */}
                             <UserInformation />
                         </>,
                         [APPOINTMENT_CONFIRMATION]:
