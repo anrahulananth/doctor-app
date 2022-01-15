@@ -16,7 +16,7 @@ const navigation = {
         {
             name: "Facebook",
             href: "#",
-            icon: (props) => (
+            icon: () => (
                 <svg
                     width={24}
                     height={24}
@@ -79,7 +79,7 @@ export default function Footer() {
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
                     <div className="space-y-8 xl:col-span-1">
                         <p className="text-white text-base">
-                            Making the world a better place through constructing elegant hierarchies.
+                            Mauris ante dui enim integer id.
                         </p>
                         <div className="flex space-x-6">
 
@@ -98,8 +98,8 @@ export default function Footer() {
                             <div>
                                 <h3 className="text-sm text-white font-semibold tracking-wider uppercase">Services</h3>
                                 <ul role="list" className="mt-4 space-y-4">
-                                    {navigation.services.map((item) => (
-                                        <li key={item.name}>
+                                    {navigation.services.map((item, index) => (
+                                        <li key={item.name + index}>
                                             <a href={item.href} className="text-base text-white hover:text-gray-900">
                                                 {item.name}
                                             </a>

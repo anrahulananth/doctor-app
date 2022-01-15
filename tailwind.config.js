@@ -5,5 +5,7 @@ module.exports = {
         "./src/**/*.{js,ts,jsx,tsx}"
     ],
     theme: theme,
-    plugins: [],
+    plugins: [
+        require("@tailwindcss/forms"),
+    ],
 };

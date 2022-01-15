@@ -18,9 +18,9 @@ export default function Doctors() {
     return (
         <section id="doctors" className="relative overflow-hidden">
             <div className="relative max-w-xl mx-auto px-4 lg:max-w-7xl">
-                <div className="relative mt-12 mb-12 flex lg:mt-24 lg:flex-row sm:flex-col-reverse justify-between">
+                <div className="relative mt-12 mb-12 flex lg:mt-24 lg:flex-row sm:flex-col-reverse justify-between text-text2">
                     <div className="basis-3/4 relative">
-                        <h3 className="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">
+                        <h3 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
                             Who we are
                         </h3>
                         <div className="mt-14 mx-auto lg:grid lg:grid-cols-2 lg:gap-x-8">

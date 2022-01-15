@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Landing() {
     return (
         <>
@@ -10,8 +12,10 @@ export default function Landing() {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta justo sed ipsum laoreet, at interdum ante imperdiet.
                     </p>
                     <div className="mt-16 w-max sm:flex md:mt-8">
-                        <button  className="w-full items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary1 hover:bg-fuchsia-900 md:py-4 md:text-lg md:px-10 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">
-                            Book an appointment
+                        <button className="w-full items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary1 hover:bg-fuchsia-900 md:py-4 md:text-lg md:px-10 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">
+                            <Link href={"/book-appointment"}>
+                                Book an appointment
+                            </Link>
                         </button>
                     </div>
                 </div>
