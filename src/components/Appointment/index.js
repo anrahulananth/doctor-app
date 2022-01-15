@@ -50,7 +50,10 @@ export default function Appointment() {
                                                         })
                                                     } />
                                                 }
-                                                <div className={`w-full h-1 bg-${(index + 1) !== appointmentStepsArray.length ? "background5" : "transparent"} mx-4`} />
+                                                <div className={classNames("w-full h-1 mx-4 rounded-md", {
+                                                    "bg-transparent": (index + 1) === appointmentStepsArray.length,
+                                                    "bg-background5": (index + 1) !== appointmentStepsArray.length
+                                                })} />
                                             </div>
                                         </div>
                                         <div className="text-text1">
