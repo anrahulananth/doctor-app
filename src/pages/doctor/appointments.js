@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useState } from "react";
-import DatePicker from "react-date-picker/dist/entry.nostyle";
 
 export default function Appointments() {
     const [value, onChange] = useState(new Date());
@@ -21,7 +20,6 @@ export default function Appointments() {
                                 Choose Date
                             </h2>
                             <div className="py-4 flex">
-                                <DatePicker onChange={onChange} value={value} />
                             </div>
                         </div>
                     </div>
