@@ -34,7 +34,7 @@ const Confirmation = () => (
                     <div className="text-base text-text2">
                         Gynecology/Obstetrics Clinic<br />
                         #B-001, 10/1, Ground floor, Victoria lawns,<br />
-                        Victoria road, Victoria Layout, Bangalore
+                        Victoria Road, Victoria Layout, Bangalore
                     </div>
                 </div>
                 <div className="mt-8">

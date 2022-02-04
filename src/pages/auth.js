@@ -5,7 +5,7 @@ export default function AuthContainer() {
     return (
         <>
             <Head>
-                <title>Diva Care</title>
+                <title>Diva Care | Log In | Register</title>
                 <script type="application/ld+json">
                     {/** TODO: Page Specific SEO */}
                 </script>

@@ -11,12 +11,12 @@ const features = [
     "Nutritional diet advice",
     "Treatment of recurrent miscarriage",
     "Infertility",
-    "Gynaecological problems"
+    "Gynaecological problems (fibroid uterus.endometriosis,uterine anomalies)"
 ];
 
-export default function Doctors() {
+export default function About() {
     return (
-        <section id="doctors" className="relative overflow-hidden">
+        <section id="about" className="relative overflow-hidden">
             <div className="relative max-w-xl mx-auto px-4 lg:max-w-7xl">
                 <div className="relative mt-12 mb-12 flex lg:mt-24 lg:flex-row sm:flex-col-reverse justify-between text-text2">
                     <div className="basis-3/4 relative">
@@ -26,20 +26,16 @@ export default function Doctors() {
                         <div className="mt-14 mx-auto lg:grid lg:grid-cols-2 lg:gap-x-8">
                             <div>
                                 <p className="mt-2 text-xl font-extrabold">About Dr. Anita Balakrishna</p>
+
                                 <p className="mt-6 text-md font-medium text-gray-500 leading-8">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta justo sed ipsum laoreet, at interdum ante imperdiet. Nam at volutpat arcu, nec placerat purus. Sed cursus leo sit amet turpis tempus euismod. Proin porta lorem vel lectus maximus, sit amet facilisis odio rutrum. Phasellus at eros augue. Curabitur vitae justo in augue pulvinar mollis. Praesent est turpis.
+                                    Dr Anita Balakrishna graduated as a doctor from the prestigious Bangalore Medical College & Hospital.She pursued her Masters in Obstetrics & Gynecology from the esteemed St John&apos;s Medical College & Hospital, Bangalore, where she was awarded 10th Rank for MS OBG in 2004 under Rajiv Gandhi University. Later she enrolled for a Fellowship in Fetal-Maternal medicine at Bangalore Assisted Conception Centre, where she was educated on the modern medical practices used in managing High Risk Pregnancies.
                                 </p>
-                                <div className="mt-4">
-                                    <button className="rounded-full border px-8 py-4 text-primary1 font-extrabold border-primary1">
-                                        Learn More
-                                    </button>
-                                </div>
                             </div>
                             <div>
-                                <p className="mt-2 text-xl font-extrabold">Services we Offer</p>
+                                <p className="mt-2 text-xl font-extrabold">Services we offer</p>
                                 <dl className="mt-6 grid sm:grid-cols-1">
                                     {features.map((feature, index) => (
-                                        <div key={`feature-${index + 1}`} className={`relative${ !!index ? " mt-5" : ""}`}>
+                                        <div key={`feature-${index + 1}`} className={`relative${!!index ? " mt-5" : ""}`}>
                                             <dt>
                                                 <MdCheckCircle className="absolute h-6 w-6 text-green-500" aria-hidden="true" />
                                             </dt>

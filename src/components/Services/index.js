@@ -8,12 +8,12 @@ const posts = [
     {
         title: "Infertility",
         description:
-        "The doctor’s initial encounter with the infertile couple is the most important step, as it sets the tone for subsequent evaluation and treatment. Factors from both partners need to be evaluated before making a diagnosis and pursuing invasive treatments like IUI or ART ( IVF with ICSI ).",
+        "The doctor’s initial encounter with the infertile couple is the most important step, as it sets the tone for subsequent evaluation and treatment. Factors from both partners need to be evaluated before making a diagnosis and pursuing invasive treatments like IUI or ART ( IVF with ICSI ). In about one-third of cases, the cause of infertility involves only the male.In about one-third of cases, the cause of infertility involves only the female.In the remaining cases, the cause of infertility involves both the male and female, or no cause can be identified.",
     },
     {
         title: "Endoscopic Surgery",
         description:
-        "Laproscopy revolution has been startlingly rapid and has been a boon to the patients as even a fibroid removal or hysterectomy is easy with patient getting back to normal in just a day or two. Procedures like tubal repair, septal correction, myomectomy, ovarian cystectomy, ovarian drilling or even evaluating the female reproductive system.",
+        "Laproscopy revolution has been startlingly rapid and has been a boon to the patients as even a fibroid removal or hysterectomy is easy with patient getting back to normal in just a day or two. Procedures like tubal repair, septal correction, myomectomy, ovarian cystectomy, ovarian drilling or even evaluating the female reproductive system is easily done through laproscopy and hysteroscopy and not much time wasted in recovery for the anxious infertile couple waiting to concieve.",
     },
 ];
 

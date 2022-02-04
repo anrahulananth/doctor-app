@@ -56,7 +56,7 @@ const UserInformation = () => {
             </div>
             <div className="basis-1/2 bg-white border shadow-cardshadow1 border-background4 rounded-md p-6">
                 <div className="flex flex-row items-center">
-                    <img src="/assets/images/doctor-anita.png" className="h-10 w-10" />
+                    <img src="/assets/images/doctor-anita-large.png" className="h-10 w-10" />
                     <div className="ml-4 text-lg text-text2 font-bold">Appointment with Dr Anita Balakrishna</div>
                 </div>
                 <div className="mt-8">
@@ -84,7 +84,7 @@ const UserInformation = () => {
                     <div className="text-base text-text2">
                         Gynecology/Obstetrics Clinic<br />
                         #B-001, 10/1, Ground floor, Victoria lawns,<br />
-                        Victoria road, Victoria Layout, Bangalore
+                        Victoria Road, Victoria Layout, Bangalore
                     </div>
                 </div>
                 <div className="mt-8">

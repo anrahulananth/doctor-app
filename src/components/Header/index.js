@@ -9,7 +9,7 @@ import styled from "styled-components";
 const navigation = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/#services" },
-    { name: "Doctors", href: "/#doctors" },
+    { name: "About Us", href: "/#about" },
     { name: "Contact", href: "/#contact" },
 ];
 
@@ -39,7 +39,7 @@ export default function Header() {
                         <nav className="relative flex items-center justify-between sm:h-10 md:justify-center" aria-label="Global">
                             <div className="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
                                 <div className="flex items-center justify-between w-full md:w-auto">
-                                    <Link href="/">
+                                    <Link href="/" passHref>
                                         <div className="cursor-pointer">
                                             <span className="sr-only">Workflow</span>
                                             <img
@@ -77,26 +77,13 @@ export default function Header() {
                                     </NavLink>
                                 ))}
                             </div>
-                            {
-                                router.asPath !== "/auth" && (
-                                    <div className="hidden md:space-x-10 md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-                                        <button
-                                            className="inline-flex items-center px-4 py-2 border border-transparent text-text2 font-medium rounded-md hover:text-primary1 hover:font-extrabold"
-                                        >
-                                            <Link href="/auth">
-                                                Log In
-                                            </Link>
-                                        </button>
-                                        <button
-                                            className="inline-flex items-center px-8 py-2 border border-transparent text-white font-medium rounded-full bg-primary1 hover:bg-fuchsia-900 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1"
-                                        >
-                                            <Link href="/auth">
-                                                Register
-                                            </Link>
-                                        </button>
-                                    </div>
-                                )
-                            }
+                            <div className="hidden md:space-x-10 md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
+                                <button className="inline-flex items-center px-8 py-2 border border-transparent text-white font-medium rounded-full bg-primary1 hover:bg-fuchsia-900 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">
+                                    <Link href="/auth">
+                                        Log In
+                                    </Link>
+                                </button>
+                            </div>
                         </nav>
                     </div>
                     <Transition
@@ -130,21 +117,14 @@ export default function Header() {
                                 </div>
                                 <div className="px-2 pt-2 pb-3">
                                     {navigation.map((item) => (
-                                        <div
-                                            key={item.name}
-
-                                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                                        >
+                                        <div key={item.name} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
                                             <Link href={item.href}>
                                                 {item.name}
                                             </Link>
                                         </div>
                                     ))}
                                 </div>
-                                <div
-
-                                    className="block w-full px-5 py-3 text-center font-medium text-primary1 bg-gray-50 hover:bg-gray-100"
-                                >
+                                <div className="block w-full px-5 py-3 text-center font-medium text-primary1 bg-gray-50 hover:bg-gray-100">
                                     <Link href="/">
                                         Log in
                                     </Link>

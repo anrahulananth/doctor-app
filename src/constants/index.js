@@ -1,4 +1,8 @@
 export const SAMPLE_CONSTANT = 10000;
+export const MAP_VALUES = {
+    LATITIUDE: 12.96651,
+    LONGITUDE: 77.61431
+};
 
 export const USER_TYPES = {
     GUEST: "GUEST",

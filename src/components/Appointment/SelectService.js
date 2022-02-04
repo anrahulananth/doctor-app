@@ -4,19 +4,19 @@ const services = [
         name: "Pregnancy Consultation",
         time: "10 min",
         price: "Rs 500",
-        img: "/assets/images/pregnancy-consultation.png"
+        img: "/assets/images/pregnancy-consultation.jpg"
     },
     {
         name: "Fertility Consultation",
         time: "10 min",
         price: "Rs 500",
-        img: "/assets/images/common-consultation.png"
+        img: "/assets/images/fertility-consultation.jpg"
     },
     {
         name: "Gynaec Consultation",
         time: "10 min",
         price: "Rs 500",
-        img: "/assets/images/common-consultation.png"
+        img: "/assets/images/common-consultation.jpg"
     }
 ];
 
@@ -24,7 +24,7 @@ const SelectService = ({ handleServiceSelection }) => (
     <div className="flex flex-row space-x-8 my-8">
         <div className="basis-2/5 bg-white border shadow-cardshadow1 border-background4 rounded-md p-6">
             <div className="flex flex-row">
-                <img src="/assets/images/doctor-anita.png" className="h-20 w-20" />
+                <img src="/assets/images/doctor-anita-large.jpg" className="h-20 w-20 rounded-full" />
                 <div className="ml-8">
                     <div className="text-lg text-text2 font-bold">Dr Anita Balakrishna</div>
                     <div className="mt-2 font-semibold text-text2">MS(OBG)Fetal Maternal Specialist
@@ -46,7 +46,7 @@ const SelectService = ({ handleServiceSelection }) => (
                         onClick={handleServiceSelection}
                     >
                         <div className="mx-4">
-                            <img src={service.img} className="h-16 w-16" />
+                            <img src={service.img} className="h-16 w-16 rounded-full" />
                         </div>
                         <div className="mx-4 flex flex-col grow">
                             <div className="text-lg text-text2 font-semibold">{service.name}</div>

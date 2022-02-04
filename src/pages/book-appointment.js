@@ -6,7 +6,7 @@ export default function BookAppointment() {
     return (
         <>
             <Head>
-                <title>Diva Care</title>
+                <title>Diva Care | Book Appointment</title>
                 <script type="application/ld+json">
                     {/** TODO: Page Specific SEO */}
                 </script>

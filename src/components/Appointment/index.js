@@ -1,6 +1,5 @@
 import { FaCircle, FaCheckCircle } from "react-icons/fa";
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
-import Auth from "../Auth";
 import Confirmation from "./Confirmation";
 import SelectService from "./SelectService";
 import SelectSlot from "./SelectSlot";

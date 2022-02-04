@@ -22,6 +22,8 @@ module.exports = {
         background10: "#F5E9F4",
         text1: "#42526E",
         text2: "#091E42",
+        text3: "#253858",
+        "background-black": "#1C1C1C",
         ...colors
     },
     fontFamily: {
