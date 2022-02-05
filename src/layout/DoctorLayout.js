@@ -110,7 +110,7 @@ export default function DoctorLayout(props) {
                                     ))}
                                 </nav>
                             </div>
-                            <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+                            <div className="flex-shrink-0 flex border-t border-gray-200 p-2">
                                 <Link href="/" passHref>
                                     <div className="flex-shrink-0 group block">
                                         <div className="flex items-center group-hover:bg-background10 rounded-md p-2">
@@ -173,7 +173,7 @@ export default function DoctorLayout(props) {
                             ))}
                         </nav>
                     </div>
-                    <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+                    <div className="flex-shrink-0 flex border-t border-gray-200 p-2">
                         <Link href="/" passHref>
                             <div className="flex-shrink-0 w-full group block">
                                 <div className="flex items-center group-hover:bg-background10 rounded-md p-2">
