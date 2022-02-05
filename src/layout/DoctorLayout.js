@@ -72,8 +72,8 @@ export default function DoctorLayout(props) {
                                     </button>
                                 </div>
                             </Transition.Child>
-                            <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-                                <div className="flex-shrink-0 flex items-center px-4">
+                            <div className="flex-1 h-0 overflow-y-auto">
+                                <div className="flex-shrink-0 flex items-center px-4 py-5">
                                     <Link href="/" passHref>
                                         <div className="cursor-pointer">
                                             <img
@@ -84,7 +84,7 @@ export default function DoctorLayout(props) {
                                         </div>
                                     </Link>
                                 </div>
-                                <nav className="mt-4 pt-4 space-y-4 border-t border-gray-200">
+                                <nav className="pt-4 space-y-4 border-t border-gray-200">
                                     {Object.values(navigation).map((item) => (
                                         <Fragment key={item.name}>
                                             <item.element.type {...item.element.props}>
@@ -132,8 +132,8 @@ export default function DoctorLayout(props) {
             <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
                 {/* Sidebar component, swap this element with another sidebar if you like */}
                 <div className="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white">
-                    <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-                        <div className="flex items-center flex-shrink-0 px-4">
+                    <div className="flex-1 flex flex-col overflow-y-auto">
+                        <div className="flex items-center flex-shrink-0 px-4 py-5">
                             <Link href="/" passHref>
                                 <div className="cursor-pointer">
                                     <img
@@ -144,7 +144,7 @@ export default function DoctorLayout(props) {
                                 </div>
                             </Link>
                         </div>
-                        <nav className="mt-4 pt-4 flex-1 bg-white border-t border-gray-200 space-y-4">
+                        <nav className="pt-4 flex-1 bg-white border-t border-gray-200 space-y-4">
                             {Object.values(navigation).map((item) => (
                                 <Fragment key={item.name}>
                                     <item.element.type {...item.element.props}>

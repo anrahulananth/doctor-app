@@ -54,7 +54,7 @@ export default function Appointments() {
             <div className="flex-1">
                 <div className="py-2 lg:py-6 sm:py-4">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                        <h1 className="text-2xl font-semibold text-gray-900">Appointments</h1>
+                        <h1 className="text-2xl font-semibold text-text3">Appointments</h1>
                         <div className="my-8 text-text3">
                             <h2 className="font-semibold">
                                 Choose Date
@@ -111,19 +111,19 @@ export default function Appointments() {
                                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                                     <div className="flex items-center">
                                                                         <div>
-                                                                            <div className="text-sm font-medium text-gray-900">{person.patient}</div>
+                                                                            <div className="text-sm font-medium text-text3">{person.patient}</div>
                                                                             <div className="text-sm text-gray-500">{person.email}</div>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                                    <div className="text-sm text-gray-900">{person.service}</div>
+                                                                    <div className="text-sm text-text3">{person.service}</div>
                                                                 </td>
                                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                                    <div className="text-sm text-gray-900">{person.location}</div>
+                                                                    <div className="text-sm text-text3">{person.location}</div>
                                                                 </td>
                                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                                    <div className="text-sm text-gray-900">{person.cost}</div>
+                                                                    <div className="text-sm text-text3">{person.cost}</div>
                                                                 </td>
                                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                                     <span className={classNames({

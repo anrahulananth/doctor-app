@@ -20,6 +20,7 @@ module.exports = {
         background8: "#F0F0F1",
         background9: "#9F9F9F",
         background10: "#F5E9F4",
+        background11: "#FAFBFC",
         text1: "#42526E",
         text2: "#091E42",
         text3: "#253858",
