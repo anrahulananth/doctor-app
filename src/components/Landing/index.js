@@ -47,11 +47,11 @@ export default function Landing() {
                         Keeping your wellness in mind, we deliver complete range of women’s health care from prepubertal to postmenopausal health issues.
                     </p>
                     <div className="mt-16 w-max sm:flex md:mt-8">
-                        <button className="w-full items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary1 hover:bg-fuchsia-900 md:py-4 md:text-lg md:px-10 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">
-                            <Link href={"/book-appointment"}>
+                        <Link href="/book-appointment" passHref>
+                            <button className="cursor-pointer w-full items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary1 hover:bg-fuchsia-900 md:py-4 md:text-lg md:px-10 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1 z-[50]">
                                 Book an appointment
-                            </Link>
-                        </button>
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
