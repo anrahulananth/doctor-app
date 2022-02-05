@@ -1,11 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
 const navigation = {
     services: [
-        { name: "Lorem", href: "#" },
-        { name: "Ipsum", href: "#" },
-        { name: "Lorem", href: "#" },
-        { name: "Ipsum", href: "#" },
-        { name: "Lorem", href: "#" },
+        { name: "Book Appointment", href: "/book-appointment" },
+        { name: "Appointment Policy", href: "/book-appointment#policy" },
     ],
     legal: [
         { name: "Claim", href: "#" },
@@ -15,8 +12,8 @@ const navigation = {
     social: [
         {
             name: "Facebook",
-            href: "#",
-            icon: (props) => (
+            href: "https://www.facebook.com/DrANITABALAKRISHNA",
+            icon: () => (
                 <svg
                     width={24}
                     height={24}
@@ -35,7 +32,7 @@ const navigation = {
         },
         {
             name: "Instagram",
-            href: "#",
+            href: "https://www.facebook.com/DrANITABALAKRISHNA",
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path
@@ -48,7 +45,7 @@ const navigation = {
         },
         {
             name: "Twitter",
-            href: "#",
+            href: "http://divacare.in/index.php#",
             icon: (props) => (
                 <svg
                     width={24}
@@ -71,48 +68,35 @@ const navigation = {
 
 export default function Footer() {
     return (
-        <footer className="bg-background2" aria-labelledby="footer-heading">
+        <footer className="bg-background2 max-h-[380px]" aria-labelledby="footer-heading">
             <h2 id="footer-heading" className="sr-only">
                 Footer
             </h2>
             <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-                    <div className="space-y-8 xl:col-span-1">
-                        <p className="text-white text-base">
-                            Making the world a better place through constructing elegant hierarchies.
-                        </p>
-                        <div className="flex space-x-6">
-
-                            {navigation.social.map((item) => (
-                                <a key={item.name} href={item.href} className="text-white hover:text-white">
-                                    <span className="sr-only">{item.name}</span>
-                                    <item.icon className="h-6 w-6" aria-hidden="true" />
-                                </a>
-                            ))}
-                        </div>
-                    </div>
                     <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
                         <div className="md:grid md:grid-cols-2 md:gap-8">
+                            <div className="space-y-8 xl:col-span-1">
+                                <p className="text-white text-base font-bold">
+                                    Our Social Media Presence
+                                </p>
+                                <div className="flex space-x-6">
+                                    {navigation.social.map((item) => (
+                                        <a key={item.name} href={item.href} className="text-white hover:text-white">
+                                            <span className="sr-only">{item.name}</span>
+                                            <item.icon className="h-6 w-6" aria-hidden="true" />
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                         <div className="md:grid md:grid-cols-2 md:gap-8">
                             <div>
-                                <h3 className="text-sm text-white font-semibold tracking-wider uppercase">Services</h3>
+                                <h3 className="text-sm text-white tracking-wider uppercase font-bold">Links</h3>
                                 <ul role="list" className="mt-4 space-y-4">
-                                    {navigation.services.map((item) => (
-                                        <li key={item.name}>
-                                            <a href={item.href} className="text-base text-white hover:text-gray-900">
-                                                {item.name}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className="mt-12 md:mt-0">
-                                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Doctors</h3>
-                                <ul role="list" className="mt-4 space-y-4">
-                                    {navigation.legal.map((item) => (
-                                        <li key={item.name}>
-                                            <a href={item.href} className="text-base text-white hover:text-gray-900">
+                                    {navigation.services.map((item, index) => (
+                                        <li key={item.name + index}>
+                                            <a href={item.href} className="text-base text-white hover:text-gray-900 underline">
                                                 {item.name}
                                             </a>
                                         </li>
@@ -123,7 +107,7 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="mt-12 border-t border-gray-200 pt-8">
-                    <p className="text-base text-white xl:text-center">&copy; 2021 Diva Care. All rights reserved.</p>
+                    <p className="text-base text-white xl:text-center">&copy; 2022 Diva Care. All rights reserved.</p>
                 </div>
             </div>
         </footer>

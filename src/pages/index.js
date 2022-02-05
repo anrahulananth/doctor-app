@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Doctors from "../components/Doctors";
+import About from "../components/About";
 import Landing from "../components/Landing";
 import Services from "../components/Services";
 import Contact from "../components/Contact";
@@ -15,7 +15,7 @@ export default function Home() {
             </Head>
             <Landing />
             <Services />
-            <Doctors />
+            <About />
             <Contact />
         </>
     );
