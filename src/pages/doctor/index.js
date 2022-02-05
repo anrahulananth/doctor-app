@@ -14,7 +14,8 @@ export default function Profile() {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                         <h1 className="text-2xl font-semibold text-gray-900">Your Profile</h1>
                     </div>
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                    <div className="max-w-7xl my-5 px-4 sm:px-6 md:px-8 text-text3">
+                        View your profile details and make edits
                     </div>
                 </div>
             </div>
