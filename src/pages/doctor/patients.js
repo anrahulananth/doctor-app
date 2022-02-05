@@ -117,12 +117,10 @@ export default function Patients() {
                 >
                     <div className="flex flex-col mx-0 lg:mx-10">
                         <div className="bg-white px-4 py-6 my-4 shadow sm:p-6 sm:rounded-lg">
-                            <div className="flex space-x-3 justify-center items-center">
-                                <div className="flex-shrink-0">
+                            <div className="flex flex-col space-y-3 xl:flex-row xl:space-x-3 xl:items-center">
+                                <div className="min-w-0 flex-1 flex items-center space-x-3">
                                     <img className="h-10 w-10 rounded-full" src={patients[0].image} alt="" />
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                    <p className="text-sm font-medium text-center text-gray-900">
+                                    <p className="text-sm font-medium text-gray-900">
                                         {patients[0].name}
                                     </p>
                                 </div>
