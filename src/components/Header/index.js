@@ -33,7 +33,8 @@ const NavLink = styled.div`
 export default function Header() {
     const router = useRouter();
     const { user } = useAuthContext();
-    const { isLoggedIn, firstName, lastName } = user;
+    console.log("===>", user);
+    const { isLoggedIn, firstName, lastName } = user.data;
     return (
         <header>
             <div className="relative pt-10 pb-10 bg-opacity-1 bg-background1">
@@ -83,8 +84,9 @@ export default function Header() {
                             <div className="hidden md:space-x-10 md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                                 {
                                     isLoggedIn ? (
-                                        <button>
-                                            {firstName} {lastName}
+                                        <button className="inline-flex items-center px-3 py-2 text-primary1 font-semibold shadow-cardshadow hover:shadow-lg hover:shadow-buttonshadow1 rounded-md">
+                                            <div className="bg-background12 p-1 rounded-md mr-2">{firstName[0]}{lastName[0]}</div>
+                                            <span>{firstName} {lastName}</span>
                                         </button>
                                     ) : (
                                         <button className="inline-flex items-center px-8 py-2 border border-transparent text-white font-medium rounded-full bg-primary1 hover:bg-fuchsia-900 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">

@@ -20,7 +20,7 @@ import Auth from "../Auth";
 export default function Appointment() {
     const { appointment, proceedTo } = useAppointmentContext();
     const { user } = useAuthContext();
-    const { isLoggedIn } = user;
+    const { isLoggedIn } = user.data;
     const {
         appointmentStep
     } = appointment;

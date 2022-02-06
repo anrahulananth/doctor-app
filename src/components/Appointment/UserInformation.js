@@ -2,7 +2,7 @@ import { HiOutlineClock, HiOutlineCurrencyRupee, HiOutlinePencil } from "react-i
 import { useAuthContext } from "../../context/AuthProvider";
 const UserInformation = () => {
     const { user } = useAuthContext();
-    const { firstName, lastName, email, phone } = user;
+    const { firstName, lastName, email, phone } = user.data;
     console.log("===>", user);
     return (
         <div className="flex flex-row space-x-4 my-8">
