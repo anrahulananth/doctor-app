@@ -91,14 +91,14 @@ export default function BusinessHours() {
                                         <div className="lg:basis-3/4 flex flex-col">
                                             <div className="flex items-center space-x-3">
                                                 <input
-                                                    value={"09:00 AM"}
+                                                    defaultValue={"09:00 AM"}
                                                     type="text"
                                                     name="start"
                                                     className="rounded-md border-gray-200 w-40"
                                                 />
                                                 <p className="text-background6">to</p>
                                                 <input
-                                                    value={"05:00 PM"}
+                                                    defaultValue={"05:00 PM"}
                                                     type="text"
                                                     name="start"
                                                     className="rounded-md border-gray-200 w-40"

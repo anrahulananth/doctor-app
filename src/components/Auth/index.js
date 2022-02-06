@@ -1,5 +1,7 @@
 import classNames from "classnames";
+import { useRouter } from "next/router";
 import { Fragment, useReducer, useMemo, useCallback, useEffect, useState } from "react";
+import { useAuthContext } from "../../context/AuthProvider";
 
 const initialState = {};
 const inputFields = [
@@ -118,10 +120,12 @@ const authFormReducer = (state = initState, action) => {
     }
 };
 
-const Auth = () => {
+const Auth = ({ isLoginPage = false }) => {
+    const router = useRouter();
     const [type, setType] = useState("login");
     const [disabled, setDisabled] = useState(true);
     const [authForm, dispatch] = useReducer(authFormReducer, initialState);
+    const { doLogin, doRegister } = useAuthContext();
     // Consts
     const inputElements = useMemo(() => inputFields
         .filter(ele => ele.formType ? ele.formType === type : true)
@@ -164,23 +168,27 @@ const Auth = () => {
         });
     };
     const handleSubmit = () => {
-        let errorTrigger = false;
-        inputElements.forEach(input => {
-            const error = input.validation(authForm[input.id].value, {
-                register: type === "register"
-            });
-            if (error) {
-                errorTrigger = true;
-                dispatch({
-                    type: "ERROR",
-                    payload: {
-                        id: input.id,
-                        error
-                    }
-                });
-            }
-        });
-        if (errorTrigger) return;
+        // let errorTrigger = false;
+        // inputElements.forEach(input => {
+        //     const error = input.validation(authForm[input.id].value, {
+        //         register: type === "register"
+        //     });
+        //     if (error) {
+        //         errorTrigger = true;
+        //         dispatch({
+        //             type: "ERROR",
+        //             payload: {
+        //                 id: input.id,
+        //                 error
+        //             }
+        //         });
+        //     }
+        // });
+        // if (errorTrigger) return;
+        const payload = {};
+        Object.keys(authForm).forEach((key) => payload[key] = authForm[key].value);
+        type === "register" ? doRegister(payload) : doLogin(payload);
+        isLoginPage && router.replace("/");
     };
 
     return (

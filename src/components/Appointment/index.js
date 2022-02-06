@@ -14,9 +14,13 @@ import {
     APPOINTMENT_CONFIRMATION,
     USER_INFORMATION
 } from "../../constants";
+import { useAuthContext } from "../../context/AuthProvider";
+import Auth from "../Auth";
 
 export default function Appointment() {
     const { appointment, proceedTo } = useAppointmentContext();
+    const { user } = useAuthContext();
+    const { isLoggedIn } = user;
     const {
         appointmentStep
     } = appointment;
@@ -68,10 +72,7 @@ export default function Appointment() {
                             <SelectService />,
                         [SLOT_SELECTION]:
                             <SelectSlot />,
-                        [USER_INFORMATION]: <>
-                            {/* <Auth /> */}
-                            <UserInformation />
-                        </>,
+                        [USER_INFORMATION]: isLoggedIn ? <UserInformation /> : <Auth />,
                         [APPOINTMENT_CONFIRMATION]:
                             <Confirmation />
                     }[appointmentStep.type]}

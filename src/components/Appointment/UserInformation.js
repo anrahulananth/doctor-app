@@ -1,5 +1,9 @@
 import { HiOutlineClock, HiOutlineCurrencyRupee, HiOutlinePencil } from "react-icons/hi";
+import { useAuthContext } from "../../context/AuthProvider";
 const UserInformation = () => {
+    const { user } = useAuthContext();
+    const { firstName, lastName, email, phone } = user;
+    console.log("===>", user);
     return (
         <div className="flex flex-row space-x-4 my-8">
             <div className="basis-1/2 bg-white border shadow-cardshadow1 border-background4 rounded-md p-6">
@@ -14,6 +18,7 @@ const UserInformation = () => {
                         name="first-name"
                         id="first-name"
                         className="shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        defaultValue={firstName}
                     />
                 </div>
                 <label htmlFor="last-name" className="block text-sm mt-6 font-medium text-gray-700">
@@ -26,6 +31,7 @@ const UserInformation = () => {
                         name="last-name"
                         id="last-name"
                         className="shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        defaultValue={lastName}
                     />
                 </div>
                 <label htmlFor="phone-number" className="block text-sm mt-6 font-medium text-gray-700">
@@ -38,6 +44,7 @@ const UserInformation = () => {
                         name="phone-number"
                         id="phone-number"
                         className="shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        defaultValue={phone}
                     />
                 </div>
                 <label htmlFor="email" className="block text-sm mt-6 font-medium text-gray-700">
@@ -50,13 +57,13 @@ const UserInformation = () => {
                         name="email"
                         id="email"
                         className="shadow-sm focus:ring-primay1-500 focus:border-primay1-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                        placeholder="you@example.com"
+                        defaultValue={email}
                     />
                 </div>
             </div>
             <div className="basis-1/2 bg-white border shadow-cardshadow1 border-background4 rounded-md p-6">
                 <div className="flex flex-row items-center">
-                    <img src="/assets/images/doctor-anita-large.png" className="h-10 w-10" />
+                    <img src="/assets/images/doctor-anita-large.jpg" className="h-10 w-10 rounded-full" />
                     <div className="ml-4 text-lg text-text2 font-bold">Appointment with Dr Anita Balakrishna</div>
                 </div>
                 <div className="mt-8">

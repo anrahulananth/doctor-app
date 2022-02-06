@@ -10,7 +10,7 @@ export default function AuthContainer() {
                     {/** TODO: Page Specific SEO */}
                 </script>
             </Head>
-            <Auth />
+            <Auth isLoginPage />
         </>
     );
 }

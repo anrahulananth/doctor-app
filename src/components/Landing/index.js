@@ -48,7 +48,7 @@ export default function Landing() {
                     </p>
                     <div className="mt-16 w-max sm:flex md:mt-8">
                         <Link href="/book-appointment" passHref>
-                            <button className="cursor-pointer w-full items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary1 hover:bg-fuchsia-900 md:py-4 md:text-lg md:px-10 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1 z-[50]">
+                            <button className="cursor-pointer w-full items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary1 hover:bg-fuchsia-900 md:py-4 md:text-lg md:px-10 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1 z-[2]">
                                 Book an appointment
                             </button>
                         </Link>

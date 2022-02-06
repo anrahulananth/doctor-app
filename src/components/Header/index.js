@@ -5,6 +5,7 @@ import { MdOutlineMenu, MdClose } from "react-icons/md";
 import Link from "next/link";
 import classNames from "classnames";
 import styled from "styled-components";
+import { useAuthContext } from "../../context/AuthProvider";
 
 const navigation = [
     { name: "Home", href: "/" },
@@ -31,6 +32,8 @@ const NavLink = styled.div`
 
 export default function Header() {
     const router = useRouter();
+    const { user } = useAuthContext();
+    const { isLoggedIn, firstName, lastName } = user;
     return (
         <header>
             <div className="relative pt-10 pb-10 bg-opacity-1 bg-background1">
@@ -78,11 +81,19 @@ export default function Header() {
                                 ))}
                             </div>
                             <div className="hidden md:space-x-10 md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-                                <button className="inline-flex items-center px-8 py-2 border border-transparent text-white font-medium rounded-full bg-primary1 hover:bg-fuchsia-900 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">
-                                    <Link href="/auth">
-                                        Log In
-                                    </Link>
-                                </button>
+                                {
+                                    isLoggedIn ? (
+                                        <button>
+                                            {firstName} {lastName}
+                                        </button>
+                                    ) : (
+                                        <button className="inline-flex items-center px-8 py-2 border border-transparent text-white font-medium rounded-full bg-primary1 hover:bg-fuchsia-900 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">
+                                            <Link href="/auth">
+                                                Log In
+                                            </Link>
+                                        </button>
+                                    )
+                                }
                             </div>
                         </nav>
                     </div>
@@ -125,9 +136,17 @@ export default function Header() {
                                     ))}
                                 </div>
                                 <div className="block w-full px-5 py-3 text-center font-medium text-primary1 bg-gray-50 hover:bg-gray-100">
-                                    <Link href="/">
-                                        Log in
-                                    </Link>
+                                    {
+                                        isLoggedIn ? (
+                                            <button>
+                                                {firstName} {lastName}
+                                            </button>
+                                        ) : (
+                                            <Link href="/">
+                                            Log in
+                                            </Link>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </Popover.Panel>

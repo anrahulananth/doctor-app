@@ -25,7 +25,7 @@ export default function Holiday() {
             <div className="flex-1 max-w-3xl">
                 <div className="py-2 lg:py-6 sm:py-4">
                     <div className="max-w-2xl px-4 sm:px-6 md:px-8">
-                        <div className="py-4 block text-sm font-medium text-text3 w-full">
+                        <div className="py-4 block text-sm font-semibold text-text3 w-full">
                             Choose Dates
                         </div>
                     </div>

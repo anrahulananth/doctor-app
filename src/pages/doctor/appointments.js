@@ -1,9 +1,7 @@
-import { useState } from "react";
 import Head from "next/head";
-import DatePicker from "react-datepicker";
-import styled from "styled-components";
 import classNames from "classnames";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "../../components/DatePicker";
+
 const appointments = [
     {
         patient: "Jane Cooper",
@@ -32,17 +30,8 @@ const appointments = [
     // More appointments...
 ];
 
-const CustomDatePicker = styled(DatePicker)`
-    .react-datepicker__input-container {
-        input {
-            border-radius: 10px;
-        }
-    }
-`;
-
-
 export default function Appointments() {
-    const [startDate, setStartDate] = useState(new Date());
+
     return (
         <>
             <Head>
@@ -59,8 +48,8 @@ export default function Appointments() {
                             <h2 className="font-semibold">
                                 Choose Date
                             </h2>
-                            <div className="py-4 flex">
-                                <CustomDatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                            <div className="py-4">
+                                <DatePicker />
                             </div>
                             <div className="py-4">
                                 <div className="flex flex-col">
