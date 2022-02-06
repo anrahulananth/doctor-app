@@ -76,9 +76,11 @@ const SelectSlot = ({ appointmentData, handleSlotData }) => {
                             <div className="border border-background8 my-4" />
                             <div className="flex flex-wrap justify-start mb-10">
                                 {
-                                    slotsData[timeOfDay].map((slot) => (
-                                        <button key={slot} className="border border-background8 rounded-md text-text2 py-2 px-4 m-2 hover:border-primary1">
-                                            {slot}
+                                    slotsData[timeOfDay].map((slotTime) => (
+                                        <button
+                                          key={slotTime}
+                                          className={classNames("border border-background8 rounded-md text-text2 py-2 px-4 m-2 hover:border-primary1")}>
+                                            {slotTime}
                                         </button>
                                     ))
                                 }
