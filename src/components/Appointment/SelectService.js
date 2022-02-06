@@ -24,15 +24,15 @@ const services = [
 const SelectService = ({ handleServiceSelection, appointmentData }) => {
     const { name } = appointmentData;
     return (
-        <div className="flex flex-row space-x-8 my-8">
+        <div className="flex flex-col space-y-4 md:flex-row md:space-x-8 md:space-y-0 my-8">
             <div className="basis-2/5 bg-white border shadow-cardshadow1 border-background4 rounded-md p-6">
                 <div className="flex flex-row">
                     <img src="/assets/images/doctor-anita-large.jpg" className="h-20 w-20 rounded-full" />
                     <div className="ml-8">
                         <div className="text-lg text-text2 font-bold">Dr Anita Balakrishna</div>
                         <div className="mt-2 font-semibold text-text2">MS(OBG)Fetal Maternal Specialist
-                    Obstetrics and Gynaecology
-                    Senior Consultant Obstetrician & Gynaecologist, Feto-Maternal Specialist
+                            Obstetrics and Gynaecology
+                            Senior Consultant Obstetrician & Gynaecologist, Feto-Maternal Specialist
                         </div>
                     </div>
                 </div>
@@ -41,13 +41,13 @@ const SelectService = ({ handleServiceSelection, appointmentData }) => {
                 </div>
             </div>
             <div className="basis-3/5">
-                <div className="text-lg font-bold">Select a Service</div>
+                <div className="text-lg font-bold text-text3">Select a Service</div>
                 {
                     services.map((service) => (
                         <div
                             className={classNames(
                                 "flex justify-between border rounded-md items-center cursor-pointer shadow-cardshadow1 mt-8 p-4 hover:border-primary1",
-                                service.name === name ? "bg-background10": ""
+                                service.name === name ? "bg-background10" : ""
                             )}
                             key={service.name}
                             onClick={() => handleServiceSelection({

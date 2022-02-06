@@ -7,7 +7,7 @@ const Layout = (props) => {
     return (
         <AuthProvider>
             <Header />
-            <main>
+            <main className="bg-background3 min-h-screen">
                 {children}
             </main>
             <Footer />

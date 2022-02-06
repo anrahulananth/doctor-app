@@ -32,12 +32,12 @@ export default function Appointment() {
 
     return (
         <section id="book-appointment" className="relative overflow-hidden">
-            <div className="relative bg-background3 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-25 lg:px-8">
+            <div className="relative pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-25 lg:px-8">
                 <div className="relative max-w-7xl mx-auto">
-                    <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">
+                    <h2 className="text-3xl tracking-tight font-extrabold text-text3 sm:text-4xl">
                         Book an Appointment with Dr Anita
                     </h2>
-                    <div className="flex justify-evenly flex-row">
+                    <div className="hidden md:flex justify-evenly flex-row">
                         {
                             appointmentStepsArray.map((aptStep, index) => {
                                 const {
@@ -71,6 +71,11 @@ export default function Appointment() {
                                 );
                             })
                         }
+                    </div>
+                    <div className="flex md:hidden my-4">
+                        <div className="font-bold text-xl text-text3">
+                            Step {appointmentSteps[appointmentStep.type].id}. {appointmentSteps[appointmentStep.type].name}
+                        </div>
                     </div>
                     {{
                         [SERVICE_SELECTION]:

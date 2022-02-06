@@ -18,9 +18,9 @@ const SelectSlot = ({ appointmentData, handleSlotData }) => {
         });
     }, []);
     useEffect(()=>{
-      handleSlotData({
-        data: value.toISOString()
-      })
+        handleSlotData({
+            data: value.toISOString()
+        });
     }, [value]);
     return (
         <div className="flex flex-row space-x-8 my-8">
@@ -60,7 +60,7 @@ const SelectSlot = ({ appointmentData, handleSlotData }) => {
                                 }>
                                 {location === appointmentLocation
                                     ? <BiRadioCircleMarked className="text-primary1 mr-2" />
-                                    : <BiRadioCircle className="mr-2"/>}
+                                    : <BiRadioCircle className="mr-2" />}
                                 {appointmentLocation}
                             </button>
                         ))
@@ -78,11 +78,11 @@ const SelectSlot = ({ appointmentData, handleSlotData }) => {
                                 {
                                     slotsData[timeOfDay].map((slotTime) => (
                                         <button
-                                          onClick={() => handleSlotData({ slot: slotTime })}
-                                          key={slotTime}
-                                          className={classNames(
-                                          "border border-background8 rounded-md text-text2 py-2 px-4 m-2 hover:border-primary1",
-                                          slot === slotTime ? "bg-background12": "")}>
+                                            onClick={() => handleSlotData({ slot: slotTime })}
+                                            key={slotTime}
+                                            className={classNames(
+                                                "border border-background8 rounded-md text-text2 py-2 px-4 m-2 hover:border-primary1",
+                                                slot === slotTime ? "bg-background12": "")}>
                                             {slotTime}
                                         </button>
                                     ))
