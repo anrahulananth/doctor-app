@@ -10,13 +10,18 @@ const slotsData = {
 const appointmentLocations = ["In Person", "Online Consultation"];
 
 const SelectSlot = ({ appointmentData, handleSlotData }) => {
-    const [value, onChange] = useState(new Date());
-    const { location } = appointmentData;
+    const { location, date = new Date(), slot } = appointmentData;
+    const [value, onChange] = useState(new Date(date));
     useEffect(() => {
         handleSlotData({
-            date: value
+            date: value.toISOString()
         });
     }, []);
+    useEffect(()=>{
+      handleSlotData({
+        data: value.toISOString()
+      })
+    }, [value]);
     return (
         <div className="flex flex-row space-x-8 my-8">
             <div className="basis-2/5 border shadow-cardshadow1 border-background4 rounded-md self-start">
