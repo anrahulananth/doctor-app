@@ -1,9 +1,12 @@
 import { HiOutlineClock, HiOutlineCurrencyRupee, HiOutlinePencil } from "react-icons/hi";
+import { SERVICE_SELECTION } from "../../constants";
+import { useAppointmentContext } from "../../context/AppointmentProvider";
 import { useAuthContext } from "../../context/AuthProvider";
+
 const UserInformation = () => {
     const { user } = useAuthContext();
+    const { proceedTo } = useAppointmentContext();
     const { firstName, lastName, email, phone } = user.data;
-    console.log("===>", user);
     return (
         <div className="flex flex-row space-x-4 my-8">
             <div className="basis-1/2 bg-white border shadow-cardshadow1 border-background4 rounded-md p-6">
@@ -103,7 +106,10 @@ const UserInformation = () => {
                     </div>
                 </div>
                 <div className="mt-8 flex justify-center">
-                    <button className="rounded-full text-primary1 font-bold bg-background7 border border-transparent hover:border-primary1 py-3 px-4 flex items-center">
+                    <button
+                        onClick={() => proceedTo(SERVICE_SELECTION)}
+                        className="rounded-full text-primary1 font-bold bg-background7 border border-transparent hover:border-primary1 py-3 px-4 flex items-center"
+                    >
                         <HiOutlinePencil />&nbsp;Edit Details
                     </button>
                 </div>

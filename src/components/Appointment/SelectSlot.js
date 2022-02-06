@@ -1,13 +1,22 @@
-import CustomCalender from "./CustomCalender";
+import CustomCalender from "../Calender";
 import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/bi";
 import { FiChevronRight, FiChevronLeft, FiSun, FiMoon } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import classNames from "classnames";
 const slotsData = {
     "Morning": ["8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM"],
     "Evening": ["5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM"],
 };
-const SelectSlot = () => {
+const appointmentLocations = ["In Person", "Online Consultation"];
+
+const SelectSlot = ({ appointmentData, handleSlotData }) => {
     const [value, onChange] = useState(new Date());
+    const { location } = appointmentData;
+    useEffect(() => {
+        handleSlotData({
+            date: value
+        });
+    }, []);
     return (
         <div className="flex flex-row space-x-8 my-8">
             <div className="basis-2/5 border shadow-cardshadow1 border-background4 rounded-md self-start">
@@ -31,12 +40,26 @@ const SelectSlot = () => {
             <div className="basis-3/5 bg-white border shadow-cardshadow1 border-background4 rounded-md p-6">
                 <div className="text-lg text-text2 font-bold">Type of Appointment</div>
                 <div className="flex mt-4 justify-start space-x-2">
-                    <button className="basis-1/2 rounded-md border border-background8 text-text1 flex items-center justify-start p-2 hover:border-primary1">
-                        <BiRadioCircleMarked className="text-primary1" />&nbsp;&nbsp;In Person
-                    </button>
-                    <button className="basis-1/2 rounded-md border border-background8 text-text1 flex items-center justify-start p-2 hover:border-primary1">
-                        <BiRadioCircle />&nbsp;&nbsp;Online Consultation
-                    </button>
+                    {
+                        appointmentLocations.map((appointmentLocation) => (
+                            <button
+                                key={appointmentLocation}
+                                onClick={() => handleSlotData({
+                                    location: appointmentLocation
+                                })}
+                                className={
+                                    classNames(
+                                        "basis-1/2 rounded-md border border-background8 text-text1 flex items-center justify-start p-2 hover:border-primary1",
+                                        location === appointmentLocation ? "bg-background12" : ""
+                                    )
+                                }>
+                                {location === appointmentLocation
+                                    ? <BiRadioCircleMarked className="text-primary1 mr-2" />
+                                    : <BiRadioCircle className="mr-2"/>}
+                                {appointmentLocation}
+                            </button>
+                        ))
+                    }
                 </div>
                 <div className="text-md text-text2 font-bold mt-8">Choose a Slot</div>
                 {

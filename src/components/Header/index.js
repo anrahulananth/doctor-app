@@ -33,7 +33,7 @@ const NavLink = styled.div`
 export default function Header() {
     const router = useRouter();
     const { user } = useAuthContext();
-    console.log("===>", user);
+
     const { isLoggedIn, firstName, lastName } = user.data;
     return (
         <header>

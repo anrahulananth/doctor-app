@@ -18,12 +18,17 @@ import { useAuthContext } from "../../context/AuthProvider";
 import Auth from "../Auth";
 
 export default function Appointment() {
-    const { appointment, proceedTo } = useAppointmentContext();
+    const { appointment, proceedTo, setData } = useAppointmentContext();
     const { user } = useAuthContext();
     const { isLoggedIn } = user.data;
     const {
-        appointmentStep
+        appointmentStep,
+        data
     } = appointment;
+
+    const handleSetData = (data) => {
+        setData(data);
+    };
 
     return (
         <section id="book-appointment" className="relative overflow-hidden">
@@ -69,9 +74,15 @@ export default function Appointment() {
                     </div>
                     {{
                         [SERVICE_SELECTION]:
-                            <SelectService />,
+                            <SelectService
+                                handleServiceSelection={handleSetData}
+                                appointmentData={data}
+                            />,
                         [SLOT_SELECTION]:
-                            <SelectSlot />,
+                            <SelectSlot
+                                handleSlotData={handleSetData}
+                                appointmentData={data}
+                            />,
                         [USER_INFORMATION]: isLoggedIn ? <UserInformation /> : <Auth />,
                         [APPOINTMENT_CONFIRMATION]:
                             <Confirmation />
