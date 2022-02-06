@@ -67,7 +67,9 @@ const ContactUs = ({ isPhone }) => (
                         <span className="sr-only">Phone number</span>
                     </dt>
                     <dd className="flex text-base">
-                        <span className="ml-6">+91-9901600911</span>
+                        <span className="ml-6 underline">
+                            <a href="tel:+919901600911">+91-9901600911</a>
+                        </span>
                     </dd>
                     <dt>
                         <span className="sr-only">Email</span>
@@ -80,7 +82,12 @@ const ContactUs = ({ isPhone }) => (
                         <span className="sr-only">Email</span>
                     </dt>
                     <dd className="flex text-base">
-                        <span className="ml-6">info@divacare.in</span>
+                        <span className="ml-6 underline">
+                            <a href="mailto:info@divacare.in">info@divacare.in</a>
+                        </span>,&nbsp;
+                        <span className="underline">
+                            <a href="mailto:divacareclinic@gmail.com">divacareclinic@gmail.com</a>
+                        </span>
                     </dd>
                     <dt className="flex items-center">
                         <HiOutlineExternalLink className="flex-shrink-0 w-6 h-6 text-gray-400" aria-hidden="true" />

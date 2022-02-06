@@ -1,7 +1,7 @@
 import Calendar from "react-calendar";
 import styled from "styled-components";
 
-const CustomCalender = styled(Calendar)`
+const CustomCalendar = styled(Calendar)`
     .react-calendar {
         &__navigation {
             display: flex;
@@ -63,4 +63,4 @@ const CustomCalender = styled(Calendar)`
     }
 `;
 
-export default CustomCalender;
+export default CustomCalendar;

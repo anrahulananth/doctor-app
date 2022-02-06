@@ -1,4 +1,4 @@
-import CustomCalender from "../Calender";
+import Calendar from "../Calender";
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
 import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/bi";
 import { FiChevronRight, FiChevronLeft, FiSun, FiMoon } from "react-icons/fi";
@@ -29,7 +29,7 @@ const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedT
                     </div>
                     <div className="border-t border-background4" />
                     <div className="bg-white p-6 rounded-md">
-                        <CustomCalender
+                        <Calendar
                             calendarType="US"
                             onChange={(value) => {
                                 handleSlotData({

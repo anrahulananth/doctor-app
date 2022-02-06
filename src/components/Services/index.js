@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 const posts = [
     {
         title: "High-Risk Pregnancy",
@@ -23,7 +22,7 @@ export default function Services() {
             <div className="relative bg-white pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
                 <div className="relative max-w-7xl mx-auto text-text2">
                     <div className="text-center">
-                        <h2 className="text-3xl tracking-tight font-extrabold text-text2 sm:text-4xl">Hope we can help you</h2>
+                        <h2 className="text-3xl tracking-tight font-extrabold text-text2 sm:text-4xl">How we can help you</h2>
                     </div>
                     <div className="mt-12 max-w-lg mx-auto grid gap-16 lg:grid-cols-3 lg:max-w-none">
                         {posts.map((post) => (
