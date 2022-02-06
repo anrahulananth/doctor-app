@@ -24,12 +24,12 @@ const services = [
 ];
 
 const SelectService = ({ handleServiceSelection, appointmentData, appointmentStep, proceedTo }) => {
-    const { type, name, price } = appointmentData;
+    const { type, time, price } = appointmentData;
     useEffect(() => {
         handleServiceSelection({
             type: type || services[0].name,
-            price: name || services[0].price,
-            time: price || services[0].time
+            price: price || services[0].price,
+            time: time || services[0].time
         });
     }, []);
     return (
