@@ -1,13 +1,9 @@
 import { useState } from "react";
 import GlobalTheme from "../styles/GlobalTheme";
-import {
-    Layout as GlobalLayout,
-    DoctorLayout
-}from "../layout";
+import Layout from "../layout";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import "../styles/global.css";
-import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }) {
     const [queryClient] = useState(new QueryClient({
@@ -17,14 +13,14 @@ function MyApp({ Component, pageProps }) {
             },
         },
     }));
-    const router = useRouter();
-    const Layout = router.route.includes("/doctor") ? DoctorLayout : GlobalLayout;
     return (
         <>
             <QueryClientProvider client={queryClient}>
                 <GlobalTheme>
                     <Layout>
-                        <Component {...pageProps} />
+                        <main className="bg-background3 min-h-screen">
+                            <Component {...pageProps} />
+                        </main>
                     </Layout>
                 </GlobalTheme>
                 <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />

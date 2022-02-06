@@ -192,8 +192,8 @@ const Auth = ({ isLoginPage = false }) => {
     };
 
     return (
-        <div className="flex flex-row space-x-4 my-8 justify-center">
-            <div className="basis-1/2 bg-white border shadow-cardshadow1 border-background4 rounded-md px-20 py-16 md:px-12 md:py-10 sm:px-8 sm:-6">
+        <div className="flex flex-row space-x-4 my-8 md:justify-center">
+            <div className="bg-white w-full border shadow-cardshadow1 border-background4 rounded-md px-12 py-10 md:px-20 md:py-16 md:basis-1/2 sm:px-8">
                 <div className="bg-background8 flex flex-row justify-between space-x-2 rounded p-1 mb-6">
                     <div
                         onClick={() => handleClick("login")}

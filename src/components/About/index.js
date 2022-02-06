@@ -25,8 +25,7 @@ export default function About() {
                         </h3>
                         <div className="mt-14 mx-auto lg:grid lg:grid-cols-2 lg:gap-x-8">
                             <div>
-                                <p className="mt-2 text-xl font-extrabold">About Dr. Anita Balakrishna</p>
-
+                                <p className="mt-2 text-xl font-extrabold">About Dr Anita Balakrishna</p>
                                 <p className="mt-6 text-md font-medium text-gray-500 leading-8">
                                     Dr Anita Balakrishna graduated as a doctor from the prestigious Bangalore Medical College & Hospital.She pursued her Masters in Obstetrics & Gynecology from the esteemed St John&apos;s Medical College & Hospital, Bangalore, where she was awarded 10th Rank for MS OBG in 2004 under Rajiv Gandhi University. Later she enrolled for a Fellowship in Fetal-Maternal medicine at Bangalore Assisted Conception Centre, where she was educated on the modern medical practices used in managing High Risk Pregnancies.
                                 </p>

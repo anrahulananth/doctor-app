@@ -14,25 +14,21 @@ import {
     APPOINTMENT_CONFIRMATION,
     USER_INFORMATION
 } from "../../constants";
-import { useAuthContext } from "../../context/AuthProvider";
-import Auth from "../Auth";
 
 export default function Appointment() {
-    const { appointment, proceedTo, setData } = useAppointmentContext();
-    const { user } = useAuthContext();
-    const { isLoggedIn } = user.data;
+    const { appointment, setData, resetData, proceedTo } = useAppointmentContext();
     const {
         appointmentStep,
         data
     } = appointment;
-
     const handleSetData = (data) => {
         setData(data);
     };
 
+
     return (
         <section id="book-appointment" className="relative overflow-hidden">
-            <div className="relative pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-25 lg:px-8">
+            <div className="relative pb-20 px-4 sm:px-6 sm:pt-8 md-pt-16 lg:pt-24 lg:pb-25 lg:px-8">
                 <div className="relative max-w-7xl mx-auto">
                     <h2 className="text-3xl tracking-tight font-extrabold text-text3 sm:text-4xl">
                         Book an Appointment with Dr Anita
@@ -81,51 +77,29 @@ export default function Appointment() {
                         [SERVICE_SELECTION]:
                             <SelectService
                                 handleServiceSelection={handleSetData}
+                                appointmentStep={appointmentStep}
                                 appointmentData={data}
+                                proceedTo={proceedTo}
                             />,
                         [SLOT_SELECTION]:
                             <SelectSlot
+                                appointmentStep={appointmentStep}
                                 handleSlotData={handleSetData}
                                 appointmentData={data}
+                                proceedTo={proceedTo}
                             />,
-                        [USER_INFORMATION]: isLoggedIn ? <UserInformation /> : <Auth />,
+                        [USER_INFORMATION]:
+                            <UserInformation
+                                appointmentStep={appointmentStep}
+                                appointmentData={data}
+                                proceedTo={proceedTo}
+                            />,
                         [APPOINTMENT_CONFIRMATION]:
-                            <Confirmation />
+                            <Confirmation
+                                appointmentData={data}
+                                resetData={resetData}
+                            />
                     }[appointmentStep.type]}
-                    <div className="grid grid-flow-row grid-cols-2 my-8">
-                        {
-                            (appointmentStep.type !== SERVICE_SELECTION && appointmentStep.type !== APPOINTMENT_CONFIRMATION) ? (
-                                <button
-                                    onClick={() => proceedTo(appointmentStepsArray[Number(appointmentStep.id - 2)])}
-                                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-start bg-white text-primary1 border border-primary1 shadow-buttonshadow2 hover:bg-background7"
-                                >
-                                    <HiArrowNarrowLeft />&nbsp;&nbsp;Back
-                                </button>
-                            ) : (
-                                <div />
-                            )
-                        }
-                        {
-                            appointmentStep.type !== APPOINTMENT_CONFIRMATION && appointmentStep.type !== USER_INFORMATION && (
-                                <button
-                                    onClick={() => proceedTo(appointmentStepsArray[appointmentStep.id])}
-                                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
-                                >
-                                    Next&nbsp;&nbsp;<HiArrowNarrowRight />
-                                </button>
-                            )
-                        }
-                        {
-                            appointmentStep.type === USER_INFORMATION && (
-                                <button
-                                    onClick={() => proceedTo(appointmentStepsArray[appointmentStep.id])}
-                                    className="rounded-full font-bold py-4 px-20 justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
-                                >
-                                    Confirm
-                                </button>
-                            )
-                        }
-                    </div>
                 </div>
             </div>
         </section>
