@@ -1,4 +1,4 @@
-import Calendar from "../Calender";
+import Calendar from "../Calendar";
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
 import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/bi";
 import { FiChevronRight, FiChevronLeft, FiSun, FiMoon } from "react-icons/fi";
