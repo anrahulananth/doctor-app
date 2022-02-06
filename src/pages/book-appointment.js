@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Appointment from "../components/Appointment";
+import Policy from "../components/Policy";
 import AppointmentProvider from "../context/AppointmentProvider";
 
 export default function BookAppointment() {
@@ -13,6 +14,7 @@ export default function BookAppointment() {
             </Head>
             <AppointmentProvider>
                 <Appointment />
+                <Policy />
             </AppointmentProvider>
         </>
     );

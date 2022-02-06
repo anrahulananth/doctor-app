@@ -28,7 +28,7 @@ export default function Appointment() {
 
     return (
         <section id="book-appointment" className="relative overflow-hidden">
-            <div className="relative pb-20 px-4 sm:px-6 sm:pt-8 md-pt-16 lg:pt-24 lg:pb-25 lg:px-8">
+            <div className="relative pb-16 px-4 sm:px-6 sm:pt-8 md:pt-16 lg:pt-20 lg:pb-20 lg:px-8">
                 <div className="relative max-w-7xl mx-auto">
                     <h2 className="text-3xl tracking-tight font-extrabold text-text3 sm:text-4xl">
                         Book an Appointment with Dr Anita
