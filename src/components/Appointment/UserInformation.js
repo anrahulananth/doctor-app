@@ -1,11 +1,8 @@
 import { HiOutlineClock, HiOutlineCurrencyRupee, HiOutlinePencil, HiArrowNarrowLeft } from "react-icons/hi";
 import { appointmentStepsArray } from "../../constants";
-import { useAuthContext } from "../../context/AuthProvider";
 import Auth from "../Auth";
 
-const UserInformation = ({ appointmentStep, appointmentData, proceedTo }) => {
-    const { user } = useAuthContext();
-    console.log(appointmentData);
+const UserInformation = ({ appointmentStep, appointmentData, proceedTo, user }) => {
     const { type, time, price, location } = appointmentData;
     const { isLoggedIn, firstName, lastName, email, phone } = user.data;
 
@@ -99,9 +96,9 @@ const UserInformation = ({ appointmentStep, appointmentData, proceedTo }) => {
                                 {
                                     location === "In Person" && (
                                         <div className="text-base text-text2">
-                                                Gynecology/Obstetrics Clinic<br />
-                                                #B-001, 10/1, Ground floor, Victoria lawns,<br />
-                                                Victoria Road, Victoria Layout, Bangalore
+                                            Gynecology/Obstetrics Clinic<br />
+                                            #B-001, 10/1, Ground floor, Victoria lawns,<br />
+                                            Victoria Road, Victoria Layout, Bangalore
                                         </div>
                                     )
                                 }

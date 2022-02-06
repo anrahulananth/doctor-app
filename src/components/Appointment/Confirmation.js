@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { HiOutlineClock, HiOutlineCurrencyRupee } from "react-icons/hi";
 
-const Confirmation = ({ resetData, appointmentData }) => {
+const Confirmation = ({ resetData, appointmentData, addAppointment }) => {
     const router = useRouter();
     const { type, price, time, location } = appointmentData;
     return (
@@ -62,6 +62,7 @@ const Confirmation = ({ resetData, appointmentData }) => {
                 <div />
                 <button
                     onClick={() => {
+                        addAppointment(appointmentData);
                         router.replace("/");
                         resetData();
                     }}

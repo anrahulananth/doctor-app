@@ -57,7 +57,7 @@ const SelectService = ({ handleServiceSelection, appointmentData, appointmentSte
                             <div
                                 className={classNames(
                                     "flex justify-between border rounded-md items-center cursor-pointer shadow-cardshadow1 mt-8 p-4 hover:border-primary1",
-                                    service.name === type ? "bg-background10" : ""
+                                    service.name === type ? "bg-background10 text-primary1" : "text-text2"
                                 )}
                                 key={service.name}
                                 onClick={() => handleServiceSelection({
@@ -70,13 +70,13 @@ const SelectService = ({ handleServiceSelection, appointmentData, appointmentSte
                                     <img src={service.img} className="h-16 w-16 rounded-full" />
                                 </div>
                                 <div className="mx-4 flex flex-col grow">
-                                    <div className="text-lg text-text2 font-semibold">{service.name}</div>
+                                    <div className="text-lg  font-semibold">{service.name}</div>
                                     <div className="flex mt-2">
-                                        <div className="flex items-center text-sm text-text2">
+                                        <div className="flex items-center text-sm">
                                             <HiOutlineClock className="text-background6" />
                                             <div className="ml-1">{service.time}</div>
                                         </div>
-                                        <div className="ml-8 flex items-center text-sm text-text2">
+                                        <div className="ml-8 flex items-center text-sm">
                                             <HiOutlineCurrencyRupee className="text-background6" />
                                             <div className="ml-1">{service.price}</div>
                                         </div>

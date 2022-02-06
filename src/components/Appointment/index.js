@@ -1,11 +1,11 @@
 import { FaCircle, FaCheckCircle } from "react-icons/fa";
-import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
 import Confirmation from "./Confirmation";
 import SelectService from "./SelectService";
 import SelectSlot from "./SelectSlot";
 import UserInformation from "./UserInformation";
 import classNames from "classnames";
 import { useAppointmentContext } from "../../context/AppointmentProvider";
+import { useAuthContext } from "../../context/AuthProvider";
 import {
     appointmentSteps,
     appointmentStepsArray,
@@ -17,6 +17,7 @@ import {
 
 export default function Appointment() {
     const { appointment, setData, resetData, proceedTo } = useAppointmentContext();
+    const { user, addAppointment } = useAuthContext();
     const {
         appointmentStep,
         data
@@ -24,7 +25,6 @@ export default function Appointment() {
     const handleSetData = (data) => {
         setData(data);
     };
-
 
     return (
         <section id="book-appointment" className="relative overflow-hidden">
@@ -93,9 +93,11 @@ export default function Appointment() {
                                 appointmentStep={appointmentStep}
                                 appointmentData={data}
                                 proceedTo={proceedTo}
+                                user={user}
                             />,
                         [APPOINTMENT_CONFIRMATION]:
                             <Confirmation
+                                addAppointment={addAppointment}
                                 appointmentData={data}
                                 resetData={resetData}
                             />

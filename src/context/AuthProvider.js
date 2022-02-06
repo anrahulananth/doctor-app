@@ -12,7 +12,7 @@ const authReducer = (state = initState, action) => {
         ...state,
         appointment: action.payload
     };
-    case "ADD_APPOINTMENTS": return {
+    case "ADD_APPOINTMENT": return {
         ...state,
         appointments: [...state.appointments, action.payload]
     };
@@ -60,6 +60,10 @@ const AuthProvider = ({ children }) => {
                 isLoggedIn: true,
                 ...payload
             }
+        }),
+        addAppointment: payload => dispatch({
+            type: "ADD_APPOINTMENT",
+            payload
         })
     };
     return (
