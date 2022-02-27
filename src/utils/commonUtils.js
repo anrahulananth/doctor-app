@@ -43,7 +43,7 @@ export const formatApiResponse = (data) => {
 
 export const setCookie = (key, data, expiry = 1 / 48) => {
     Cookies.remove(key);
-    Cookies.set(key, data, { expires: expiry });
+    Cookies.set(key, data, { expires: expiry, path: "/" });
 };
 
 export const parseCookies = (req) => cookie.parse(

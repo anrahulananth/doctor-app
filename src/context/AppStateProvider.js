@@ -111,7 +111,7 @@ const AppStateProvider = ({ children, appCookies }) => {
                     if (validateData && validateData.statusCode === 200 && validateData.body) {
                         const validateResponseBody = JSON.parse(validateData.body);
                         const firstName = validateResponseBody.firstName;
-                        const spaceIndex = str.indexOf(" ");
+                        const spaceIndex = firstName.indexOf(" ");
                         const dataObj = {
                             isLoggedIn: true,
                             firstName: spaceIndex > 0 ? firstName.substr(0, spaceIndex) : firstName,
