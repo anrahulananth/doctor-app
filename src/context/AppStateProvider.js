@@ -110,7 +110,6 @@ const AppStateProvider = ({ children, appCookies }) => {
                     const { data: validateData = {} } = validateUserResponse;
                     if (validateData && validateData.statusCode === 200 && validateData.body) {
                         const validateResponseBody = JSON.parse(validateData.body);
-                        console.log("===>", validateResponseBody.firstName);
                         const firstName = validateResponseBody.firstName;
                         const spaceIndex = str.indexOf(" ");
                         const dataObj = {
