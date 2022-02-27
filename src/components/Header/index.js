@@ -90,8 +90,8 @@ export default function Header({ user }) {
                                     isLoggedIn ? (
                                         <Link href="/profile" passHref>
                                             <button className="inline-flex items-center px-3 py-2 text-primary1 font-semibold shadow-cardshadow hover:shadow-lg hover:shadow-buttonshadow1 rounded-md">
-                                                <div className="bg-background12 p-1 rounded-md mr-2">{firstName[0]}{lastName ? lastName[0]: ""}</div>
-                                                <span>{firstName}{lastName ? ` ${lastName}`: ""}</span>
+                                                <div className="bg-background12 p-1 rounded-md mr-2 uppercase">{firstName[0]}{lastName ? lastName[0]: ""}</div>
+                                                <span className="capitalize">{firstName}{lastName ? ` ${lastName}`: ""}</span>
                                             </button>
                                         </Link>
                                     ) : (
