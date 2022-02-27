@@ -2,26 +2,7 @@ import classNames from "classnames";
 import { useEffect } from "react";
 import { HiOutlineCurrencyRupee, HiOutlineClock, HiOutlineChevronRight, HiArrowNarrowRight } from "react-icons/hi";
 import { appointmentStepsArray } from "../../constants";
-const services = [
-    {
-        name: "Pregnancy Consultation",
-        time: "10 min",
-        price: "Rs 500",
-        img: "/assets/images/pregnancy-consultation.jpg"
-    },
-    {
-        name: "Fertility Consultation",
-        time: "10 min",
-        price: "Rs 500",
-        img: "/assets/images/fertility-consultation.jpg"
-    },
-    {
-        name: "Gynaec Consultation",
-        time: "10 min",
-        price: "Rs 500",
-        img: "/assets/images/common-consultation.jpg"
-    }
-];
+import { services } from "../../constants";
 
 const SelectService = ({ handleServiceSelection, appointmentData, appointmentStep, proceedTo }) => {
     const { type, time, price } = appointmentData;

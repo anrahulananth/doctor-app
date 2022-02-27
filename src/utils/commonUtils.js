@@ -1,5 +1,7 @@
 import Cookies from "js-cookie";
 import cookie from "cookie";
+import { format } from "date-fns";
+import { API_DATE_FORMAT } from "../constants";
 
 export const debounce = (cb, timeout) => {
     let timer;
@@ -61,3 +63,7 @@ export const safeJsonParse = (str) => {
         return [err];
     }
 };
+
+export const formatDate = (date, format) => format(date, format);
+
+export const formatDateForAPI = (date) => `${format(date, API_DATE_FORMAT)}[Asia/Calcutta]`;

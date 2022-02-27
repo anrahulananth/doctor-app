@@ -11,13 +11,13 @@ import {
     appointmentStepsArray,
     SERVICE_SELECTION,
     SLOT_SELECTION,
-    APPOINTMENT_CONFIRMATION,
+    BOOKING_CONFIRMATION,
     USER_INFORMATION
 } from "../../constants";
 
 export default function Appointment() {
-    const { appointment, setData, resetData, proceedTo } = useAppointmentContext();
-    const { appState, addAppointment } = useAppStateContext();
+    const { appointment, setData, resetData, proceedTo, addAppointment } = useAppointmentContext();
+    const { appState, setLoader } = useAppStateContext();
     const {
         appointmentStep,
         data
@@ -90,14 +90,16 @@ export default function Appointment() {
                             />,
                         [USER_INFORMATION]:
                             <UserInformation
+                                addAppointment={addAppointment}
                                 appointmentStep={appointmentStep}
                                 appointmentData={data}
+                                resetData={resetData}
+                                setLoader={setLoader}
                                 proceedTo={proceedTo}
                                 user={appState.user}
                             />,
-                        [APPOINTMENT_CONFIRMATION]:
+                        [BOOKING_CONFIRMATION]:
                             <Confirmation
-                                addAppointment={addAppointment}
                                 appointmentData={data}
                                 resetData={resetData}
                             />

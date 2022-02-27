@@ -35,7 +35,7 @@ const Doctor = styled.div`
 export default function Landing() {
     return (
         <LandingWithBackground>
-            <div id="landing" className="relative pt-10 pb-10 bg-background1 bg-opacity-1 z-0">
+            <div id="landing" className="relative py-10 bg-background1 bg-opacity-1 z-0">
                 <div className="hidden lg:block">
                     <Doctor />
                 </div>

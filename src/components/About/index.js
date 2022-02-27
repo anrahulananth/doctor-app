@@ -1,18 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { MdCheckCircle } from "react-icons/md";
-
-const features = [
-    "PreConception counselling",
-    "Antenatal care",
-    "Postnatal care",
-    "Contraception",
-    "Menstrual problems/PCOS",
-    "Perimenopausal health issues",
-    "Nutritional diet advice",
-    "Treatment of recurrent miscarriage",
-    "Infertility",
-    "Gynaecological problems (fibroid uterus.endometriosis,uterine anomalies)"
-];
+import { features } from "../../constants";
 
 export default function About() {
     return (

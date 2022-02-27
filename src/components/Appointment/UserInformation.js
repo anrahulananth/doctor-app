@@ -1,10 +1,21 @@
 import { HiOutlineClock, HiOutlineCurrencyRupee, HiOutlinePencil, HiArrowNarrowLeft } from "react-icons/hi";
 import { appointmentStepsArray } from "../../constants";
+import { format } from "date-fns";
 import Auth from "../Auth";
 
-const UserInformation = ({ appointmentStep, appointmentData, proceedTo, user }) => {
-    const { type, time, price, location } = appointmentData;
+const UserInformation = ({ addAppointment, appointmentStep, appointmentData, proceedTo, user, resetData, setLoader }) => {
+    const { type, time, slot, price, location, date } = appointmentData;
     const { isLoggedIn, firstName, lastName, email, phone } = user;
+
+    const handleAppointmentBooking = async () => {
+        setLoader(true);
+        const addApppointmentResponse = await addAppointment();
+        setLoader(false);
+        if (!addApppointmentResponse) {
+            resetData();
+        }
+        proceedTo(appointmentStepsArray[appointmentStep.id]);
+    };
 
     return (
         <>
@@ -13,30 +24,17 @@ const UserInformation = ({ appointmentStep, appointmentData, proceedTo, user }) 
                     <div className="flex flex-col space-y-3 md:flex-row md:space-x-4 md:space-y-0 my-8">
                         <div className="basis-1/2 bg-white border shadow-cardshadow1 border-background4 rounded-md p-6">
                             <div className="text-lg text-text2 font-bold">Fill up patient information</div>
-                            <label htmlFor="first-name" className="block text-sm mt-6 font-medium text-gray-700">
-                                FIRST NAME
+                            <label htmlFor="name" className="block text-sm mt-6 font-medium text-gray-700">
+                                NAME
                                 <span className="text-red-500">&nbsp;*</span>
                             </label>
                             <div className="mt-1">
                                 <input
                                     type="text"
-                                    name="first-name"
-                                    id="first-name"
+                                    name="name"
+                                    id="name"
                                     className="shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    defaultValue={firstName}
-                                />
-                            </div>
-                            <label htmlFor="last-name" className="block text-sm mt-6 font-medium text-gray-700">
-                                LAST NAME
-                                <span className="text-red-500">&nbsp;*</span>
-                            </label>
-                            <div className="mt-1">
-                                <input
-                                    type="text"
-                                    name="last-name"
-                                    id="last-name"
-                                    className="shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    defaultValue={lastName}
+                                    defaultValue={`${firstName} ${lastName ? lastName : ""}`}
                                 />
                             </div>
                             <label htmlFor="phone-number" className="block text-sm mt-6 font-medium text-gray-700">
@@ -61,7 +59,7 @@ const UserInformation = ({ appointmentStep, appointmentData, proceedTo, user }) 
                                     type="email"
                                     name="email"
                                     id="email"
-                                    className="shadow-sm focus:ring-primay1-500 focus:border-primay1-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    className="shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border-gray-300 rounded-md"
                                     defaultValue={email}
                                 />
                             </div>
@@ -108,7 +106,7 @@ const UserInformation = ({ appointmentStep, appointmentData, proceedTo, user }) 
                                     Date
                                 </div>
                                 <div className="text-base text-text2 font-medium mt-2">
-                                    12th November 2021, 5:00 PM IST
+                                    {format(new Date(date), "do MMMM yyyy")}{`, ${slot}`}
                                 </div>
                             </div>
                             <div className="mt-8 flex justify-center">
@@ -135,7 +133,7 @@ const UserInformation = ({ appointmentStep, appointmentData, proceedTo, user }) 
                 {
                     isLoggedIn && (
                         <button
-                            onClick={() => proceedTo(appointmentStepsArray[appointmentStep.id])}
+                            onClick={handleAppointmentBooking}
                             className="rounded-full font-bold py-4 px-12 justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
                         >
                             Confirm

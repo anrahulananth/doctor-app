@@ -89,33 +89,33 @@ inputFields.forEach(input => initialState[input.id] = {
 });
 const authFormReducer = (state = initState, action) => {
     switch (action.type) {
-    case "INPUT": return {
-        ...state,
-        [action.payload.id]: {
-            ...state[action.payload.id],
-            value: action.payload.value,
-            error: action.payload.error
-                ? action.payload.error
-                : state[action.payload.id].error
-        }
-    };
-    case "ERROR": return {
-        ...state,
-        [action.payload.id]: {
-            ...state[action.payload.id],
-            error: action.payload.error
-        }
-    };
-    case "RESET_ERROR":
-        const newState = {};
-        inputFields.forEach(input => {
-            newState[input.id] = {
-                value: state[input.id].value,
-                error: ""
-            };
-        });
-        return newState;
-    default: return state;
+        case "INPUT": return {
+            ...state,
+            [action.payload.id]: {
+                ...state[action.payload.id],
+                value: action.payload.value,
+                error: action.payload.error
+                    ? action.payload.error
+                    : state[action.payload.id].error
+            }
+        };
+        case "ERROR": return {
+            ...state,
+            [action.payload.id]: {
+                ...state[action.payload.id],
+                error: action.payload.error
+            }
+        };
+        case "RESET_ERROR":
+            const newState = {};
+            inputFields.forEach(input => {
+                newState[input.id] = {
+                    value: state[input.id].value,
+                    error: ""
+                };
+            });
+            return newState;
+        default: return state;
     }
 };
 
@@ -123,7 +123,7 @@ const Auth = ({ isLoginPage = false }) => {
     const [type, setType] = useState("login");
     const [disabled, setDisabled] = useState(true);
     const [authForm, dispatch] = useReducer(authFormReducer, initialState);
-    const { doLogin, doRegister } = useAppStateContext();
+    const { appState, doLogin, doRegister, resetError } = useAppStateContext();
     const inputElements = useMemo(() => (inputFields.filter(
         ele => ele.formType ? ele.formType === type : true
     )), [type]);
@@ -154,6 +154,7 @@ const Auth = ({ isLoginPage = false }) => {
     };
     const handleInput = (evt, ele) => {
         const value = evt?.target?.value;
+        resetError();
         dispatch({
             type: "INPUT",
             payload: {
@@ -163,7 +164,7 @@ const Auth = ({ isLoginPage = false }) => {
             }
         });
     };
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         // let errorTrigger = false;
         // inputElements.forEach(input => {
         //     const error = input.validation(authForm[input.id].value, {
@@ -183,7 +184,11 @@ const Auth = ({ isLoginPage = false }) => {
         // if (errorTrigger) return;
         const payload = {};
         Object.keys(authForm).forEach((key) => payload[key] = authForm[key].value);
-        type === "register" ? doRegister(payload) : doLogin(payload, isLoginPage);
+        if (type === "register") {
+            doRegister(payload);
+        } else {
+            doLogin(payload, isLoginPage);
+        }
     };
 
     return (
@@ -218,7 +223,7 @@ const Auth = ({ isLoginPage = false }) => {
                                     value={authForm[ele.id].value}
                                     onChange={(e) => handleInput(e, ele)}
                                     placeholder={ele.placeholder}
-                                    className="shadow-sm focus:ring-primay1-500 focus:border-primay1-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                                    className="shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border-gray-300 rounded-md" />
                             </div>
                             <div className="text-sm text-red-500">
                                 {authForm[ele.id].error ? authForm[ele.id].error : <span>&nbsp;</span>}
@@ -235,6 +240,11 @@ const Auth = ({ isLoginPage = false }) => {
                         {type === "register" ? "Register" : "Log In"}
                     </button>
                 </div>
+                {appState.error && (
+                    <div className="text-sm text-red-500">
+                        {type === "register" ? "Register Failed!" : "Login Failed!"}
+                    </div>
+                )}
             </div>
         </div>
     );

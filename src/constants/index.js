@@ -1,4 +1,5 @@
-export const SAMPLE_CONSTANT = 10000;
+export const PAGE_LIMIT = 3;
+
 export const MAP_VALUES = {
     LATITIUDE: 12.96651,
     LONGITUDE: 77.61431
@@ -12,7 +13,11 @@ export const USER_TYPES = {
 export const SERVICE_SELECTION = "SERVICE_SELECTION";
 export const SLOT_SELECTION = "SLOT_SELECTION";
 export const USER_INFORMATION = "USER_INFORMATION";
-export const APPOINTMENT_CONFIRMATION = "APPOINTMENT_CONFIRMATION";
+export const BOOKING_CONFIRMATION = "BOOKING_CONFIRMATION";
+
+export const DOC_ID = "92b97397-3eac-42a7-9fea-aa0ccb21cb3c";
+
+export const API_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSxxx";
 
 export const appointmentSteps = {
     SERVICE_SELECTION: {
@@ -30,10 +35,52 @@ export const appointmentSteps = {
         name: "User Information",
         type: USER_INFORMATION
     },
-    APPOINTMENT_CONFIRMATION: {
+    BOOKING_CONFIRMATION: {
         id: 4,
         name: "Confirmation",
-        type: APPOINTMENT_CONFIRMATION
+        type: BOOKING_CONFIRMATION
     }
 };
 export const appointmentStepsArray = Object.keys(appointmentSteps);
+
+export const features = [
+    "PreConception counselling",
+    "Antenatal care",
+    "Postnatal care",
+    "Contraception",
+    "Menstrual problems/PCOS",
+    "Perimenopausal health issues",
+    "Nutritional diet advice",
+    "Treatment of recurrent miscarriage",
+    "Infertility",
+    "Gynaecological problems (fibroid uterus.endometriosis,uterine anomalies)"
+];
+
+export const services = [
+    {
+        name: "Pregnancy Consultation",
+        time: "30 min",
+        price: "Rs 500",
+        img: "/assets/images/pregnancy-consultation.jpg"
+    },
+    {
+        name: "Fertility Consultation",
+        time: "30 min",
+        price: "Rs 500",
+        img: "/assets/images/fertility-consultation.jpg"
+    },
+    {
+        name: "Gynaec Consultation",
+        time: "30 min",
+        price: "Rs 500",
+        img: "/assets/images/common-consultation.jpg"
+    }
+];
+
+export const slotsData = {
+    "Morning": ["8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM"],
+    "Evening": ["5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM"],
+};
+
+export const appointmentLocations = ["In Person", "Online Consultation"];
+

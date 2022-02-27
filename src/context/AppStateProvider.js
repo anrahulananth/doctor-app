@@ -7,8 +7,8 @@ const initState = {
     user: {
         isLoggedIn: false
     },
-    error: {},
-    appointments: [],
+    register: false,
+    error: "",
     isLoading: false
 };
 
@@ -16,47 +16,27 @@ const appStateReducer = (state = initState, action) => {
     switch (action.type) {
     // User
     case "LOGIN":
-    case "LOGOUT":
-    case "REGISTER": return {
+    case "LOGOUT": return {
         ...state,
         user: {
             ...state.user,
             ...action.payload
         }
     };
+    case "REGISTER": return {
+        ...state,
+        register: action.payload
+    };
     case "LOGIN_ERROR":
     case "REGISTER_ERROR": return {
         ...state,
         error: action.type
     };
-    case "RESET_USER": return {
-        ...state,
-        user: initState.user
-    };
     case "RESET_ERROR": return {
         ...state,
         error: ""
     };
-    // Appointments
-    case "FETCH_APPOINTMENTS": return {
-        ...state,
-        appointments: action.payload
-    };
-    case "ADD_APPOINTMENT": return {
-        ...state,
-        appointments: [...state.appointments, action.payload]
-    };
-    case "CANCEL_APPOINTMENT": return {
-        ...state,
-        appointments: [...state.appointments].filter(
-            (appointment) => appointment.id === action.payload
-        )
-    };
-    case "RESET_APPOINTMENTS": return {
-        ...state,
-        appointments: initState.appointments
-    };
-    // App State
+        // App State
     case "LOADING": return {
         ...state,
         isLoading: action.payload
@@ -88,11 +68,9 @@ const AppStateProvider = ({ children, appCookies }) => {
                 "email",
                 "password"
             ]);
-            let loginBody = {
+            const loginBody = {
                 taskName: "login",
-                email: "fonavo9635@icesilo.com",
-                password: "Password123!"
-                //...filteredPayload
+                ...filteredPayload
             };
             setLoader(true);
             try {
@@ -132,9 +110,13 @@ const AppStateProvider = ({ children, appCookies }) => {
                     const { data: validateData = {} } = validateUserResponse;
                     if (validateData && validateData.statusCode === 200 && validateData.body) {
                         const validateResponseBody = JSON.parse(validateData.body);
+                        console.log("===>", validateResponseBody.firstName);
+                        const firstName = validateResponseBody.firstName;
+                        const spaceIndex = str.indexOf(" ");
                         const dataObj = {
                             isLoggedIn: true,
-                            lastName: "Doe",
+                            firstName: spaceIndex > 0 ? firstName.substr(0, spaceIndex) : firstName,
+                            lastName: spaceIndex > 0 ? firstName.substr(spaceIndex + 1) : "",
                             ...validateResponseBody
                         };
                         dispatch({
@@ -160,22 +142,59 @@ const AppStateProvider = ({ children, appCookies }) => {
                 setLoader(false);
             }
         },
-        doLogout: () => dispatch({
-            type: "LOGOUT",
-            payload: {
-                isLoggedIn: false
+        doLogout: () => {
+            setCookie("accessToken", "");
+            setCookie("refreshToken", "");
+            setCookie("idToken", "");
+            setCookie("userData", "");
+            dispatch({
+                type: "LOGOUT",
+                payload: {
+                    isLoggedIn: false
+                }
+            });
+        },
+        doRegister: async (payload) => {
+            const filteredPayload = filterObject(payload, [
+                "email",
+                "phone",
+                "password"
+            ]);
+            const registerBody = {
+                taskName: "signup",
+                fullName: `${payload.firstName} ${payload.lastName}`,
+                ...filteredPayload
+            };
+            setLoader(true);
+            try {
+                const registerResponse = await DocApi({
+                    method: "POST",
+                    url: "/auth",
+                    data: {
+                        "resource": "authenticationapi",
+                        "body": JSON.stringify(registerBody)
+                    }
+                });
+                const { data = {} } = registerResponse;
+                if (data && data.statusCode === 200) {
+                    dispatch({
+                        type: "REGISTER"
+                    });
+                } else {
+                    dispatch({
+                        type: "REGISTER_ERROR"
+                    });
+                }
+            } catch (err) {
+                dispatch({
+                    type: "REGISTER_ERROR"
+                });
+            } finally {
+                setLoader(false);
             }
-        }),
-        doRegister: payload => dispatch({
-            type: "REGISTER",
-            payload: {
-                isLoggedIn: true,
-                ...payload
-            }
-        }),
-        addAppointment: payload => dispatch({
-            type: "ADD_APPOINTMENT",
-            payload
+        },
+        resetError: () => dispatch({
+            type: "RESET_ERROR"
         }),
         setLoader
     };
