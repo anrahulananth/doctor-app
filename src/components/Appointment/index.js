@@ -5,7 +5,7 @@ import SelectSlot from "./SelectSlot";
 import UserInformation from "./UserInformation";
 import classNames from "classnames";
 import { useAppointmentContext } from "../../context/AppointmentProvider";
-import { useAuthContext } from "../../context/AuthProvider";
+import { useAppStateContext } from "../../context/AppStateProvider";
 import {
     appointmentSteps,
     appointmentStepsArray,
@@ -17,7 +17,7 @@ import {
 
 export default function Appointment() {
     const { appointment, setData, resetData, proceedTo } = useAppointmentContext();
-    const { user, addAppointment } = useAuthContext();
+    const { appState, addAppointment } = useAppStateContext();
     const {
         appointmentStep,
         data
@@ -93,7 +93,7 @@ export default function Appointment() {
                                 appointmentStep={appointmentStep}
                                 appointmentData={data}
                                 proceedTo={proceedTo}
-                                user={user}
+                                user={appState.user}
                             />,
                         [APPOINTMENT_CONFIRMATION]:
                             <Confirmation

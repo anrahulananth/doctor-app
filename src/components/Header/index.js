@@ -2,10 +2,10 @@ import { Fragment } from "react";
 import { useRouter } from "next/router";
 import { Popover, Transition } from "@headlessui/react";
 import { MdOutlineMenu, MdClose } from "react-icons/md";
+import { FaUserAlt } from "react-icons/fa";
 import Link from "next/link";
 import classNames from "classnames";
 import styled from "styled-components";
-import { useAuthContext } from "../../context/AuthProvider";
 
 const navigation = [
     { name: "Home", href: "/" },
@@ -30,11 +30,9 @@ const NavLink = styled.div`
     }
 `;
 
-export default function Header() {
+export default function Header({ user }) {
     const router = useRouter();
-    const { user } = useAuthContext();
-
-    const { isLoggedIn, firstName, lastName } = user.data;
+    const { isLoggedIn, firstName, lastName } = user;
     return (
         <header>
             <div className="relative pt-10 pb-10 bg-opacity-1 bg-background1">
@@ -84,16 +82,19 @@ export default function Header() {
                             <div className="hidden md:space-x-10 md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                                 {
                                     isLoggedIn ? (
-                                        <button className="inline-flex items-center px-3 py-2 text-primary1 font-semibold shadow-cardshadow hover:shadow-lg hover:shadow-buttonshadow1 rounded-md">
-                                            <div className="bg-background12 p-1 rounded-md mr-2">{firstName[0]}{lastName[0]}</div>
-                                            <span>{firstName} {lastName}</span>
-                                        </button>
+                                        <Link href="/profile" passHref>
+                                            <button className="inline-flex items-center px-3 py-2 text-primary1 font-semibold shadow-cardshadow hover:shadow-lg hover:shadow-buttonshadow1 rounded-md">
+                                                <div className="bg-background12 p-1 rounded-md mr-2">{firstName[0]}{lastName[0]}</div>
+                                                <span>{firstName} {lastName}</span>
+                                            </button>
+                                        </Link>
                                     ) : (
-                                        <button className="inline-flex items-center px-8 py-2 border border-transparent text-white font-medium rounded-full bg-primary1 hover:bg-fuchsia-900 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">
-                                            <Link href="/auth">
+                                        router.asPath !== "/auth" &&
+                                        <Link href="/auth" passHref>
+                                            <button className="inline-flex items-center px-8 py-2 border border-transparent text-white font-medium rounded-full bg-primary1 hover:bg-fuchsia-900 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">
                                                 Log In
-                                            </Link>
-                                        </button>
+                                            </button>
+                                        </Link>
                                     )
                                 }
                             </div>
@@ -140,13 +141,17 @@ export default function Header() {
                                 <div className="block w-full px-5 py-3 text-center font-medium text-primary1 bg-gray-50 hover:bg-gray-100">
                                     {
                                         isLoggedIn ? (
-                                            <button>
-                                                {firstName} {lastName}
-                                            </button>
-                                        ) : (
-                                            <Link href="/">
-                                            Log in
+                                            <Link href="/profile" passHref>
+                                                <button className="flex items-center">
+                                                    <FaUserAlt className="mr-2"/>My Profile
+                                                </button>
                                             </Link>
+                                        ) : (
+                                            router.asPath !== "/auth" && (
+                                                <Link href="/auth">
+                                                    Log In
+                                                </Link>
+                                            )
                                         )
                                     }
                                 </div>

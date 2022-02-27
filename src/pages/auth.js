@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Auth from "../components/Auth";
 
-export default function AuthContainer() {
+function AuthContainer() {
     return (
         <>
             <Head>
@@ -14,3 +14,5 @@ export default function AuthContainer() {
         </>
     );
 }
+
+export default AuthContainer;

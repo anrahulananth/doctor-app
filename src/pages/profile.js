@@ -1,23 +1,21 @@
 import Head from "next/head";
 import Policy from "../components/Policy";
-import Appointment from "../components/Appointment";
 import AppointmentProvider from "../context/AppointmentProvider";
 
-function BookAppointment() {
+function Profile() {
     return (
         <>
             <Head>
-                <title>Diva Care | Book Appointment</title>
+                <title>Diva Care | Your Profile</title>
                 <script type="application/ld+json">
                     {/** TODO: Page Specific SEO */}
                 </script>
             </Head>
             <AppointmentProvider>
-                <Appointment />
                 <Policy />
             </AppointmentProvider>
         </>
     );
 }
 
-export default BookAppointment;
+export default Profile;

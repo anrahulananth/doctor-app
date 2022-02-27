@@ -4,7 +4,7 @@ import Auth from "../Auth";
 
 const UserInformation = ({ appointmentStep, appointmentData, proceedTo, user }) => {
     const { type, time, price, location } = appointmentData;
-    const { isLoggedIn, firstName, lastName, email, phone } = user.data;
+    const { isLoggedIn, firstName, lastName, email, phone } = user;
 
     return (
         <>

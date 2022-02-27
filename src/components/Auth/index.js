@@ -1,7 +1,6 @@
-import classNames from "classnames";
-import { useRouter } from "next/router";
 import { Fragment, useReducer, useMemo, useCallback, useEffect, useState } from "react";
-import { useAuthContext } from "../../context/AuthProvider";
+import { useAppStateContext } from "../../context/AppStateProvider";
+import classNames from "classnames";
 
 const initialState = {};
 const inputFields = [
@@ -121,15 +120,13 @@ const authFormReducer = (state = initState, action) => {
 };
 
 const Auth = ({ isLoginPage = false }) => {
-    const router = useRouter();
     const [type, setType] = useState("login");
     const [disabled, setDisabled] = useState(true);
     const [authForm, dispatch] = useReducer(authFormReducer, initialState);
-    const { doLogin, doRegister } = useAuthContext();
-    // Consts
-    const inputElements = useMemo(() => inputFields
-        .filter(ele => ele.formType ? ele.formType === type : true)
-    , [type]);
+    const { doLogin, doRegister } = useAppStateContext();
+    const inputElements = useMemo(() => (inputFields.filter(
+        ele => ele.formType ? ele.formType === type : true
+    )), [type]);
     const formTypeClass = useCallback((buttonType) => classNames({
         "grow text-center p-2 rounded-md font-medium border border-transparent": true,
         "hover:border-primary1 hover:bg-background7 cursor-pointer": type !== buttonType,
@@ -145,7 +142,6 @@ const Auth = ({ isLoginPage = false }) => {
             setDisabled(isDisabled);
         }
     }, [authForm]);
-
 
     // Handlers
     const handleClick = (btn) => {
@@ -187,13 +183,12 @@ const Auth = ({ isLoginPage = false }) => {
         // if (errorTrigger) return;
         const payload = {};
         Object.keys(authForm).forEach((key) => payload[key] = authForm[key].value);
-        type === "register" ? doRegister(payload) : doLogin(payload);
-        isLoginPage && router.replace("/");
+        type === "register" ? doRegister(payload) : doLogin(payload, isLoginPage);
     };
 
     return (
-        <div className="flex flex-row space-x-4 my-8 md:justify-center">
-            <div className="bg-white w-full border shadow-cardshadow1 border-background4 rounded-md px-12 py-10 md:px-20 md:py-16 md:basis-1/2 sm:px-8">
+        <div className="flex flex-row space-x-4 md:justify-center">
+            <div className="bg-white w-full border shadow-cardshadow1 border-background4 rounded-md my-8 px-12 py-10 md:px-20 md:py-16 md:basis-1/2 sm:px-8">
                 <div className="bg-background8 flex flex-row justify-between space-x-2 rounded p-1 mb-6">
                     <div
                         onClick={() => handleClick("login")}
