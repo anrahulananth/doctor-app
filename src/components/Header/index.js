@@ -1,11 +1,11 @@
 import { Fragment } from "react";
+import Link from "next/link";
+import classNames from "classnames";
+import styled from "styled-components";
 import { useRouter } from "next/router";
 import { Popover, Transition } from "@headlessui/react";
 import { MdOutlineMenu, MdClose } from "react-icons/md";
 import { RiLogoutBoxRLine, RiUser3Fill } from "react-icons/ri";
-import Link from "next/link";
-import classNames from "classnames";
-import styled from "styled-components";
 import { useAppStateContext } from "../../context/AppStateProvider";
 
 const navigation = [
@@ -31,10 +31,71 @@ const NavLink = styled.div`
     }
 `;
 
-export default function Header({ user }) {
+const ProfileMenu = ({ user, handleLogout }) => {
+    const { firstName, lastName } = user;
+    const solutions = [
+        {
+            name: "Your Profile",
+            href: "/profile",
+            icon: RiUser3Fill,
+        }
+    ];
+    return (
+        <Popover className="relative">
+            {({ open }) => (
+                <>
+                    <Popover.Button className={
+                        classNames(
+                            "inline-flex items-center px-3 py-2 text-primary1 font-semibold shadow-cardshadow hover:shadow-lg hover:shadow-buttonshadow1 rounded-md",
+                            open && "shadow-buttonshadow1 ring-1 ring-primary1"
+                        )
+                    }>
+                        <div className="bg-background12 px-2 py-1 rounded-md mr-2 uppercase">{firstName[0]}{lastName ? lastName[0] : ""}</div>
+                        <span className="capitalize">{firstName}{lastName ? ` ${lastName}` : ""}</span>
+                    </Popover.Button>
+                    <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                    >
+                        <Popover.Panel className="absolute z-10 mt-3 w-60 max-w-md right-0">
+                            <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                                <div className="relative flex flex-col bg-white">
+                                    {solutions.map((item) => (
+                                        <Popover.Button key={item.name}>
+                                            <Link href={item.href} passHref>
+                                                <div className="flex items-center px-5 py-5 hover:bg-background4 transition ease-in-out duration-150">
+                                                    <item.icon className="flex-shrink-0 text-primary1" aria-hidden="true" />
+                                                    <div className="ml-2">
+                                                        <p className="text-base font-medium text-text2">{item.name}</p>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </Popover.Button>
+                                    ))}
+                                </div>
+                                <Popover.Button className="px-5 py-5 bg-gray-50 hover:bg-background4 w-full" onClick={handleLogout}>
+                                    <div className="flex items-center text-text2">
+                                        <RiLogoutBoxRLine className="mr-2 text-primary1" />Log Out
+                                    </div>
+                                </Popover.Button>
+                            </div>
+                        </Popover.Panel>
+                    </Transition>
+                </>
+            )}
+        </Popover>
+    );
+};
+
+export default function Header() {
     const router = useRouter();
-    const { doLogout } = useAppStateContext();
-    const { isLoggedIn, firstName, lastName } = user;
+    const { appState: { user = {} }, doLogout } = useAppStateContext();
+    const { isLoggedIn } = user;
     const handleLogout = () => {
         router.replace("/");
         doLogout();
@@ -88,12 +149,7 @@ export default function Header({ user }) {
                             <div className="hidden md:space-x-10 md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                                 {
                                     isLoggedIn ? (
-                                        <Link href="/profile" passHref>
-                                            <button className="inline-flex items-center px-3 py-2 text-primary1 font-semibold shadow-cardshadow hover:shadow-lg hover:shadow-buttonshadow1 rounded-md">
-                                                <div className="bg-background12 p-1 rounded-md mr-2 uppercase">{firstName[0]}{lastName ? lastName[0]: ""}</div>
-                                                <span className="capitalize">{firstName}{lastName ? ` ${lastName}`: ""}</span>
-                                            </button>
-                                        </Link>
+                                        <ProfileMenu user={user} handleLogout={handleLogout} />
                                     ) : (
                                         router.asPath !== "/auth" &&
                                         <Link href="/auth" passHref>
@@ -163,7 +219,7 @@ export default function Header({ user }) {
                                                         <Popover.Button>
                                                             <Link href="/profile" passHref>
                                                                 <div className="flex items-center">
-                                                                    <RiUser3Fill className="mr-2" />My Profile
+                                                                    <RiUser3Fill className="mr-2" />Your Profile
                                                                 </div>
                                                             </Link>
                                                         </Popover.Button>
@@ -171,8 +227,8 @@ export default function Header({ user }) {
                                                 )
                                             }
                                             <div className="block w-full px-5 py-3 text-center font-medium text-primary1 bg-gray-50 hover:bg-gray-100">
-                                                <Popover.Button>
-                                                    <div className="flex items-center" onClick={handleLogout}>
+                                                <Popover.Button onClick={handleLogout}>
+                                                    <div className="flex items-center" >
                                                         <RiLogoutBoxRLine className="mr-2" />Log Out
                                                     </div>
                                                 </Popover.Button>

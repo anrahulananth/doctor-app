@@ -5,8 +5,8 @@ import { features } from "../../constants";
 export default function About() {
     return (
         <section id="about" className="relative overflow-hidden">
-            <div className="relative max-w-xl mx-auto px-4 lg:max-w-7xl">
-                <div className="relative mt-12 mb-12 flex lg:mt-24 lg:flex-row sm:flex-col-reverse justify-between text-text2">
+            <div className="relative max-w-xl mx-auto px-4 lg:max-w-7xl bg-background1 py-12">
+                <div className="relative flex lg:mt-24 lg:flex-row sm:flex-col-reverse justify-between text-text2">
                     <div className="basis-3/4 relative">
                         <h3 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
                             Who we are

@@ -22,36 +22,38 @@ const AppointmentsList = () => {
         const appointmentsResponse = await fetchAppointments();
         setLoader(false);
         if (appointmentsResponse) {
-            const decoratedAppointments = appointmentsResponse.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(appointment => {
-                // const decoratedAppointment = {
-                //     name: "Pregnancy Consultation",
-                //     time: "5.00PM - 5.10PM",
-                //     date: "22/10/21",
-                //     location: "Online",
-                //     price: "Rs 500",
-                //     status: "Upcoming",
-                //     img: "/assets/images/pregnancy-consultation.jpg"
-                // }
-                const decoratedAppointment = {
-                    name: "Pregnancy Consultation",
-                    location: "In Person",
-                    price: "Rs 500",
-                    img: "/assets/images/pregnancy-consultation.jpg"
-                };
-                const appointmentDate = format(new Date(appointment.date), "dd/MM/yyyy");
-                const startTime = format(new Date(appointment.startTime), "hh:mm aa");
-                const endTime = format(new Date(appointment.endTime), "hh:mm aa");
-                decoratedAppointment.date = appointmentDate;
-                if (appointment.cancelled) {
-                    decoratedAppointment.status = "Cancelled";
-                } else if (isFuture(new Date(appointment.date))) {
-                    decoratedAppointment.status = "Upcoming";
-                } else {
-                    decoratedAppointment.status = "Completed";
-                }
-                decoratedAppointment.time = `${startTime} - ${endTime}`;
-                return decoratedAppointment;
-            });
+            const decoratedAppointments = appointmentsResponse
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                .map(appointment => {
+                    // const decoratedAppointment = {
+                    //     name: "Pregnancy Consultation",
+                    //     time: "5.00PM - 5.10PM",
+                    //     date: "22/10/21",
+                    //     location: "Online",
+                    //     price: "Rs 500",
+                    //     status: "Upcoming",
+                    //     img: "/assets/images/pregnancy-consultation.jpg"
+                    // }
+                    const decoratedAppointment = {
+                        name: "Pregnancy Consultation",
+                        location: "In Person",
+                        price: "Rs 500",
+                        img: "/assets/images/pregnancy-consultation.jpg"
+                    };
+                    const appointmentDate = format(new Date(appointment.date), "dd/MM/yyyy");
+                    const startTime = format(new Date(appointment.startTime), "hh:mm aa");
+                    const endTime = format(new Date(appointment.endTime), "hh:mm aa");
+                    decoratedAppointment.date = appointmentDate;
+                    if (appointment.cancelled) {
+                        decoratedAppointment.status = "Cancelled";
+                    } else if (isFuture(new Date(appointment.date))) {
+                        decoratedAppointment.status = "Upcoming";
+                    } else {
+                        decoratedAppointment.status = "Completed";
+                    }
+                    decoratedAppointment.time = `${startTime} - ${endTime}`;
+                    return decoratedAppointment;
+                });
             setAppointments(decoratedAppointments);
         } else {
             setFetchError(true);

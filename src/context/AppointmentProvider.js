@@ -73,14 +73,15 @@ const AppointmentProvider = ({ children }) => {
         },
         addAppointment: async () => {
             const appointmentData = appointment.data;
-            const date = format(new Date(appointmentData.date), "yyyy-MM-dd'T'00:00:00.000");
+            console.log("===>", appointmentData);
+            const date = format(new Date(appointmentData.date), "yyyy-MM-dd'T'00:00:00.000xxx");
             const startTime = format(new Date(appointmentData.date), "yyyy-MM-dd");
             const createAppointmentPayload = {
                 taskName:"CREATE_APPOINTMENT",
                 accesstoken: Cookies.get("accessToken"),
-                date: `${date}Z[Etc/UTC]`,
-                startTime: `${startTime}T05:30:00.000Z[Etc/UTC]`,
-                endTime: `${startTime}T06:00:00.000Z[Etc/UTC]`,
+                date: `${date}[Asia/Calcutta]`,
+                startTime: `${startTime}T05:30:00.000+05:30[Asia/Calcutta]`,
+                endTime: `${startTime}T06:00:00.000+05:30[Asia/Calcutta]`,
                 docId: DOC_ID
             };
             const appointmentDataPayload = {

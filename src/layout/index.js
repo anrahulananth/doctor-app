@@ -8,7 +8,7 @@ const Layout = (props) => {
     const { children } = props;
     const router = useRouter();
     const { appState } = useAppStateContext();
-    const { isLoading, user } = appState;
+    const { isLoading } = appState;
     return (
         <>
             {
@@ -18,7 +18,7 @@ const Layout = (props) => {
                     </DoctorLayout>
                 ) : (
                     <>
-                        <Header user={user} />
+                        <Header />
                         {children}
                         <Footer />
                     </>

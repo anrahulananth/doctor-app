@@ -83,10 +83,10 @@ const Confirmation = ({ resetData, appointmentData }) => {
             <div className="grid grid-flow-row grid-cols-2 my-8">
                 <div />
                 <button
-                    onClick={() => router.replace("/")}
+                    onClick={() => router.replace("/profile")}
                     className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
                 >
-                    Back to Home
+                    Go to Appointments
                 </button>
             </div>
         </>
