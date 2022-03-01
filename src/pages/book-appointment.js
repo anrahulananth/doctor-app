@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Policy from "../components/Policy";
 import Appointment from "../components/Appointment";
 import AppointmentProvider from "../context/AppointmentProvider";
 
@@ -14,7 +13,6 @@ function BookAppointment() {
             </Head>
             <AppointmentProvider>
                 <Appointment />
-                <Policy />
             </AppointmentProvider>
         </>
     );

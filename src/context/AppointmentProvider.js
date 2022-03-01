@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import DocApi from "../utils/api";
-import { sub, add, format } from "date-fns";
+import { sub, add } from "date-fns";
 import { appointmentSteps, DOC_ID } from "../constants";
 import { createContext, useContext, useReducer } from "react";
 import { formatDateForAPI } from "../utils/commonUtils";
@@ -73,15 +73,41 @@ const AppointmentProvider = ({ children }) => {
         },
         addAppointment: async () => {
             const appointmentData = appointment.data;
-            console.log("===>", appointmentData);
-            const date = format(new Date(appointmentData.date), "yyyy-MM-dd'T'00:00:00.000xxx");
-            const startTime = format(new Date(appointmentData.date), "yyyy-MM-dd");
+            const { date, slot } = appointmentData;
+            const { hours, minutes } = slot;
+            const dateObj = new Date(date).setHours(0,0,0,0);
+            const appointmentDate = formatDateForAPI(dateObj);
+            const startTime = formatDateForAPI(add(dateObj, {
+                hours,
+                minutes
+            }));
+            const endDateValues = (hr, min) => {
+                let hourValue = hr;
+                let minValue = min;
+                let dayValue = 0;
+                if (min === 30) {
+                    if (hr === 23) {
+                        hourValue = 0;
+                        dayValue = 1;
+                    } else {
+                        hourValue = hr + 1;
+                    }
+                } else {
+                    minValue = 30;
+                }
+                return {
+                    days: dayValue,
+                    hours: hourValue,
+                    minutes: minValue
+                };
+            };
+            const endTime = formatDateForAPI(add(dateObj, endDateValues(hours, minutes)));
             const createAppointmentPayload = {
                 taskName:"CREATE_APPOINTMENT",
                 accesstoken: Cookies.get("accessToken"),
-                date: `${date}[Asia/Calcutta]`,
-                startTime: `${startTime}T05:30:00.000+05:30[Asia/Calcutta]`,
-                endTime: `${startTime}T06:00:00.000+05:30[Asia/Calcutta]`,
+                date: appointmentDate,
+                startTime,
+                endTime,
                 docId: DOC_ID
             };
             const appointmentDataPayload = {

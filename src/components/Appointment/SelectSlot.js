@@ -5,6 +5,7 @@ import { FiChevronRight, FiChevronLeft, FiSun, FiMoon } from "react-icons/fi";
 import { useEffect } from "react";
 import classNames from "classnames";
 import { appointmentStepsArray, appointmentLocations, slotsData } from "../../constants";
+import { add, toDate } from "date-fns";
 
 const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedTo }) => {
     const { location, date = new Date(), slot } = appointmentData;
@@ -33,6 +34,7 @@ const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedT
                             }}
                             value={new Date(date)}
                             minDate={new Date()}
+                            maxDate={toDate(add(new Date(), { days: 60 }))}
                             prev2Label={false}
                             next2Label={false}
                             prevLabel={<FiChevronLeft />}
@@ -77,11 +79,11 @@ const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedT
                                         slotsData[timeOfDay].map((slotTime) => (
                                             <button
                                                 onClick={() => handleSlotData({ slot: slotTime })}
-                                                key={slotTime}
+                                                key={slotTime.text}
                                                 className={classNames(
                                                     "border border-background8 rounded-md text-text2 py-2 px-4 m-2 hover:border-primary1",
-                                                    slot === slotTime ? "bg-background12" : "")}>
-                                                {slotTime}
+                                                    slot?.text === slotTime.text ? "bg-background12" : "")}>
+                                                {slotTime.text}
                                             </button>
                                         ))
                                     }

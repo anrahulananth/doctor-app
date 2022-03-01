@@ -70,7 +70,7 @@ const Confirmation = ({ resetData, appointmentData }) => {
                                         Date
                                         </div>
                                         <div className="text-base text-text2 font-medium mt-2">
-                                            {format(new Date(date), "io MMMM yyyy")}{`, ${slot}`}
+                                            {format(new Date(date), "io MMMM yyyy")}{`, ${slot?.text}`}
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@ const Confirmation = ({ resetData, appointmentData }) => {
                     onClick={() => router.replace("/profile")}
                     className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
                 >
-                    Go to Appointments
+                    Go to appointments
                 </button>
             </div>
         </>

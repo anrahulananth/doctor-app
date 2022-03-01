@@ -4,9 +4,9 @@ import { features } from "../../constants";
 
 export default function About() {
     return (
-        <section id="about" className="relative overflow-hidden">
-            <div className="relative max-w-xl mx-auto px-4 lg:max-w-7xl bg-background1 py-12">
-                <div className="relative flex lg:mt-24 lg:flex-row sm:flex-col-reverse justify-between text-text2">
+        <section id="about" className="relative overflow-hidden bg-background1">
+            <div className="relative max-w-xl px-4 mx-auto lg:max-w-7xl py-16 lg:py-24">
+                <div className="relative flex lg:flex-row sm:flex-col-reverse justify-between text-text2">
                     <div className="basis-3/4 relative">
                         <h3 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
                             Who we are
@@ -35,7 +35,7 @@ export default function About() {
                     </div>
                     <div className="basis-1/4 mb-10 relative lg:mb-0" aria-hidden="true">
                         <img
-                            className="relative mx-auto"
+                            className="relative mx-auto shadow-cardshadow"
                             src="/assets/images/doctors-section-doctor.png"
                             alt=""
                         />

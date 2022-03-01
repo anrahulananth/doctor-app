@@ -78,8 +78,22 @@ export const services = [
 ];
 
 export const slotsData = {
-    "Morning": ["8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM"],
-    "Evening": ["5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM"],
+    "Morning": [
+        { text: "8:00 AM", hours: 8, minutes: 0 },
+        { text: "8:30 AM", hours: 8, minutes: 30 },
+        { text: "9:00 AM", hours: 9, minutes: 0 },
+        { text: "9:30 AM", hours: 9, minutes: 30 },
+        { text: "10:00 AM", hours: 10, minutes: 0 },
+        { text: "10:30 AM", hours: 10, minutes: 30 }
+    ],
+    "Evening": [
+        { text: "5:00 PM", hours: 17, minutes: 0 },
+        { text: "5:30 PM", hours: 17, minutes: 30 },
+        { text: "6:00 PM", hours: 18, minutes: 0 },
+        { text: "6:30 PM", hours: 18, minutes: 30 },
+        { text: "7:00 PM", hours: 19, minutes: 0 },
+        { text: "7:30 PM", hours: 19, minutes: 30 }
+    ],
 };
 
 export const appointmentLocations = ["In Person", "Online Consultation"];

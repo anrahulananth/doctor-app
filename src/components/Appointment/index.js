@@ -14,6 +14,7 @@ import {
     BOOKING_CONFIRMATION,
     USER_INFORMATION
 } from "../../constants";
+import Policy from "../Policy";
 
 export default function Appointment() {
     const { appointment, setData, resetData, proceedTo, addAppointment } = useAppointmentContext();
@@ -31,7 +32,7 @@ export default function Appointment() {
             <div className="relative pb-16 px-4 sm:px-6 sm:pt-8 md:pt-16 lg:pt-20 lg:pb-20 lg:px-8">
                 <div className="relative max-w-7xl mx-auto">
                     <h2 className="text-3xl tracking-tight font-extrabold text-text3 sm:text-4xl">
-                        Book an Appointment with Dr Anita
+                        Book an Appointment with Dr Anita<span>&nbsp;*</span>
                     </h2>
                     <div className="hidden md:flex justify-evenly flex-row">
                         {
@@ -106,6 +107,7 @@ export default function Appointment() {
                     }[appointmentStep.type]}
                 </div>
             </div>
+            <Policy />
         </section>
     );
 }

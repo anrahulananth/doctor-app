@@ -106,7 +106,7 @@ const UserInformation = ({ addAppointment, appointmentStep, appointmentData, pro
                                     Date
                                 </div>
                                 <div className="text-base text-text2 font-medium mt-2">
-                                    {format(new Date(date), "do MMMM yyyy")}{`, ${slot}`}
+                                    {format(new Date(date), "do MMMM yyyy")}{`, ${slot?.text}`}
                                 </div>
                             </div>
                             <div className="mt-8 flex justify-center">

@@ -31,7 +31,7 @@ const NavLink = styled.div`
     }
 `;
 
-const ProfileMenu = ({ user, handleLogout }) => {
+const ProfileMenu = ({ active, user, handleLogout }) => {
     const { firstName, lastName } = user;
     const solutions = [
         {
@@ -47,7 +47,7 @@ const ProfileMenu = ({ user, handleLogout }) => {
                     <Popover.Button className={
                         classNames(
                             "inline-flex items-center px-3 py-2 text-primary1 font-semibold shadow-cardshadow hover:shadow-lg hover:shadow-buttonshadow1 rounded-md",
-                            open && "shadow-buttonshadow1 ring-1 ring-primary1"
+                            (open || active) && "shadow-buttonshadow1 ring-1 ring-primary1"
                         )
                     }>
                         <div className="bg-background12 px-2 py-1 rounded-md mr-2 uppercase">{firstName[0]}{lastName ? lastName[0] : ""}</div>
@@ -149,7 +149,7 @@ export default function Header() {
                             <div className="hidden md:space-x-10 md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                                 {
                                     isLoggedIn ? (
-                                        <ProfileMenu user={user} handleLogout={handleLogout} />
+                                        <ProfileMenu user={user} handleLogout={handleLogout} active={router.asPath === "/profile"} />
                                     ) : (
                                         router.asPath !== "/auth" &&
                                         <Link href="/auth" passHref>

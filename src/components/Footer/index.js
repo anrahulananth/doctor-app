@@ -1,13 +1,9 @@
-/* This example requires Tailwind CSS v2.0+ */
+import { format } from "date-fns";
+
 const navigation = {
     services: [
         { name: "Book Appointment", href: "/book-appointment" },
         { name: "Appointment Policy", href: "/book-appointment#policy" },
-    ],
-    legal: [
-        { name: "Claim", href: "#" },
-        { name: "Privacy", href: "#" },
-        { name: "Terms", href: "#" },
     ],
     social: [
         {
@@ -53,8 +49,7 @@ const navigation = {
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    aria-hidden="true"
+                    {...props}
                 >
                     <path
                         d="M7.548 22.501c9.056 0 14.01-7.503 14.01-14.01 0-.213 0-.425-.015-.636A10.02 10.02 0 0024 5.305a9.828 9.828 0 01-2.828.776 4.94 4.94 0 002.165-2.724 9.867 9.867 0 01-3.127 1.195 4.929 4.929 0 00-8.391 4.491A13.98 13.98 0 011.67 3.9a4.928 4.928 0 001.525 6.573A4.887 4.887 0 01.96 9.855v.063a4.926 4.926 0 003.95 4.827 4.917 4.917 0 01-2.223.084 4.93 4.93 0 004.6 3.42A9.88 9.88 0 010 20.289a13.941 13.941 0 007.548 2.209"
@@ -107,7 +102,7 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="mt-12 border-t border-gray-200 pt-8">
-                    <p className="text-base text-white xl:text-center">&copy; 2022 Diva Care. All rights reserved.</p>
+                    <p className="text-base text-white xl:text-center">&copy; {format(new Date(), "yyyy")} Diva Care. All Rights Reserved.</p>
                 </div>
             </div>
         </footer>
