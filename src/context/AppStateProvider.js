@@ -1,5 +1,4 @@
 import DocApi from "../utils/api";
-import { useRouter } from "next/router";
 import { createContext, useContext, useReducer } from "react";
 import { filterObject, safeJsonParse, setCookie } from "../utils/commonUtils";
 
@@ -7,7 +6,7 @@ const initState = {
     user: {
         isLoggedIn: false
     },
-    register: false,
+    register: "",
     error: "",
     isLoading: false
 };
@@ -32,9 +31,10 @@ const appStateReducer = (state = initState, action) => {
         ...state,
         error: action.type
     };
-    case "RESET_ERROR": return {
+    case "RESET": return {
         ...state,
-        error: ""
+        error: "",
+        register: ""
     };
         // App State
     case "LOADING": return {
@@ -53,7 +53,6 @@ const AppStateProvider = ({ children, appCookies }) => {
     if (!err && userData.isLoggedIn) {
         authState.user = userData;
     }
-    const router = useRouter();
     const [appState, dispatch] = useReducer(appStateReducer, authState);
 
     const setLoader = payload => dispatch({
@@ -63,7 +62,7 @@ const AppStateProvider = ({ children, appCookies }) => {
 
     const contextValue = {
         appState,
-        doLogin: async (payload, isLoginPage) => {
+        doLogin: async (payload, successCallback) => {
             const filteredPayload = filterObject(payload, [
                 "email",
                 "password"
@@ -126,7 +125,7 @@ const AppStateProvider = ({ children, appCookies }) => {
                         setCookie("refreshToken", refreshToken);
                         setCookie("idToken", idToken);
                         setCookie("userData", JSON.stringify(dataObj));
-                        isLoginPage && router.push("/");
+                        successCallback && successCallback();
                     } else {
                         throw new Error("Login");
                     }
@@ -153,7 +152,7 @@ const AppStateProvider = ({ children, appCookies }) => {
                 }
             });
         },
-        doRegister: async (payload) => {
+        doRegister: async (payload, successCallback) => {
             const filteredPayload = filterObject(payload, [
                 "email",
                 "phone",
@@ -161,7 +160,7 @@ const AppStateProvider = ({ children, appCookies }) => {
             ]);
             const registerBody = {
                 taskName: "signup",
-                fullName: `${payload.firstName} ${payload.lastName}`,
+                fullname: `${payload.firstName} ${payload.lastName}`,
                 ...filteredPayload
             };
             setLoader(true);
@@ -177,8 +176,10 @@ const AppStateProvider = ({ children, appCookies }) => {
                 const { data = {} } = registerResponse;
                 if (data && data.statusCode === 200) {
                     dispatch({
-                        type: "REGISTER"
+                        type: "REGISTER",
+                        payload: data.body
                     });
+                    successCallback && successCallback();
                 } else {
                     dispatch({
                         type: "REGISTER_ERROR"
@@ -192,8 +193,8 @@ const AppStateProvider = ({ children, appCookies }) => {
                 setLoader(false);
             }
         },
-        resetError: () => dispatch({
-            type: "RESET_ERROR"
+        reset: () => dispatch({
+            type: "RESET"
         }),
         setLoader
     };

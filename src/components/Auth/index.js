@@ -1,5 +1,6 @@
 import { Fragment, useReducer, useMemo, useCallback, useEffect, useState } from "react";
 import { useAppStateContext } from "../../context/AppStateProvider";
+import { useRouter } from "next/router";
 import classNames from "classnames";
 
 const initialState = {};
@@ -89,41 +90,42 @@ inputFields.forEach(input => initialState[input.id] = {
 });
 const authFormReducer = (state = initState, action) => {
     switch (action.type) {
-        case "INPUT": return {
-            ...state,
-            [action.payload.id]: {
-                ...state[action.payload.id],
-                value: action.payload.value,
-                error: action.payload.error
-                    ? action.payload.error
-                    : state[action.payload.id].error
-            }
-        };
-        case "ERROR": return {
-            ...state,
-            [action.payload.id]: {
-                ...state[action.payload.id],
-                error: action.payload.error
-            }
-        };
-        case "RESET_ERROR":
-            const newState = {};
-            inputFields.forEach(input => {
-                newState[input.id] = {
-                    value: state[input.id].value,
-                    error: ""
-                };
-            });
-            return newState;
-        default: return state;
+    case "INPUT": return {
+        ...state,
+        [action.payload.id]: {
+            ...state[action.payload.id],
+            value: action.payload.value,
+            error: action.payload.error
+                ? action.payload.error
+                : state[action.payload.id].error
+        }
+    };
+    case "ERROR": return {
+        ...state,
+        [action.payload.id]: {
+            ...state[action.payload.id],
+            error: action.payload.error
+        }
+    };
+    case "RESET_ERROR":
+        const newState = {};
+        inputFields.forEach(input => {
+            newState[input.id] = {
+                value: state[input.id].value,
+                error: ""
+            };
+        });
+        return newState;
+    default: return state;
     }
 };
 
 const Auth = ({ isLoginPage = false }) => {
+    const router = useRouter();
     const [type, setType] = useState("login");
     const [disabled, setDisabled] = useState(true);
     const [authForm, dispatch] = useReducer(authFormReducer, initialState);
-    const { appState, doLogin, doRegister, resetError } = useAppStateContext();
+    const { appState, doLogin, doRegister, reset } = useAppStateContext();
     const inputElements = useMemo(() => (inputFields.filter(
         ele => ele.formType ? ele.formType === type : true
     )), [type]);
@@ -132,6 +134,13 @@ const Auth = ({ isLoginPage = false }) => {
         "hover:border-primary1 hover:bg-background7 cursor-pointer": type !== buttonType,
         "bg-white": type === buttonType
     }), [type]);
+
+    useEffect(() => {
+        reset();
+        return () => {
+            reset();
+        };
+    }, []);
 
     // Effects
     useEffect(() => {
@@ -154,7 +163,7 @@ const Auth = ({ isLoginPage = false }) => {
     };
     const handleInput = (evt, ele) => {
         const value = evt?.target?.value;
-        resetError();
+        reset();
         dispatch({
             type: "INPUT",
             payload: {
@@ -185,9 +194,13 @@ const Auth = ({ isLoginPage = false }) => {
         const payload = {};
         Object.keys(authForm).forEach((key) => payload[key] = authForm[key].value);
         if (type === "register") {
-            doRegister(payload);
+            doRegister(payload, () => {
+                handleClick("login");
+            });
         } else {
-            doLogin(payload, isLoginPage);
+            doLogin(payload, () => {
+                isLoginPage && router.replace("/");
+            });
         }
     };
 
@@ -231,7 +244,7 @@ const Auth = ({ isLoginPage = false }) => {
                         </Fragment>
                     ))
                 }
-                <div className="mt-4 flex justify-center">
+                <div className="my-4 flex justify-center">
                     <button
                         onClick={handleSubmit}
                         disabled={disabled}
@@ -242,7 +255,12 @@ const Auth = ({ isLoginPage = false }) => {
                 </div>
                 {appState.error && (
                     <div className="text-sm text-red-500">
-                        {type === "register" ? "Register Failed!" : "Login Failed!"}
+                        {type === "register" ? "Registration Failed!" : "Login Failed!"}
+                    </div>
+                )}
+                {appState.register && (
+                    <div className="my-2 text-sm text-green-500">
+                        {appState.register}.<br />You can login after confirming the mail.
                     </div>
                 )}
             </div>
