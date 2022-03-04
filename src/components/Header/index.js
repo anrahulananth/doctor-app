@@ -101,11 +101,11 @@ export default function Header() {
         doLogout();
     };
     return (
-        <header>
-            <div className="relative py-4 sm:py-6 md:py-10 bg-opacity-1 bg-background1">
+        <header className="fixed top-0 w-full z-30">
+            <div className="relative py-4 sm:py-6 md:py-8 bg-opacity-1 bg-background1">
                 <Popover>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                        <nav className="relative flex items-center justify-between sm:h-10 md:justify-center" aria-label="Global">
+                        <nav className="relative flex items-center justify-between h-12 md:justify-center" aria-label="Global">
                             <div className="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
                                 <div className="flex items-center justify-between w-full md:w-auto">
                                     <Link href="/" passHref>

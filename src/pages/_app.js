@@ -22,9 +22,7 @@ function MyApp({ Component, pageProps, appCookies }) {
                 <GlobalTheme>
                     <AppStateProvider appCookies={appCookies}>
                         <Layout>
-                            <main className="bg-background3 min-h-screen">
-                                <Component {...pageProps} />
-                            </main>
+                            <Component {...pageProps} />
                         </Layout>
                     </AppStateProvider>
                 </GlobalTheme>

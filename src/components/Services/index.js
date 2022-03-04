@@ -18,8 +18,8 @@ const posts = [
 
 export default function Services() {
     return (
-        <section id="services" className="relative overflow-hidden bg-background1">
-            <div className="relative py-16 px-4 sm:px-6 lg:py-24 lg:px-8">
+        <section id="services" className="relative overflow-hidden bg-background1 py-20 sm:py-24 md:py-28">
+            <div className="relative px-4 sm:px-6 lg:px-8">
                 <div className="relative max-w-7xl mx-auto text-text2">
                     <div className="text-center">
                         <h2 className="text-3xl tracking-tight font-extrabold text-text2 sm:text-4xl">How we can help you</h2>
