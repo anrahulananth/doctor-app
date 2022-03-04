@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
-import { HiOutlineClock, HiOutlineCurrencyRupee } from "react-icons/hi";
+import { HiOutlineClock, HiArrowNarrowLeft, HiOutlineCurrencyRupee } from "react-icons/hi";
+import { RiAlarmWarningFill } from "react-icons/ri";
+import { appointmentStepsArray } from "../../constants";
 
-const Confirmation = ({ resetData, appointmentData }) => {
+const Confirmation = ({ proceedTo, resetData, appointmentData, appointmentStep }) => {
     const { type, price, time, slot, location, date } = appointmentData;
     const router = useRouter();
     useEffect(() => {
@@ -19,12 +21,13 @@ const Confirmation = ({ resetData, appointmentData }) => {
                         {
                             appointmentData.type ? (
                                 <>
-                                    <img src="/assets/images/confirm-booking.png" className="h-15 w-15" />
+                                    <img src="/assets/images/confirm-booking.png" className="h-16 w-16" />
                                     <div className="mt-4 text-lg text-text2 font-bold">Appointment with Dr Anita Balakrishna Confirmed!</div>
                                     <div className="mt-2 text-text2">Please check your email for your appointment details</div>
                                 </>
                             ) : (
                                 <>
+                                    <RiAlarmWarningFill className="h-16 w-16 text-red-500" />
                                     <div className="mt-4 text-lg text-text2 font-bold">Appointment Booking Failed!</div>
                                 </>
                             )
@@ -52,22 +55,22 @@ const Confirmation = ({ resetData, appointmentData }) => {
                                     </div>
                                     <div className="mt-8">
                                         <div className="text-lg text-text2 font-semibold">
-                                        Address
+                                            Address
                                         </div>
                                         <div className="text-base text-text2 font-medium mt-2">
                                             {location}
                                         </div>
                                         {location === "In Person" && (
                                             <div className="text-base text-text2">
-                                            Gynecology/Obstetrics Clinic<br />
-                                            #B-001, 10/1, Ground floor, Victoria lawns,<br />
-                                            Victoria Road, Victoria Layout, Bangalore
+                                                Gynecology/Obstetrics Clinic<br />
+                                                #B-001, 10/1, Ground floor, Victoria lawns,<br />
+                                                Victoria Road, Victoria Layout, Bangalore
                                             </div>
                                         )}
                                     </div>
                                     <div className="mt-8">
                                         <div className="text-lg text-text2 font-semibold">
-                                        Date
+                                            Date
                                         </div>
                                         <div className="text-base text-text2 font-medium mt-2">
                                             {format(new Date(date), "io MMMM yyyy")}{`, ${slot?.text}`}
@@ -77,17 +80,32 @@ const Confirmation = ({ resetData, appointmentData }) => {
                             </>
                         )
                     }
-
                 </div>
             </div>
             <div className="grid grid-flow-row grid-cols-2 my-8">
-                <div />
-                <button
-                    onClick={() => router.replace("/profile")}
-                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
-                >
-                    Go to appointments
-                </button>
+                {
+                    appointmentData.type ? (
+                        <>
+                            <div />
+                            <button
+                                onClick={() => router.replace("/profile")}
+                                className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
+                            >
+                                Go to appointments
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button
+                                onClick={() => proceedTo(appointmentStepsArray[Number(appointmentStep.id - 1)])}
+                                className="rounded-full font-bold py-4 px-10 flex items-center justify-self-start bg-white text-primary1 border border-primary1 shadow-buttonshadow2 hover:bg-background7 hover:shadow-cardshadow"
+                            >
+                                <HiArrowNarrowLeft />&nbsp;&nbsp;Back
+                            </button>
+                            <div />
+                        </>
+                    )
+                }
             </div>
         </>
     );

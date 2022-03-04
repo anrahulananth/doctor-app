@@ -11,10 +11,10 @@ const UserInformation = ({ addAppointment, appointmentStep, appointmentData, pro
         setLoader(true);
         const addApppointmentResponse = await addAppointment();
         setLoader(false);
+        proceedTo(appointmentStepsArray[appointmentStep.id]);
         if (!addApppointmentResponse) {
             resetData();
         }
-        proceedTo(appointmentStepsArray[appointmentStep.id]);
     };
 
     return (
@@ -126,7 +126,7 @@ const UserInformation = ({ addAppointment, appointmentStep, appointmentData, pro
             <div className="grid grid-flow-row grid-cols-2 my-8">
                 <button
                     onClick={() => proceedTo(appointmentStepsArray[Number(appointmentStep.id - 2)])}
-                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-start bg-white text-primary1 border border-primary1 shadow-buttonshadow2 hover:bg-background7"
+                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-start bg-white text-primary1 border border-primary1 shadow-buttonshadow2 hover:bg-background7 hover:shadow-cardshadow"
                 >
                     <HiArrowNarrowLeft />&nbsp;&nbsp;Back
                 </button>
@@ -134,7 +134,7 @@ const UserInformation = ({ addAppointment, appointmentStep, appointmentData, pro
                     isLoggedIn && (
                         <button
                             onClick={handleAppointmentBooking}
-                            className="rounded-full font-bold py-4 px-12 justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
+                            className="rounded-full font-bold py-4 px-12 justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2 hover:shadow-lg hover:shadow-primary1"
                         >
                             Confirm
                         </button>

@@ -75,7 +75,7 @@ const SelectService = ({ handleServiceSelection, appointmentData, appointmentSte
                 <div />
                 <button
                     onClick={() => proceedTo(appointmentStepsArray[appointmentStep.id])}
-                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
+                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2 hover:shadow-lg hover:shadow-primary1"
                 >
                     Next&nbsp;&nbsp;<HiArrowNarrowRight />
                 </button>

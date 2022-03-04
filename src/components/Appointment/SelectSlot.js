@@ -97,13 +97,13 @@ const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedT
 
                 <button
                     onClick={() => proceedTo(appointmentStepsArray[Number(appointmentStep.id - 2)])}
-                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-start bg-white text-primary1 border border-primary1 shadow-buttonshadow2 hover:bg-background7"
+                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-start bg-white text-primary1 border border-primary1 shadow-buttonshadow2 hover:bg-background7 hover:shadow-cardshadow"
                 >
                     <HiArrowNarrowLeft />&nbsp;&nbsp;Back
                 </button>
                 <button
                     onClick={() => proceedTo(appointmentStepsArray[appointmentStep.id])}
-                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2"
+                    className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2 hover:shadow-lg hover:shadow-primary1"
                 >
                     Next&nbsp;&nbsp;<HiArrowNarrowRight />
                 </button>

@@ -101,8 +101,10 @@ export default function Appointment() {
                             />,
                         [BOOKING_CONFIRMATION]:
                             <Confirmation
+                                appointmentStep={appointmentStep}
                                 appointmentData={data}
                                 resetData={resetData}
+                                proceedTo={proceedTo}
                             />
                     }[appointmentStep.type]}
                 </div>
