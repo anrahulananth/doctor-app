@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import classNames from "classnames";
 import styled from "styled-components";
@@ -97,11 +97,15 @@ const ProfileMenu = ({ active, user, handleLogout }) => {
 export default function Header() {
     const router = useRouter();
     const { appState: { user = {} }, doLogout } = useAppStateContext();
+    const [currentPath, setCurrentPath] = useState("/");
     const { isLoggedIn } = user;
     const handleLogout = () => {
         router.replace("/");
         doLogout();
     };
+    useEffect(() => {
+        setCurrentPath(router.asPath);
+    }, [router.asPath]);
     return (
         <header className="fixed top-0 w-full z-30">
             <div className="relative py-4 sm:py-6 md:py-8 bg-opacity-1 bg-background1">
@@ -136,8 +140,8 @@ export default function Header() {
                                             classNames(
                                                 "flex flex-col justify-end items-center font-medium hover:text-primary1 lg:mx-4 md:mx-2",
                                                 {
-                                                    "text-primary1 active": router.asPath === item.href,
-                                                    "text-text2": router.asPath !== item.href
+                                                    "text-primary1 active": currentPath === item.href,
+                                                    "text-text2": currentPath !== item.href
                                                 }
                                             )
                                         }
@@ -151,9 +155,9 @@ export default function Header() {
                             <div className="hidden md:space-x-10 md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                                 {
                                     isLoggedIn ? (
-                                        <ProfileMenu user={user} handleLogout={handleLogout} active={router.asPath === "/profile"} />
+                                        <ProfileMenu user={user} handleLogout={handleLogout} active={currentPath === "/profile"} />
                                     ) : (
-                                        router.asPath !== "/auth" &&
+                                        currentPath !== "/auth" &&
                                         <Link href="/auth" passHref>
                                             <button className="inline-flex items-center px-8 py-2 border border-transparent text-white font-medium rounded-full bg-primary1 hover:bg-fuchsia-900 shadow-buttonshadow hover:shadow-lg hover:shadow-primary1">
                                                 Log In
@@ -200,7 +204,7 @@ export default function Header() {
                                             className={
                                                 classNames(
                                                     "block px-3 py-2 rounded-md text-base font-medium  hover:text-primary1",
-                                                    router.asPath === item.href ? "text-primary1" : "text-gray-700 hover:bg-gray-50"
+                                                    currentPath === item.href ? "text-primary1" : "text-gray-700 hover:bg-gray-50"
                                                 )
                                             }
                                         >
@@ -216,7 +220,7 @@ export default function Header() {
                                     isLoggedIn ? (
                                         <>
                                             {
-                                                router.asPath !== "/profile" && (
+                                                currentPath !== "/profile" && (
                                                     <div className="block w-full px-5 py-3 text-center font-medium text-primary1 bg-gray-50 hover:bg-gray-100">
                                                         <Popover.Button>
                                                             <Link href="/profile" passHref>
@@ -238,7 +242,7 @@ export default function Header() {
                                         </>
 
                                     ) : (
-                                        router.asPath !== "/auth" && (
+                                        currentPath !== "/auth" && (
                                             <div className="block w-full px-5 py-3 text-center font-medium text-primary1 bg-gray-50 hover:bg-gray-100">
                                                 <Popover.Button>
                                                     <Link href="/auth">
