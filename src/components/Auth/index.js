@@ -72,7 +72,7 @@ const inputFields = [
     },
     {
         id: "phone",
-        type: "text",
+        type: "number",
         label: "Phone Number",
         placeholder: "",
         formType: "register",
@@ -96,8 +96,6 @@ const authFormReducer = (state = initState, action) => {
             ...state[action.payload.id],
             value: action.payload.value,
             error: action.payload.error
-                ? action.payload.error
-                : state[action.payload.id].error
         }
     };
     case "ERROR": return {
@@ -174,25 +172,26 @@ const Auth = ({ isLoginPage = false }) => {
         });
     };
     const handleSubmit = async () => {
-        // let errorTrigger = false;
-        // inputElements.forEach(input => {
-        //     const error = input.validation(authForm[input.id].value, {
-        //         register: type === "register"
-        //     });
-        //     if (error) {
-        //         errorTrigger = true;
-        //         dispatch({
-        //             type: "ERROR",
-        //             payload: {
-        //                 id: input.id,
-        //                 error
-        //             }
-        //         });
-        //     }
-        // });
-        // if (errorTrigger) return;
+        let errorTrigger = false;
+        inputElements.forEach(input => {
+            const error = input.validation(authForm[input.id].value, {
+                register: type === "register"
+            });
+            if (error) {
+                errorTrigger = true;
+                dispatch({
+                    type: "ERROR",
+                    payload: {
+                        id: input.id,
+                        error
+                    }
+                });
+            }
+        });
+        if (errorTrigger) return;
         const payload = {};
         Object.keys(authForm).forEach((key) => payload[key] = authForm[key].value);
+        payload.phone = `+91${payload.phone}`;
         if (type === "register") {
             doRegister(payload, () => {
                 handleClick("login");
@@ -228,7 +227,14 @@ const Auth = ({ isLoginPage = false }) => {
                                 {ele.label}
                                 <span className="text-red-500">&nbsp;*</span>
                             </label>
-                            <div className="mt-1">
+                            <div className="mt-1 relative">
+                                {
+                                    ele.id === "phone" && (
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span className="text-gray-500 sm:text-sm">+91</span>
+                                        </div>
+                                    )
+                                }
                                 <input
                                     type={ele.type}
                                     name={ele.id}
@@ -236,7 +242,11 @@ const Auth = ({ isLoginPage = false }) => {
                                     value={authForm[ele.id].value}
                                     onChange={(e) => handleInput(e, ele)}
                                     placeholder={ele.placeholder}
-                                    className="shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border-gray-300 rounded-md" />
+                                    className={classNames(
+                                        "shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border border-gray-300 rounded-md",
+                                        ele.id === "phone" && "pl-10"
+                                    )}
+                                />
                             </div>
                             <div className="text-sm text-red-500">
                                 {authForm[ele.id].error ? authForm[ele.id].error : <span>&nbsp;</span>}
