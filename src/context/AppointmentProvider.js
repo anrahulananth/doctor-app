@@ -118,7 +118,7 @@ const AppointmentProvider = ({ children }) => {
             try {
                 const services = await fetchServices();
                 if (services && services.length) {
-                    const service =  services.find(service => service.serviceName === type);
+                    const service = services.find(service => service.serviceName === type);
                     const dateObj = new Date(date).setHours(0, 0, 0, 0);
                     const appointmentDate = formatDateForAPI(dateObj);
                     const startTime = formatDateForAPI(add(dateObj, {
@@ -174,6 +174,32 @@ const AppointmentProvider = ({ children }) => {
                     return false;
                 }
             } catch (err) {
+                return false;
+            }
+        },
+        deleteAppointment: async (payload) => {
+            console.log("===>", payload);
+            const deleteAppointmentPayload = {
+                resource: "appointmentapi",
+                body: JSON.stringify({
+                    taskName: "DELETE_APPOINTMENT",
+                    accesstoken: Cookies.get("access_token"),
+                    date: payload.actualDate,
+                    appointmentId: payload.id
+                })
+            };
+            try {
+                const deleteAppointmentResponse = await DocApi({
+                    method: "POST",
+                    url: "/doctor",
+                    headers: {
+                        "Authorization": Cookies.get("idToken")
+                    },
+                    data: deleteAppointmentPayload
+                });
+                const { data = {} } = deleteAppointmentResponse;
+                return data && data.statusCode === 200;
+            } catch(err) {
                 return false;
             }
         },
