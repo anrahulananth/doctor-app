@@ -241,6 +241,11 @@ const Auth = ({ isLoginPage = false }) => {
                                     id={ele.id}
                                     value={authForm[ele.id].value}
                                     onChange={(e) => handleInput(e, ele)}
+                                    onKeyDown={(e) => {
+                                        if (e.keyCode === 13 && type === "login" && ele.type === "password") {
+                                            handleSubmit();
+                                        }
+                                    }}
                                     placeholder={ele.placeholder}
                                     className={classNames(
                                         "shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border border-gray-300 rounded-md",
