@@ -1,20 +1,22 @@
 import { HiOutlineClock, HiOutlineCurrencyRupee, HiOutlinePencil, HiArrowNarrowLeft } from "react-icons/hi";
-import { appointmentStepsArray } from "../../constants";
+import { appointmentStepsArray, appointmentLocations } from "../../constants";
 import { format } from "date-fns";
 import Auth from "../Auth";
 
-const UserInformation = ({ addAppointment, appointmentStep, appointmentData, proceedTo, user, resetData, setLoader }) => {
+const { IN_PERSON } = appointmentLocations;
+
+const UserInformation = ({ handleAppointment, addAppointment, appointmentStep, appointmentData, proceedTo, user, setLoader }) => {
     const { type, time, slot, price, location, date } = appointmentData;
     const { isLoggedIn, firstName, lastName, email, phone } = user;
 
     const handleAppointmentBooking = async () => {
         setLoader(true);
-        const addApppointmentResponse = await addAppointment();
+        const booked = await addAppointment();
+        handleAppointment({
+            booked
+        });
         setLoader(false);
         proceedTo(appointmentStepsArray[appointmentStep.id]);
-        if (!addApppointmentResponse) {
-            resetData();
-        }
     };
 
     return (
@@ -92,7 +94,7 @@ const UserInformation = ({ addAppointment, appointmentStep, appointmentData, pro
                                     {location}
                                 </div>
                                 {
-                                    location === "In Person" && (
+                                    location === IN_PERSON && (
                                         <div className="text-base text-text2">
                                             Gynecology/Obstetrics Clinic<br />
                                             #B-001, 10/1, Ground floor, Victoria lawns,<br />

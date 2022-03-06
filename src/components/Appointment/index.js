@@ -26,7 +26,6 @@ export default function Appointment() {
     const handleSetData = (data) => {
         setData(data);
     };
-
     return (
         <section id="book-appointment" className="relative overflow-hidden">
             <div className="relative pb-8 px-4 sm:px-6 sm:pt-8 md:pt-16 lg:pt-20 lg:px-8">
@@ -81,6 +80,7 @@ export default function Appointment() {
                                 appointmentStep={appointmentStep}
                                 appointmentData={data}
                                 proceedTo={proceedTo}
+                                resetData={resetData}
                             />,
                         [SLOT_SELECTION]:
                             <SelectSlot
@@ -93,8 +93,8 @@ export default function Appointment() {
                             <UserInformation
                                 addAppointment={addAppointment}
                                 appointmentStep={appointmentStep}
+                                handleAppointment={handleSetData}
                                 appointmentData={data}
-                                resetData={resetData}
                                 setLoader={setLoader}
                                 proceedTo={proceedTo}
                                 user={appState.user}
@@ -103,7 +103,6 @@ export default function Appointment() {
                             <Confirmation
                                 appointmentStep={appointmentStep}
                                 appointmentData={data}
-                                resetData={resetData}
                                 proceedTo={proceedTo}
                             />
                     }[appointmentStep.type]}

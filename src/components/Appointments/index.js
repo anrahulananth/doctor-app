@@ -1,11 +1,23 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import Pagination from "../Pagination";
-import { PAGE_LIMIT } from "../../constants";
+import { useRouter } from "next/router";
+import { appointmentLocations, PAGE_LIMIT, services } from "../../constants";
 import { IoMdCalendar } from "react-icons/io";
-import { format, isFuture } from "date-fns";
+import { format, isAfter } from "date-fns";
 import { HiOutlineCurrencyRupee, HiOutlineClock, HiOutlineLocationMarker } from "react-icons/hi";
 import AppointmentProvider, { useAppointmentContext } from "../../context/AppointmentProvider";
+const { IN_PERSON, ONLINE } = appointmentLocations;
+
+// const decoratedAppointment = {
+//     name: "Pregnancy Consultation",
+//     time: "5.00PM - 5.10PM",
+//     date: "22/10/21",
+//     location: "Online",
+//     price: "Rs 500",
+//     status: "Upcoming",
+//     img: "/assets/images/pregnancy-consultation.jpg"
+// }
 
 const AppointmentsList = () => {
     const { fetchAppointments } = useAppointmentContext();
@@ -13,6 +25,7 @@ const AppointmentsList = () => {
     const [appointments, setAppointments] = useState([]);
     const [fetchError, setFetchError] = useState(false);
     const [loader, setLoader] = useState(false);
+    const router = useRouter();
     const handlePagination = (page) => {
         setCurrentPage(page);
     };
@@ -23,35 +36,25 @@ const AppointmentsList = () => {
         setLoader(false);
         if (appointmentsResponse) {
             const decoratedAppointments = appointmentsResponse
-                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                 .map(appointment => {
-                    // const decoratedAppointment = {
-                    //     name: "Pregnancy Consultation",
-                    //     time: "5.00PM - 5.10PM",
-                    //     date: "22/10/21",
-                    //     location: "Online",
-                    //     price: "Rs 500",
-                    //     status: "Upcoming",
-                    //     img: "/assets/images/pregnancy-consultation.jpg"
-                    // }
+                    const { online, date, endTime, startTime, cancelled, serviceId } = appointment;
+                    const appointmentService = services.find(service => service.id === serviceId) || {};
                     const decoratedAppointment = {
-                        name: "Pregnancy Consultation",
-                        location: "In Person",
-                        price: "Rs 500",
-                        img: "/assets/images/pregnancy-consultation.jpg"
+                        ...appointmentService
                     };
-                    const appointmentDate = format(new Date(appointment.date), "dd/MM/yyyy");
-                    const startTime = format(new Date(appointment.startTime), "hh:mm aa");
-                    const endTime = format(new Date(appointment.endTime), "hh:mm aa");
+                    decoratedAppointment.location = String(online) === "true" ? ONLINE : IN_PERSON;
+                    const appointmentDate = format(new Date(date), "dd/MM/yyyy");
+                    const apointmentStartTime = format(new Date(startTime), "hh:mm aa");
+                    const appointmentEndTime = format(new Date(endTime), "hh:mm aa");
                     decoratedAppointment.date = appointmentDate;
-                    if (appointment.cancelled) {
+                    if (cancelled) {
                         decoratedAppointment.status = "Cancelled";
-                    } else if (isFuture(new Date(appointment.date))) {
+                    } else if (isAfter(new Date(date), new Date())) {
                         decoratedAppointment.status = "Upcoming";
                     } else {
                         decoratedAppointment.status = "Completed";
                     }
-                    decoratedAppointment.time = `${startTime} - ${endTime}`;
+                    decoratedAppointment.time = `${apointmentStartTime} - ${appointmentEndTime}`;
                     return decoratedAppointment;
                 });
             setAppointments(decoratedAppointments);
@@ -134,12 +137,32 @@ const AppointmentsList = () => {
                 )
             }
             {
-                !appointments.length && (
+                loader && (
                     <div className="flex items-center justify-center items-center w-full h-40">
+                        <div className="w-20 h-20 border-l-4 border-primary1 rounded-full animate-spin" />
+                    </div>
+                )
+            }
+            {
+                !loader && !appointments.length && (
+                    <div className="flex flex-col items-center justify-center items-center w-full h-40">
                         {
-                            loader
-                                ? <div className="w-20 h-20 border-l-4 border-primary1 rounded-full animate-spin" />
-                                : fetchError ? <div> Failed to load appoinments </div> : <div> No appoinments! </div>
+                            fetchError ? (
+                                <>
+                                    <div> Failed to load appoinments </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="m-4"> You&apos;re yet to book an appointment! </div>
+                                    <button
+                                        onClick={() => router.push("/book-appointment")}
+                                        className="rounded-full font-bold py-4 px-10 flex items-center justify-self-start bg-white text-primary1 border border-primary1 shadow-buttonshadow2 hover:bg-background7 hover:shadow-cardshadow"
+                                    >
+                                        Book an appointment
+                                    </button>
+                                    <div />
+                                </>
+                            )
                         }
                     </div>
                 )

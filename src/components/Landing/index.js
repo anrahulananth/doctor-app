@@ -25,7 +25,7 @@ const Doctor = styled.div`
         background-position: right;
         background-repeat: no-repeat;
         background-size: contain;
-        right: 5%;
+        right: 2%;
         top: 0;
         height: 100%;
         width: 100%;

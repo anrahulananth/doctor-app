@@ -58,18 +58,21 @@ export const features = [
 
 export const services = [
     {
+        id: "f58ab143-ff29-4103-a08f-5c08de479b36",
         name: "Pregnancy Consultation",
         time: "30 min",
         price: "Rs 500",
         img: "/assets/images/pregnancy-consultation.jpg"
     },
     {
+        id: "20075b1b-c2f3-4ceb-93dc-0d26ebc7e85b",
         name: "Fertility Consultation",
         time: "30 min",
         price: "Rs 500",
         img: "/assets/images/fertility-consultation.jpg"
     },
     {
+        id: "1d5331b3-e0ca-4611-bf5f-073feb77dbce",
         name: "Gynaec Consultation",
         time: "30 min",
         price: "Rs 500",
@@ -96,5 +99,9 @@ export const slotsData = {
     ],
 };
 
-export const appointmentLocations = ["In Person", "Online Consultation"];
+
+export const appointmentLocations = {
+    IN_PERSON: "In Person",
+    ONLINE: "Online Consultation"
+};
 

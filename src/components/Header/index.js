@@ -78,11 +78,13 @@ const ProfileMenu = ({ active, user, handleLogout }) => {
                                         </Popover.Button>
                                     ))}
                                 </div>
-                                <Popover.Button className="px-5 py-5 bg-gray-50 hover:bg-background4 w-full" onClick={handleLogout}>
-                                    <div className="flex items-center text-text2">
-                                        <RiLogoutBoxRLine className="mr-2 text-primary1" />Log Out
-                                    </div>
-                                </Popover.Button>
+                                <div className="relative" onClick={handleLogout}>
+                                    <Popover.Button className="px-5 py-5 bg-gray-50 hover:bg-background4 w-full">
+                                        <div className="flex items-center text-text2">
+                                            <RiLogoutBoxRLine className="mr-2 text-primary1" />Log Out
+                                        </div>
+                                    </Popover.Button>
+                                </div>
                             </div>
                         </Popover.Panel>
                     </Transition>
@@ -226,8 +228,8 @@ export default function Header() {
                                                     </div>
                                                 )
                                             }
-                                            <div className="block w-full px-5 py-3 text-center font-medium text-primary1 bg-gray-50 hover:bg-gray-100">
-                                                <Popover.Button onClick={handleLogout}>
+                                            <div className="block w-full px-5 py-3 text-center font-medium text-primary1 bg-gray-50 hover:bg-gray-100" onClick={handleLogout}>
+                                                <Popover.Button>
                                                     <div className="flex items-center" >
                                                         <RiLogoutBoxRLine className="mr-2" />Log Out
                                                     </div>

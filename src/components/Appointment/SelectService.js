@@ -4,9 +4,10 @@ import { HiOutlineCurrencyRupee, HiOutlineClock, HiOutlineChevronRight, HiArrowN
 import { appointmentStepsArray } from "../../constants";
 import { services } from "../../constants";
 
-const SelectService = ({ handleServiceSelection, appointmentData, appointmentStep, proceedTo }) => {
+const SelectService = ({ handleServiceSelection, appointmentData, appointmentStep, proceedTo, resetData }) => {
     const { type, time, price } = appointmentData;
     useEffect(() => {
+        resetData();
         handleServiceSelection({
             type: type || services[0].name,
             price: price || services[0].price,
@@ -74,7 +75,7 @@ const SelectService = ({ handleServiceSelection, appointmentData, appointmentSte
             <div className="grid grid-flow-row grid-cols-2 my-8">
                 <div />
                 <button
-                    onClick={() => proceedTo(appointmentStepsArray[appointmentStep.id])}
+                    onClick={() => proceedTo(appointmentStepsArray[Number(appointmentStep.id)])}
                     className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2 hover:shadow-lg hover:shadow-primary1"
                 >
                     Next&nbsp;&nbsp;<HiArrowNarrowRight />

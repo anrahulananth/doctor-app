@@ -113,9 +113,9 @@ const AppStateProvider = ({ children, appCookies }) => {
                         const spaceIndex = firstName.indexOf(" ");
                         const dataObj = {
                             isLoggedIn: true,
+                            ...validateResponseBody,
                             firstName: spaceIndex > 0 ? firstName.substr(0, spaceIndex) : firstName,
                             lastName: spaceIndex > 0 ? firstName.substr(spaceIndex + 1) : "",
-                            ...validateResponseBody
                         };
                         dispatch({
                             type: "LOGIN",

@@ -12,7 +12,7 @@ const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedT
     useEffect(() => {
         handleSlotData({
             date: new Date(date).toISOString(),
-            location: location || appointmentLocations[0],
+            location: location || appointmentLocations.IN_PERSON,
             slot: slot || slotsData["Morning"][0]
         });
     }, []);
@@ -46,22 +46,22 @@ const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedT
                     <div className="text-lg text-text2 font-bold">Type of Appointment</div>
                     <div className="flex mt-4 justify-start space-x-2">
                         {
-                            appointmentLocations.map((appointmentLocation) => (
+                            Object.keys(appointmentLocations).map((appointmentLocation) => (
                                 <button
-                                    key={appointmentLocation}
+                                    key={appointmentLocations[appointmentLocation]}
                                     onClick={() => handleSlotData({
-                                        location: appointmentLocation
+                                        location: appointmentLocations[appointmentLocation]
                                     })}
                                     className={
                                         classNames(
                                             "basis-1/2 rounded-md border border-background8 text-text1 flex items-center justify-start p-2 hover:border-primary1",
-                                            location === appointmentLocation ? "bg-background12" : ""
+                                            location === appointmentLocations[appointmentLocation] ? "bg-background12" : ""
                                         )
                                     }>
-                                    {location === appointmentLocation
+                                    {location === appointmentLocations[appointmentLocation]
                                         ? <BiRadioCircleMarked className="text-primary1 mr-2" />
                                         : <BiRadioCircle className="mr-2" />}
-                                    {appointmentLocation}
+                                    {appointmentLocations[appointmentLocation]}
                                 </button>
                             ))
                         }
@@ -102,7 +102,7 @@ const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedT
                     <HiArrowNarrowLeft />&nbsp;&nbsp;Back
                 </button>
                 <button
-                    onClick={() => proceedTo(appointmentStepsArray[appointmentStep.id])}
+                    onClick={() => proceedTo(appointmentStepsArray[Number(appointmentStep.id)])}
                     className="rounded-full font-bold py-4 px-10 flex items-center justify-self-end bg-primary1 text-white shadow-buttonshadow hover:bg-background2 hover:shadow-lg hover:shadow-primary1"
                 >
                     Next&nbsp;&nbsp;<HiArrowNarrowRight />

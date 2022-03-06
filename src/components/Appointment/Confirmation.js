@@ -1,25 +1,20 @@
-import { useEffect } from "react";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
 import { HiOutlineClock, HiArrowNarrowLeft, HiOutlineCurrencyRupee } from "react-icons/hi";
 import { RiAlarmWarningFill } from "react-icons/ri";
-import { appointmentStepsArray } from "../../constants";
+import { appointmentStepsArray, appointmentLocations } from "../../constants";
+const { IN_PERSON } = appointmentLocations;
 
-const Confirmation = ({ proceedTo, resetData, appointmentData, appointmentStep }) => {
-    const { type, price, time, slot, location, date } = appointmentData;
+const Confirmation = ({ proceedTo, appointmentData, appointmentStep }) => {
+    const { type, price, time, slot, location, date, booked } = appointmentData;
     const router = useRouter();
-    useEffect(() => {
-        return () => {
-            resetData();
-        };
-    }, []);
     return (
         <>
             <div className="flex flex-row space-x-4 my-8 justify-center">
                 <div className="basis-1/2 border shadow-cardshadow1 border-background4 rounded-md">
                     <div className="p-6 bg-background3 rounded-md flex flex-col items-center">
                         {
-                            appointmentData.type ? (
+                            booked ? (
                                 <>
                                     <img src="/assets/images/confirm-booking.png" className="h-16 w-16" />
                                     <div className="mt-4 text-lg text-text2 font-bold">Appointment with Dr Anita Balakrishna Confirmed!</div>
@@ -34,7 +29,7 @@ const Confirmation = ({ proceedTo, resetData, appointmentData, appointmentStep }
                         }
                     </div>
                     {
-                        appointmentData.type && (
+                        booked && (
                             <>
                                 <div className="border-t border-background4" />
                                 <div className="p-6 bg-white rounded-md">
@@ -60,7 +55,7 @@ const Confirmation = ({ proceedTo, resetData, appointmentData, appointmentStep }
                                         <div className="text-base text-text2 font-medium mt-2">
                                             {location}
                                         </div>
-                                        {location === "In Person" && (
+                                        {location === IN_PERSON && (
                                             <div className="text-base text-text2">
                                                 Gynecology/Obstetrics Clinic<br />
                                                 #B-001, 10/1, Ground floor, Victoria lawns,<br />
@@ -84,7 +79,7 @@ const Confirmation = ({ proceedTo, resetData, appointmentData, appointmentStep }
             </div>
             <div className="grid grid-flow-row grid-cols-2 my-8">
                 {
-                    appointmentData.type ? (
+                    booked ? (
                         <>
                             <div />
                             <button
@@ -97,7 +92,7 @@ const Confirmation = ({ proceedTo, resetData, appointmentData, appointmentStep }
                     ) : (
                         <>
                             <button
-                                onClick={() => proceedTo(appointmentStepsArray[Number(appointmentStep.id - 1)])}
+                                onClick={() => proceedTo(appointmentStepsArray[Number(appointmentStep.id - 2)])}
                                 className="rounded-full font-bold py-4 px-10 flex items-center justify-self-start bg-white text-primary1 border border-primary1 shadow-buttonshadow2 hover:bg-background7 hover:shadow-cardshadow"
                             >
                                 <HiArrowNarrowLeft />&nbsp;&nbsp;Back
