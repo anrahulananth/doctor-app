@@ -86,16 +86,18 @@ export default function Footer() {
                             </div>
                         </div>
                         <div className="md:grid md:grid-cols-2 md:gap-8">
-                            <h3 className="text-sm text-white tracking-wider uppercase font-bold">Links</h3>
-                            <ul role="list" className="mt-4 space-y-4">
-                                {navigation.services.map((item, index) => (
-                                    <li key={item.name + index}>
-                                        <a href={item.href} className="text-base text-white hover:text-gray-900 underline">
-                                            {item.name}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
+                            <div>
+                                <h3 className="text-sm text-white tracking-wider uppercase font-bold">Links</h3>
+                                <ul role="list" className="mt-4 space-y-4">
+                                    {navigation.services.map((item, index) => (
+                                        <li key={item.name + index}>
+                                            <a href={item.href} className="text-base text-white hover:text-gray-900 underline">
+                                                {item.name}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
