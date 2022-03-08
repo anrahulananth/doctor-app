@@ -1,6 +1,7 @@
 import Head from "next/head";
 import About from "../components/About";
 import Contact from "../components/Contact";
+import Gallery from "../components/Gallery";
 import Landing from "../components/Landing";
 import Services from "../components/Services";
 
@@ -15,6 +16,7 @@ const Home = () => (
         <Landing />
         <Services />
         <About />
+        <Gallery />
         <Contact />
     </>
 );

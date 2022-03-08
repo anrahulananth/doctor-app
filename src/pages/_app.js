@@ -1,12 +1,14 @@
 import App from "next/app";
 import { useState } from "react";
-import GlobalTheme from "../styles/GlobalTheme";
-import Layout from "../layout";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import "../styles/global.css";
+import Layout from "../layout";
+import GlobalTheme from "../styles/GlobalTheme";
 import { parseCookies } from "../utils/commonUtils";
 import AppStateProvider from "../context/AppStateProvider";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../styles/global.css";
 
 function MyApp({ Component, pageProps, appCookies }) {
     const [queryClient] = useState(new QueryClient({

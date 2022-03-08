@@ -18,7 +18,7 @@ const posts = [
 
 export default function Services() {
     return (
-        <section id="services" className="relative overflow-hidden bg-background1 py-20 sm:py-24 md:py-28">
+        <section id="services" className="relative overflow-hidden bg-background1 py-16 sm:py-20 md:py-24">
             <div className="relative px-4 sm:px-6 lg:px-8">
                 <div className="relative max-w-7xl mx-auto text-text2">
                     <div className="text-center">

@@ -12,6 +12,7 @@ const navigation = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/#services" },
     { name: "About Us", href: "/#about" },
+    { name: "Gallery", href: "/#gallery" },
     { name: "Contact", href: "/#contact" },
 ];
 
@@ -108,7 +109,7 @@ export default function Header() {
     }, [router.asPath]);
     return (
         <header className="fixed top-0 w-full z-30">
-            <div className="relative py-4 sm:py-6 md:py-8 bg-opacity-1 bg-background1">
+            <div className="relative py-2 sm:py-4 md:py-6 bg-opacity-1 bg-background1">
                 <Popover>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
                         <nav className="relative flex items-center justify-between h-12 md:justify-center" aria-label="Global">

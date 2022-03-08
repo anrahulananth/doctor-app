@@ -23,7 +23,7 @@ const Layout = (props) => {
                 ) : (
                     <>
                         <Header />
-                        <main className="bg-background3 min-h-screen mt-20 sm:mt-24 md:mt-28">
+                        <main className="bg-background3 min-h-screen mt-16 sm:mt-20 md:mt-24">
                             {children}
                         </main>
                         <Footer />

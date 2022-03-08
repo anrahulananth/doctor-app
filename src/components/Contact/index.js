@@ -104,7 +104,7 @@ const ContactUs = ({ isPhone }) => (
 export default function Contact() {
     const { isPhone } = useDetectScreen();
     return (
-        <section id="contact" className="relative overflow-hidden bg-background1 pt-20 sm:pt-24 md:pt-28">
+        <section id="contact" className="relative overflow-hidden bg-background1 pt-16 sm:pt-20 md:pt-24">
             {
                 !isPhone ? (
                     <div className="relative w-full h-full">
