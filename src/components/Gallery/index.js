@@ -83,7 +83,7 @@ const Gallery = () => {
         ]
     };
     return (
-        <section id="gallery" className="relative overflow-hidden bg-background1 pt-14 sm:pt-18 md:pt-22">
+        <section id="gallery" className="relative overflow-hidden bg-background1 py-14 sm:py-18 md:py-22">
             <StyledSlider {...settings}>
                 {
                     Array(48)

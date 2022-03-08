@@ -4,7 +4,7 @@ import { features } from "../../constants";
 
 export default function About() {
     return (
-        <section id="about" className="relative overflow-hidden bg-background1 pt-16 sm:pt-20 md:pt-24">
+        <section id="about" className="relative overflow-hidden bg-background1 py-16 sm:py-20 md:py-24">
             <div className="relative max-w-xl px-4 mx-auto lg:max-w-7xl">
                 <div className="relative flex lg:flex-row flex-col-reverse justify-between text-text2">
                     <div className="basis-3/4 relative">
