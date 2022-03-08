@@ -1,43 +1,27 @@
 import { HiOutlinePhone, HiOutlineMail, HiOutlineLocationMarker, HiOutlineExternalLink } from "react-icons/hi";
-import GoogleMapReact from "google-map-react";
 import { MAP_VALUES } from "../../constants";
-import { MdLocationOn } from "react-icons/md";
-import styled from "styled-components";
 import useDetectScreen from "../../utils/hooks";
 import classNames from "classnames";
 
-const Marker = styled(MdLocationOn)`
-    display: inline-flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    transform: translate(-50%, -100%);
-`;
-
-const MapWithMarker = ({ isPhone }) => (
-    <div style={{ height: isPhone ? "300px" : "720px", width: "100%" }}>
-        <GoogleMapReact
-            bootstrapURLKeys={{ key: "" }}
-            defaultCenter={{
-                lat: MAP_VALUES.LATITIUDE,
-                lng: MAP_VALUES.LONGITUDE
-            }}
-            defaultZoom={15}
-        >
-            <Marker
-                className="text-red-500 h-10 w-10"
-                lat={MAP_VALUES.LATITIUDE}
-                lng={MAP_VALUES.LONGITUDE}
+const MapWithMarker = () => {
+    return (
+        <div className="w-full h-[320px] md:h-[900px] overflow: hidden;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0834777911455!2d77.61211594993453!3d12.966509990814352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc48a1ebb181756e6!2zMTLCsDU3JzU5LjQiTiA3N8KwMzYnNTEuNSJF!5e0!3m2!1sen!2sin!4v1646758902776!5m2!1sen!2sin"
+                className="w-full h-full"
+                style={{ border: "0" }}
+                allowFullScreen=""
+                loading="lazy"
             />
-        </GoogleMapReact>
-    </div>
-);
+        </div>
+    );
+};
 
 const ContactUs = ({ isPhone }) => (
     <div className={classNames({ "absolute top-0 left-0": !isPhone, "relative": isPhone })}>
-        <div className="relative max-w-xl mx-auto px-4 lg:max-w-7xl">
-            <div className="relative overflow-hidden bg-white max-w-xl mt-10 mb-10 px-10 py-10 rounded-lg shadow-md">
-                <h3 className="text-lg text-text2 font-bold">Contact Us</h3>
+        <div className="relative max-w-md md:max-w-lg mx-auto px-4">
+            <div className="relative overflow-hidden bg-white mt-5 md:mt-20 mb-10 px-10 py-10 rounded-lg shadow-md">
+                <h3 className="text-2xl text-text2 font-bold">Contact Us</h3>
                 <p className="mt-6 text-base max-w-3xl">
                 </p>
                 <dl className="mt-8 space-y-6 text-text2">
@@ -51,10 +35,11 @@ const ContactUs = ({ isPhone }) => (
                     <dt>
                         <span className="sr-only">Phone number</span>
                     </dt>
-                    <dd className="flex text-base">
-                        <span className="ml-6">Gynecology/Obstetrics Clinic<br />
+                    <dd className="ml-6 flex text-base">
+                        <span>Gynecology/Obstetrics Clinic<br />
                             #B-001, 10/1, Ground floor, Victoria lawns,
-                            Victoria Road, Victoria Layout, Bangalore</span>
+                            Victoria Road, Victoria Layout, Bangalore
+                        </span>
                     </dd>
                     <dt>
                         <span className="sr-only">Phone number</span>
@@ -66,8 +51,8 @@ const ContactUs = ({ isPhone }) => (
                     <dt>
                         <span className="sr-only">Phone number</span>
                     </dt>
-                    <dd className="flex text-base">
-                        <span className="ml-6 underline">
+                    <dd className="ml-6 flex text-base">
+                        <span className="underline">
                             <a href="tel:+919901600911">+91-9901600911</a>
                         </span>
                     </dd>
@@ -81,8 +66,8 @@ const ContactUs = ({ isPhone }) => (
                     <dt>
                         <span className="sr-only">Email</span>
                     </dt>
-                    <dd className="flex text-base">
-                        <span className="ml-6 underline">
+                    <dd className="ml-6 flex flex-wrap text-base">
+                        <span className="underline">
                             <a href="mailto:info@divacare.in">info@divacare.in</a>
                         </span>,&nbsp;
                         <span className="underline">

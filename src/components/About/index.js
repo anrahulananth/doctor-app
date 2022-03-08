@@ -6,7 +6,7 @@ export default function About() {
     return (
         <section id="about" className="relative overflow-hidden bg-background1 pt-16 sm:pt-20 md:pt-24">
             <div className="relative max-w-xl px-4 mx-auto lg:max-w-7xl">
-                <div className="relative flex lg:flex-row sm:flex-col-reverse justify-between text-text2">
+                <div className="relative flex lg:flex-row flex-col-reverse justify-between text-text2">
                     <div className="basis-3/4 relative">
                         <h3 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
                             Who we are

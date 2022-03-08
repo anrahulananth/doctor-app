@@ -86,7 +86,7 @@ const Gallery = () => {
         <section id="gallery" className="relative overflow-hidden bg-background1 pt-14 sm:pt-18 md:pt-22">
             <StyledSlider {...settings}>
                 {
-                    Array(50)
+                    Array(48)
                         .fill("/assets/gallery/gallery-img")
                         .map((_, index) => {
                             const url = `${_} (${index + 1}).jpeg`;
