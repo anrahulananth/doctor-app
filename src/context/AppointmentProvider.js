@@ -154,7 +154,7 @@ const AppointmentProvider = ({ children }) => {
                         endTime,
                         docId: DOC_ID,
                         serviceId: service.id,
-                        isOnline: String(location === ONLINE)
+                        online: String(location === ONLINE)
                     };
                     const appointmentDataPayload = {
                         resource: "appointmentapi",

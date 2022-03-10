@@ -91,7 +91,7 @@ export default function DoctorLayout(props) {
                                                 <div className={classNames(
                                                     item.element.props?.href === router.asPath && "border-l-4 border-primary1 bg-background1 text-primary1" || "border-l-4 border-transparent text-text3",
                                                     !!item.element.props?.href && "hover:bg-background10 hover:text-primary1" || "",
-                                                    "group flex items-center px-2 py-2 text-base font-medium"
+                                                    "group flex items-center px-2 py-2 text-base font-medium cursor-pointer"
                                                 )}>
                                                     {
                                                         item.icon && <item.icon
@@ -151,7 +151,7 @@ export default function DoctorLayout(props) {
                                         <div className={classNames(
                                             item.element.props?.href === router.asPath && "border-l-4 border-primary1 bg-background1 text-primary1" || "border-l-4 border-transparent text-text3",
                                             !!item.element.props?.href && "hover:bg-background10 hover:text-primary1" || "",
-                                            "group flex items-center px-2 py-2 text-sm font-medium"
+                                            "group flex items-center px-2 py-2 text-sm font-medium cursor-pointer"
                                         )}>
                                             {
                                                 item.icon && (
