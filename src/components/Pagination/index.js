@@ -4,7 +4,7 @@ const Pagination = ({ itemsCount, currentPage, onChange, pageLimit }) => {
     const maxPage = Math.ceil(itemsCount / pageLimit);
     const buttons = [...Array(maxPage)];
     return (
-        <div className="flex justify-center my-4">
+        <div className="flex justify-center my-4 mx-2">
             <div className="mr-2 cursor-pointer">
                 <HiOutlineChevronLeft
                     onClick={() => onChange(currentPage - 1, (currentPage - 1) * pageLimit)}

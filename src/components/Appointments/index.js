@@ -1,30 +1,23 @@
-import Pagination from "../Pagination";
-import { useRouter } from "next/router";
-import { format, isAfter } from "date-fns";
 import { useEffect, useState, Fragment } from "react";
+import { format, isAfter } from "date-fns";
+import { useRouter } from "next/router";
+import AlertBox from "../AlertBox";
+import Pagination from "../Pagination";
 import CancelModal from "./CancelAppointment";
+import AppointmentItem from "./AppointmentItem";
 import { appointmentLocations, PAGE_LIMIT, services } from "../../constants";
 import AppointmentProvider, { useAppointmentContext } from "../../context/AppointmentProvider";
-import AppointmentItem from "./AppointmentItem";
+
 const { IN_PERSON, ONLINE } = appointmentLocations;
 
-// const decoratedAppointment = {
-//     name: "Pregnancy Consultation",
-//     time: "5.00PM - 5.10PM",
-//     date: "22/10/21",
-//     location: "Online",
-//     price: "Rs 500",
-//     status: "Upcoming",
-//     img: "/assets/images/pregnancy-consultation.jpg"
-// }
-
 const AppointmentsList = () => {
+    const { fetchAppointments, deleteAppointment } = useAppointmentContext();
     const [selectedAppointment, setSelectedAppointment] = useState({});
     const [cancelModalOpen, setCancelModalOpen] = useState(false);
-    const { fetchAppointments, deleteAppointment } = useAppointmentContext();
     const [appointments, setAppointments] = useState([]);
     const [fetchError, setFetchError] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
+    const [showAlert, setShowAlert] = useState(false);
     const [loader, setLoader] = useState(false);
     const router = useRouter();
     const handlePagination = (page) => {
@@ -57,7 +50,7 @@ const AppointmentsList = () => {
                         status: (() => {
                             if (cancelled) {
                                 return "Cancelled";
-                            } else if (isAfter(new Date(date), new Date())) {
+                            } else if (isAfter(new Date(startTime), new Date())) {
                                 return "Upcoming";
                             }
                             return "Completed";
@@ -80,8 +73,11 @@ const AppointmentsList = () => {
         setCancelModalOpen(false);
         setLoader(true);
         const deleteStatus = await deleteAppointment(selectedAppointment);
+        setShowAlert({
+            success: deleteStatus
+        });
+        handleFetchAppointments();
         setLoader(false);
-        setSelectedAppointment({});
     };
     useEffect(() => {
         handleFetchAppointments();
@@ -98,6 +94,15 @@ const AppointmentsList = () => {
             {
                 !loader && !!appointments.length && (
                     <>
+                        {
+                            showAlert && <AlertBox
+                                open={showAlert}
+                                success={showAlert.success}
+                                title={`Appointment Cancel ${showAlert.success ? "Success" : "Failed"}`}
+                                message={"Try to cancel after a short while"}
+                                handleAlertOpen={() => setShowAlert(false)}
+                            />
+                        }
                         {appointments.slice(PAGE_LIMIT * currentPage, (currentPage * PAGE_LIMIT) + PAGE_LIMIT).map((appointment, index) => (
                             <Fragment key={`${appointment.id}-${index}`}>
                                 <AppointmentItem
@@ -108,8 +113,8 @@ const AppointmentsList = () => {
                         ))}
                         <Pagination
                             itemsCount={appointments.length}
-                            currentPage={currentPage}
                             onChange={handlePagination}
+                            currentPage={currentPage}
                             pageLimit={PAGE_LIMIT}
                         />
                     </>
@@ -140,13 +145,10 @@ const AppointmentsList = () => {
                 )
             }
             <CancelModal
+                isOpen={cancelModalOpen}
                 handleCancel={handleCancelConfirm}
                 appointment={selectedAppointment}
-                handleClose={() => {
-                    setSelectedAppointment({});
-                    setCancelModalOpen(false);
-                }}
-                isOpen={cancelModalOpen}
+                handleClose={() => { setCancelModalOpen(false); }}
             />
         </>
     );

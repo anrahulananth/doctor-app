@@ -50,7 +50,7 @@ const AppointmentProvider = ({ children }) => {
         try {
             const servicesResponse = await DocApi({
                 method: "POST",
-                url: "/doctor",
+                url: "/docschedule",
                 headers: {
                     Authorization: Cookies.get("idToken")
                 },
