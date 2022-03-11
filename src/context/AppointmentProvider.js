@@ -182,8 +182,7 @@ const AppointmentProvider = ({ children }) => {
                 resource: "appointmentapi",
                 body: JSON.stringify({
                     taskName: "CANCEL_APPOINTMENT",
-                    accesstoken: Cookies.get("access_token"),
-                    date: payload.actualDate,
+                    accesstoken: Cookies.get("accessToken"),
                     appointmentId: payload.id
                 })
             };

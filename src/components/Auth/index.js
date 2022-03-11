@@ -77,7 +77,7 @@ const inputFields = [
         placeholder: "",
         formType: "register",
         validation: (val) => {
-            if (val !== "" && val.match(/^[6-9]\d{9}$/)) {
+            if (val !== "" && !val.match(/^[6-9]\d{9}$/gi)) {
                 return "Please enter a valid phone number";
             }
             return "";

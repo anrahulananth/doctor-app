@@ -36,7 +36,11 @@ const AppointmentsList = () => {
         const appointmentsResponse = await fetchAppointments();
         setLoader(false);
         if (appointmentsResponse) {
-            const decoratedAppointments = appointmentsResponse
+            const sortedAppointments = {
+                valid: [],
+                cancelled: []
+            };
+            appointmentsResponse
                 .map(appointment => {
                     const { online, date, endTime, startTime, cancelled, serviceId } = appointment;
                     const appointmentService = services.find(service => service.id === serviceId) || {};
@@ -59,8 +63,9 @@ const AppointmentsList = () => {
                             return "Completed";
                         })()
                     };
-                    return decoratedAppointment;
+                    sortedAppointments[cancelled ? "cancelled" : "valid"].push(decoratedAppointment);
                 });
+            const decoratedAppointments = sortedAppointments.valid.concat(sortedAppointments.cancelled);
             setAppointments(decoratedAppointments);
         } else {
             setFetchError(true);

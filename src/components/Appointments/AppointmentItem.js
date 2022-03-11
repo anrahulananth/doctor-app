@@ -8,7 +8,7 @@ const AppointmentItem = ({
     handleCancel
 }) => {
     return (
-        <div className="flex border rounded-md items-start sm:items-center shadow-cardshadow1 mt-4 p-1 md:p-2">
+        <div className="flex border rounded-md items-start sm:items-center shadow-cardshadow1 mt-4 p-1 md:p-2" data-automation-id={id} >
             <div className="m-1 sm:m-2 md:m-4 items-start">
                 <img src={img} className="w-10 h-10 sm:h-12 sm: w-12 md:h-16 md:w-16 rounded-full" />
             </div>
