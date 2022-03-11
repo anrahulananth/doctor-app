@@ -178,11 +178,10 @@ const AppointmentProvider = ({ children }) => {
             }
         },
         deleteAppointment: async (payload) => {
-            console.log("===>", payload);
             const deleteAppointmentPayload = {
                 resource: "appointmentapi",
                 body: JSON.stringify({
-                    taskName: "DELETE_APPOINTMENT",
+                    taskName: "CANCEL_APPOINTMENT",
                     accesstoken: Cookies.get("access_token"),
                     date: payload.actualDate,
                     appointmentId: payload.id
