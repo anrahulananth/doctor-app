@@ -36,7 +36,7 @@ const AppointmentsList = () => {
             appointmentsResponse
                 .map(appointment => {
                     const { online, date, endTime, startTime, cancelled, serviceId } = appointment;
-                    const appointmentService = services.find(service => service.id === serviceId) || {};
+                    const appointmentService = services.find(service => service.serviceId === serviceId) || {};
                     const appointmentDate = format(new Date(date), "dd/MM/yyyy");
                     const apointmentStartTime = format(new Date(startTime), "hh:mm aa");
                     const appointmentEndTime = format(new Date(endTime), "hh:mm aa");
@@ -99,7 +99,7 @@ const AppointmentsList = () => {
                                 open={showAlert}
                                 success={showAlert.success}
                                 title={`Appointment Cancel ${showAlert.success ? "Success" : "Failed"}`}
-                                message={"Try to cancel after a short while"}
+                                message={!showAlert.success ? "Try to cancel after a short while" : ""}
                                 handleAlertOpen={() => setShowAlert(false)}
                             />
                         }

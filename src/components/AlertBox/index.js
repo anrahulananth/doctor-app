@@ -22,7 +22,7 @@ const AlertBox = ({
             clearTimeout(timer);
         };
     }, [open, timeout, handleAlertOpen]);
-    return (
+    return open ? (
         <div
             className={classNames(
                 "border px-4 py-3 rounded relative",
@@ -40,7 +40,7 @@ const AlertBox = ({
                 )
             }
         </div>
-    );
+    ) : false;
 };
 
 export default AlertBox;

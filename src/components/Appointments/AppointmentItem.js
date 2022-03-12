@@ -55,7 +55,7 @@ const AppointmentItem = ({
                 </div>
                 {handleCancel && (
                     <div className="shrink min-w-[60px] mt-2 sm:mt-0">
-                        {(
+                        {status === "Upcoming" && (
                             <button className="text-red-600 cursor-pointer" onClick={() => handleCancel(id)}>
                                 Cancel
                             </button>

@@ -153,7 +153,7 @@ const AppointmentProvider = ({ children }) => {
                         startTime,
                         endTime,
                         docId: DOC_ID,
-                        serviceId: service.id,
+                        serviceId: service.serviceId,
                         online: String(location === ONLINE)
                     };
                     const appointmentDataPayload = {
