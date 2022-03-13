@@ -80,25 +80,26 @@ export const services = [
     }
 ];
 
-export const slotsData = {
-    "Morning": [
+export const slotsData = [
+    ["Morning", [
         { text: "8:00 AM", hours: 8, minutes: 0 },
         { text: "8:30 AM", hours: 8, minutes: 30 },
         { text: "9:00 AM", hours: 9, minutes: 0 },
         { text: "9:30 AM", hours: 9, minutes: 30 },
         { text: "10:00 AM", hours: 10, minutes: 0 },
         { text: "10:30 AM", hours: 10, minutes: 30 }
-    ],
-    "Evening": [
+    ]],
+    ["Evening", [
         { text: "5:00 PM", hours: 17, minutes: 0 },
         { text: "5:30 PM", hours: 17, minutes: 30 },
         { text: "6:00 PM", hours: 18, minutes: 0 },
         { text: "6:30 PM", hours: 18, minutes: 30 },
         { text: "7:00 PM", hours: 19, minutes: 0 },
-        { text: "7:30 PM", hours: 19, minutes: 30 }
-    ],
-};
-
+        { text: "7:30 PM", hours: 19, minutes: 30 },
+        { text: "8:00 PM", hours: 20, minutes: 0 },
+        { text: "8:30 PM", hours: 20, minutes: 30 }
+    ]]
+];
 
 export const appointmentLocations = {
     IN_PERSON: "In Person",
