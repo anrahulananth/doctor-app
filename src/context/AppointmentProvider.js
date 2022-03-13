@@ -1,9 +1,11 @@
 import Cookies from "js-cookie";
 import DocApi from "../utils/api";
+import { useRouter } from "next/router";
 import { sub, add } from "date-fns";
 import { formatDateForAPI } from "../utils/commonUtils";
 import { createContext, useContext, useReducer } from "react";
 import { appointmentSteps, appointmentLocations, DOC_ID } from "../constants";
+import { useAppStateContext } from "./AppStateProvider";
 const { ONLINE } = appointmentLocations;
 const initState = {
     appointmentStep: appointmentSteps.SERVICE_SELECTION,
@@ -37,23 +39,21 @@ const appointmentReducer = (state = initState, action) => {
 const AppoinmentContext = createContext();
 export const useAppointmentContext = () => useContext(AppoinmentContext);
 const AppointmentProvider = ({ children }) => {
+    const router = useRouter();
+    const { setLoader } = useAppStateContext();
     const [appointment, dispatch] = useReducer(appointmentReducer, initState);
 
     const fetchServices = async () => {
         const fetchServicesPayload = {
             resource: "serviceapi",
             body: JSON.stringify({
-                taskName: "GET_ALL_SERVICES",
-                accesstoken: Cookies.get("accessToken")
+                taskName: "GET_ALL_SERVICES"
             })
         };
         try {
             const servicesResponse = await DocApi({
                 method: "POST",
                 url: "/docschedule",
-                headers: {
-                    Authorization: Cookies.get("idToken")
-                },
                 data: fetchServicesPayload
             });
             const { data = {} } = servicesResponse;
@@ -73,26 +73,38 @@ const AppointmentProvider = ({ children }) => {
         }
     };
 
+    const handleCookieRedirection = () => {
+        if (!(Cookies.get("accessToken") && Cookies.get("idToken"))) {
+            setLoader(true);
+            setTimeout(() => {
+                setLoader(false);
+                router.replace("/auth");
+            }, 3000);
+            return false;
+        }
+    };
+
     const contextValue = {
         appointment,
         resetData: () => dispatch({ type: "RESET_DATA" }),
         setData: payload => dispatch({ type: "SET_DATA", payload }),
         proceedTo: payload => dispatch({ type: "PROCEED_TO", payload }),
         fetchAppointments: async () => {
-            const endDate = formatDateForAPI(add(new Date(), { days: 30 }));
-            const startDate = formatDateForAPI(sub(new Date(), { days: 30 }));
-            const getAppoinmentsPayload = {
-                taskName: "UPCOMING_APPOINTMENTS",
-                accesstoken: Cookies.get("accessToken"),
-                startDate,
-                endDate,
-                docId: DOC_ID
-            };
-            const appointmentsPayload = {
-                resource: "appointmentapi",
-                body: JSON.stringify(getAppoinmentsPayload)
-            };
+            handleCookieRedirection();
             try {
+                const endDate = formatDateForAPI(add(new Date(), { days: 30 }));
+                const startDate = formatDateForAPI(sub(new Date(), { days: 30 }));
+                const getAppoinmentsPayload = {
+                    taskName: "UPCOMING_APPOINTMENTS",
+                    accesstoken: Cookies.get("accessToken"),
+                    startDate,
+                    endDate,
+                    docId: DOC_ID
+                };
+                const appointmentsPayload = {
+                    resource: "appointmentapi",
+                    body: JSON.stringify(getAppoinmentsPayload)
+                };
                 const appointmentsResponse = await DocApi({
                     method: "POST",
                     url: "/doctor",
@@ -112,6 +124,7 @@ const AppointmentProvider = ({ children }) => {
             }
         },
         addAppointment: async () => {
+            handleCookieRedirection();
             const appointmentData = appointment.data;
             const { date, slot, location, type } = appointmentData;
             const { hours, minutes } = slot;
@@ -178,15 +191,16 @@ const AppointmentProvider = ({ children }) => {
             }
         },
         deleteAppointment: async (payload) => {
-            const deleteAppointmentPayload = {
-                resource: "appointmentapi",
-                body: JSON.stringify({
-                    taskName: "CANCEL_APPOINTMENT",
-                    accesstoken: Cookies.get("accessToken"),
-                    appointmentId: payload.id
-                })
-            };
+            handleCookieRedirection();
             try {
+                const deleteAppointmentPayload = {
+                    resource: "appointmentapi",
+                    body: JSON.stringify({
+                        taskName: "CANCEL_APPOINTMENT",
+                        accesstoken: Cookies.get("accessToken"),
+                        appointmentId: payload.id
+                    })
+                };
                 const deleteAppointmentResponse = await DocApi({
                     method: "POST",
                     url: "/doctor",

@@ -3,6 +3,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import Account from "../components/Account";
 import Appointments from "../components/Appointments";
+import { parseCookies } from "../utils/commonUtils";
 
 const tabs = [
     { name: "Appointments" },
@@ -56,5 +57,18 @@ function Profile() {
         </>
     );
 }
+
+Profile.getInitialProps = async ({ req }) => {
+    const cookies = parseCookies(req);
+    if (cookies.user) {
+        return {
+            redirect: {
+                destination: "/auth",
+                permanent: false
+            }
+        };
+    }
+    return { props: {} };
+};
 
 export default Profile;
