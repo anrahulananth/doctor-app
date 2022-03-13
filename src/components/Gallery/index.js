@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import styled, { useTheme } from "styled-components";
 const StyledSlider = styled(Slider)`
@@ -42,15 +43,18 @@ const StyledSlider = styled(Slider)`
 `;
 const Gallery = () => {
     const theme = useTheme();
+    const sliderRef = useRef();
     const settings = {
+        rows: 2,
+        speed: 500,
         dots: true,
         infinite: true,
-        speed: 500,
-        rows: 2,
+        autoplay: true,
+        initialSlide: 0,
         slidesToShow: 6,
         slidesToScroll: 6,
         pauseOnHover: true,
-        initialSlide: 0,
+        autoplaySpeed: 5000,
         responsive: [
             {
                 breakpoint: parseInt(theme.screens.xl),
@@ -84,7 +88,7 @@ const Gallery = () => {
     };
     return (
         <section id="gallery" className="relative overflow-hidden bg-background1 py-14 sm:py-18 md:py-22">
-            <StyledSlider {...settings}>
+            <StyledSlider {...settings} ref={sliderRef}>
                 {
                     Array(48)
                         .fill("/assets/gallery/gallery-img")
