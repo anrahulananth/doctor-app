@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 const MapWithMarker = () => {
     return (
-        <div className="relative w-full h-[320px] md:h-[840px] overflow: hidden;">
+        <div className="relative w-full h-[360px] md:h-[840px] overflow: hidden;">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0834777911455!2d77.61211594993453!3d12.966509990814352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc48a1ebb181756e6!2zMTLCsDU3JzU5LjQiTiA3N8KwMzYnNTEuNSJF!5e0!3m2!1sen!2sin!4v1646758902776!5m2!1sen!2sin"
                 className="w-full h-full"
@@ -78,7 +78,7 @@ const ContactUs = ({ isPhone }) => (
                     <dt className="flex items-center">
                         <HiOutlineExternalLink className="flex-shrink-0 w-6 h-6 text-gray-400" aria-hidden="true" />
                         <span className="ml-3 font-bold underline">
-                            <a href={`https://maps.google.com/maps?ll=${MAP_VALUES.LATITIUDE},${MAP_VALUES.LONGITUDE}&z=14&t=m&hl=en-US&gl=IN&mapclient=embed&cid=14533616059994890979`}>View on Google Maps</a>
+                            <a href={`https://maps.google.com/maps?ll=${MAP_VALUES.LATITIUDE},${MAP_VALUES.LONGITUDE}&z=14&t=m&hl=en-US&gl=IN&mapclient=embed&cid=14533616059994890979`}>Get Directions on Google Maps</a>
                         </span>
                     </dt>
                 </dl>

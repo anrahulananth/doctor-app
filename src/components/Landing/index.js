@@ -35,11 +35,11 @@ const Doctor = styled.div`
 export default function Landing() {
     return (
         <LandingWithBackground>
-            <div id="landing" className="relative py-10 bg-background1 bg-opacity-1 z-0">
+            <div id="landing" className="relative bg-background1 bg-opacity-1 z-0">
                 <div className="hidden lg:block">
                     <Doctor />
                 </div>
-                <div className="pt-16 mx-auto max-w-7xl px-4 sm:pt-24">
+                <div className="py-16 mx-auto max-w-7xl px-4">
                     <h1 className="text-buttonshadow tracking-tight font-extrabold md:max-w-3xl text-gray-900 text-5xl md:text-buttonshadow leading-extra-loose">
                         Diva Care brings your family’s health care closer to you!
                     </h1>
