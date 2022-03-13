@@ -2,6 +2,7 @@ import { Fragment, useReducer, useMemo, useCallback, useEffect, useState } from 
 import { useAppStateContext } from "../../context/AppStateProvider";
 import { useRouter } from "next/router";
 import classNames from "classnames";
+import ResetPassword from "./ResetPassword";
 
 const initialState = {};
 const inputFields = [
@@ -84,10 +85,12 @@ const inputFields = [
         }
     }
 ];
+
 inputFields.forEach(input => initialState[input.id] = {
     value: "",
     error: ""
 });
+
 const authFormReducer = (state = initState, action) => {
     switch (action.type) {
     case "INPUT": return {
@@ -119,11 +122,12 @@ const authFormReducer = (state = initState, action) => {
 };
 
 const Auth = ({ isLoginPage = false }) => {
-    const router = useRouter();
-    const [type, setType] = useState("login");
-    const [disabled, setDisabled] = useState(true);
     const [authForm, dispatch] = useReducer(authFormReducer, initialState);
-    const { appState, doLogin, doRegister, reset } = useAppStateContext();
+    const { appState, reset, doLogin, doRegister } = useAppStateContext();
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
+    const [disabled, setDisabled] = useState(true);
+    const [type, setType] = useState("login");
+    const router = useRouter();
     const inputElements = useMemo(() => (inputFields.filter(
         ele => ele.formType ? ele.formType === type : true
     )), [type]);
@@ -133,6 +137,7 @@ const Auth = ({ isLoginPage = false }) => {
         "bg-white": type === buttonType
     }), [type]);
 
+    // Effects
     useEffect(() => {
         reset();
         return () => {
@@ -140,7 +145,6 @@ const Auth = ({ isLoginPage = false }) => {
         };
     }, []);
 
-    // Effects
     useEffect(() => {
         let isDisabled = false;
         isDisabled = inputElements
@@ -159,6 +163,7 @@ const Auth = ({ isLoginPage = false }) => {
             });
         }
     };
+
     const handleInput = (evt, ele) => {
         const value = evt?.target?.value;
         reset();
@@ -171,12 +176,14 @@ const Auth = ({ isLoginPage = false }) => {
             }
         });
     };
+
     const handleSubmit = async () => {
         let errorTrigger = false;
         inputElements.forEach(input => {
-            const error = input.validation(authForm[input.id].value, {
-                register: type === "register"
-            });
+            const error = input.validation(
+                authForm[input.id].value,
+                { register: type === "register" }
+            );
             if (error) {
                 errorTrigger = true;
                 dispatch({
@@ -190,8 +197,13 @@ const Auth = ({ isLoginPage = false }) => {
         });
         if (errorTrigger) return;
         const payload = {};
-        Object.keys(authForm).forEach((key) => payload[key] = authForm[key].value);
-        payload.phone = `+91${payload.phone}`;
+        Object.keys(authForm).forEach((key) => {
+            if (key === "phone") {
+                payload.phone = `+91${authForm[key].value}`;
+            } else {
+                payload[key] = authForm[key].value;
+            }
+        });
         if (type === "register") {
             doRegister(payload, () => {
                 handleClick("login");
@@ -203,6 +215,13 @@ const Auth = ({ isLoginPage = false }) => {
         }
     };
 
+    if (showForgotPassword) {
+        return (
+            <ResetPassword
+                cancel={() => setShowForgotPassword(false)}
+            />
+        );
+    }
     return (
         <div className="flex flex-row space-x-4 md:justify-center">
             <div className="bg-white w-full border shadow-cardshadow1 border-background4 rounded-md my-8 px-12 py-10 md:px-20 md:py-16 md:basis-1/2 sm:px-8">
@@ -220,45 +239,49 @@ const Auth = ({ isLoginPage = false }) => {
                         Register
                     </div>
                 </div>
-                {
-                    inputElements.map((ele) => (
-                        <Fragment key={ele.id}>
-                            <label htmlFor={ele.id} className="block text-sm font-medium text-gray-700 mt-2">
-                                {ele.label}
-                                <span className="text-red-500">&nbsp;*</span>
-                            </label>
-                            <div className="mt-1 relative">
-                                {
-                                    ele.id === "phone" && (
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <span className="text-gray-500 sm:text-sm">+91</span>
-                                        </div>
-                                    )
-                                }
-                                <input
-                                    type={ele.type}
-                                    name={ele.id}
-                                    id={ele.id}
-                                    value={authForm[ele.id].value}
-                                    onChange={(e) => handleInput(e, ele)}
-                                    onKeyDown={(e) => {
-                                        if (e.keyCode === 13 && type === "login" && ele.type === "password") {
-                                            handleSubmit();
-                                        }
-                                    }}
-                                    placeholder={ele.placeholder}
-                                    className={classNames(
-                                        "shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border border-gray-300 rounded-md",
-                                        ele.id === "phone" && "pl-10"
-                                    )}
-                                />
-                            </div>
-                            <div className="text-sm text-red-500">
-                                {authForm[ele.id].error ? authForm[ele.id].error : <span>&nbsp;</span>}
-                            </div>
-                        </Fragment>
-                    ))
-                }
+                {inputElements.map((ele) => (
+                    <Fragment key={ele.id}>
+                        <label htmlFor={ele.id} className="block text-sm font-medium text-gray-700 mt-2">
+                            {ele.label}
+                            <span className="text-red-500">&nbsp;*</span>
+                        </label>
+                        <div className="mt-1 relative">
+                            {ele.id === "phone" && (
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span className="text-gray-500 sm:text-sm">+91</span>
+                                </div>
+                            )}
+                            <input
+                                type={ele.type}
+                                name={ele.id}
+                                id={ele.id}
+                                value={authForm[ele.id].value}
+                                onChange={(e) => handleInput(e, ele)}
+                                onKeyDown={(e) => {
+                                    if (e.keyCode === 13 && type === "login" && ele.type === "password") {
+                                        handleSubmit();
+                                    }
+                                }}
+                                placeholder={ele.placeholder}
+                                className={classNames(
+                                    "shadow-sm focus:ring-primary1 focus:border-primary1 block w-full sm:text-sm border border-gray-300 rounded-md",
+                                    ele.id === "phone" && "pl-10"
+                                )}
+                            />
+                        </div>
+                        <div className="text-sm text-red-500">
+                            {authForm[ele.id].error ? authForm[ele.id].error : <span>&nbsp;</span>}
+                        </div>
+                    </Fragment>
+                ))}
+                {type === "login" && (
+                    <button
+                        onClick={() => setShowForgotPassword(true)}
+                        className="underline text-primary1"
+                    >
+                            Forgot Password?
+                    </button>
+                )}
                 <div className="my-4 flex justify-center">
                     <button
                         onClick={handleSubmit}

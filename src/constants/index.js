@@ -105,3 +105,9 @@ export const appointmentLocations = {
     ONLINE: "Online Consultation"
 };
 
+
+export const resetPasswordSteps = {
+    EMAIL_CONFIRMATION: "EMAIL_CONFIRMATION",
+    PASSWORD_CONFIRMATION: "PASSWORD_CONFIRMATION",
+    CONFIRMATION_SUCCESS: "CONFIRMATION_SUCCESS"
+};

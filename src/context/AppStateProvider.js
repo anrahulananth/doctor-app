@@ -116,6 +116,7 @@ const AppStateProvider = ({ children, appCookies }) => {
                             ...validateResponseBody,
                             firstName: spaceIndex > 0 ? firstName.substr(0, spaceIndex) : firstName,
                             lastName: spaceIndex > 0 ? firstName.substr(spaceIndex + 1) : "",
+                            password: filteredPayload.password
                         };
                         dispatch({
                             type: "LOGIN",
@@ -191,6 +192,64 @@ const AppStateProvider = ({ children, appCookies }) => {
                 });
             } finally {
                 setLoader(false);
+            }
+        },
+        forgotPassword: async (payload) => {
+            const forgotPasswordPayload = {
+                taskName: "forgotpassword",
+                email: payload.email
+            };
+            const forgotPasswordBody = {
+                "resource": "authenticationapi",
+                "body": JSON.stringify(forgotPasswordPayload)
+            };
+            setLoader(true);
+            try {
+                const forgotPasswordApiResponse = await DocApi({
+                    method: "POST",
+                    url: "/auth",
+                    data: forgotPasswordBody
+                });
+                const { data: forgotPasswordData = {} } = forgotPasswordApiResponse;
+                setLoader(false);
+                return (
+                    forgotPasswordData
+                    && forgotPasswordData.statusCode === 200
+                    && forgotPasswordData.body
+                );
+            } catch (err) {
+                setLoader(false);
+                return false;
+            }
+        },
+        confirmForgotPassword: async (payload) => {
+            const confirmForgotPasswordPayload = {
+                taskName: "confirmforgotpassword",
+                email: payload.email,
+                password: payload.password,
+                verificationCode: payload.verificationCode
+            };
+            const confirmForgotPasswordBody = {
+                resource: "authenticationapi",
+                body: JSON.stringify(confirmForgotPasswordPayload)
+            };
+            setLoader(true);
+            try {
+                const confirmForgotPasswordApiResponse = await DocApi({
+                    method: "POST",
+                    url: "/auth",
+                    data: confirmForgotPasswordBody
+                });
+                const { data: confirmForgotPasswordData = {} } = confirmForgotPasswordApiResponse;
+                setLoader(false);
+                return (
+                    confirmForgotPasswordData
+                    && confirmForgotPasswordData.statusCode === 200
+                    && confirmForgotPasswordData.body
+                );
+            } catch (err) {
+                setLoader(false);
+                return false;
             }
         },
         reset: () => dispatch({
