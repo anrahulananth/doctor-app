@@ -15,8 +15,6 @@ export const SLOT_SELECTION = "SLOT_SELECTION";
 export const USER_INFORMATION = "USER_INFORMATION";
 export const BOOKING_CONFIRMATION = "BOOKING_CONFIRMATION";
 
-export const DOC_ID = "92b97397-3eac-42a7-9fea-aa0ccb21cb3c";
-
 export const API_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSxxx";
 
 export const appointmentSteps = {
@@ -81,24 +79,22 @@ export const services = [
 ];
 
 export const slotsData = [
-    ["Morning", [
-        { text: "8:00 AM", hours: 8, minutes: 0 },
-        { text: "8:30 AM", hours: 8, minutes: 30 },
-        { text: "9:00 AM", hours: 9, minutes: 0 },
-        { text: "9:30 AM", hours: 9, minutes: 30 },
-        { text: "10:00 AM", hours: 10, minutes: 0 },
-        { text: "10:30 AM", hours: 10, minutes: 30 }
-    ]],
-    ["Evening", [
-        { text: "5:00 PM", hours: 17, minutes: 0 },
-        { text: "5:30 PM", hours: 17, minutes: 30 },
-        { text: "6:00 PM", hours: 18, minutes: 0 },
-        { text: "6:30 PM", hours: 18, minutes: 30 },
-        { text: "7:00 PM", hours: 19, minutes: 0 },
-        { text: "7:30 PM", hours: 19, minutes: 30 },
-        { text: "8:00 PM", hours: 20, minutes: 0 },
-        { text: "8:30 PM", hours: 20, minutes: 30 }
-    ]]
+    { text: "8:00 AM", hours: 8, minutes: 0 },
+    { text: "8:30 AM", hours: 8, minutes: 30 },
+    { text: "9:00 AM", hours: 9, minutes: 0 },
+    { text: "9:30 AM", hours: 9, minutes: 30 },
+    { text: "10:00 AM", hours: 10, minutes: 0 },
+    { text: "10:30 AM", hours: 10, minutes: 30 },
+    { text: "4:00 PM", hours: 16, minutes: 0 },
+    { text: "4:30 PM", hours: 16, minutes: 30 },
+    { text: "5:00 PM", hours: 17, minutes: 0 },
+    { text: "5:30 PM", hours: 17, minutes: 30 },
+    { text: "6:00 PM", hours: 18, minutes: 0 },
+    { text: "6:30 PM", hours: 18, minutes: 30 },
+    { text: "7:00 PM", hours: 19, minutes: 0 },
+    { text: "7:30 PM", hours: 19, minutes: 30 },
+    { text: "8:00 PM", hours: 20, minutes: 0 },
+    { text: "8:30 PM", hours: 20, minutes: 30 }
 ];
 
 export const appointmentLocations = {
@@ -111,4 +107,13 @@ export const resetPasswordSteps = {
     EMAIL_CONFIRMATION: "EMAIL_CONFIRMATION",
     PASSWORD_CONFIRMATION: "PASSWORD_CONFIRMATION",
     CONFIRMATION_SUCCESS: "CONFIRMATION_SUCCESS"
+};
+
+export const envConsts = {
+    development: {
+        DOC_ID: "ganesh.umesh007@gmail.com"
+    },
+    production: {
+        DOC_ID: "92b97397-3eac-42a7-9fea-aa0ccb21cb3c"
+    }
 };

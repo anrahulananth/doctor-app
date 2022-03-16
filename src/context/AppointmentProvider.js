@@ -1,15 +1,18 @@
 import Cookies from "js-cookie";
 import DocApi from "../utils/api";
 import { useRouter } from "next/router";
-import { sub, add } from "date-fns";
+import { sub, add, format } from "date-fns";
 import { formatDateForAPI } from "../utils/commonUtils";
 import { createContext, useContext, useReducer } from "react";
-import { appointmentSteps, appointmentLocations, DOC_ID } from "../constants";
+import { appointmentSteps, appointmentLocations, API_DATE_FORMAT } from "../constants";
 import { useAppStateContext } from "./AppStateProvider";
 const { ONLINE } = appointmentLocations;
 const initState = {
     appointmentStep: appointmentSteps.SERVICE_SELECTION,
-    data: {},
+    data: {
+        date: new Date().toISOString(),
+        location: appointmentLocations.IN_PERSON
+    },
     services: []
 };
 const appointmentReducer = (state = initState, action) => {
@@ -20,7 +23,7 @@ const appointmentReducer = (state = initState, action) => {
     };
     case "RESET_DATA": return {
         ...state,
-        data: {}
+        data: initState.data
     };
     case "SET_DATA": return {
         ...state,
@@ -40,7 +43,8 @@ const AppoinmentContext = createContext();
 export const useAppointmentContext = () => useContext(AppoinmentContext);
 const AppointmentProvider = ({ children }) => {
     const router = useRouter();
-    const { setLoader } = useAppStateContext();
+    const { appState, setLoader } = useAppStateContext();
+    const { envConsts } = appState;
     const [appointment, dispatch] = useReducer(appointmentReducer, initState);
 
     const fetchServices = async () => {
@@ -94,22 +98,21 @@ const AppointmentProvider = ({ children }) => {
             try {
                 const endDate = formatDateForAPI(add(new Date(), { days: 30 }));
                 const startDate = formatDateForAPI(sub(new Date(), { days: 30 }));
-                const getAppoinmentsPayload = {
-                    taskName: "UPCOMING_APPOINTMENTS",
-                    accesstoken: Cookies.get("accessToken"),
-                    startDate,
-                    endDate,
-                    docId: DOC_ID
-                };
                 const appointmentsPayload = {
                     resource: "appointmentapi",
-                    body: JSON.stringify(getAppoinmentsPayload)
+                    body: JSON.stringify({
+                        taskName: "UPCOMING_APPOINTMENTS",
+                        accesstoken: Cookies.get("accessToken"),
+                        startDate,
+                        endDate,
+                        docId: envConsts.DOC_ID
+                    })
                 };
                 const appointmentsResponse = await DocApi({
                     method: "POST",
                     url: "/doctor",
                     headers: {
-                        "Authorization": Cookies.get("idToken")
+                        Authorization: Cookies.get("idToken")
                     },
                     data: appointmentsPayload
                 });
@@ -165,7 +168,7 @@ const AppointmentProvider = ({ children }) => {
                         date: appointmentDate,
                         startTime,
                         endTime,
-                        docId: DOC_ID,
+                        docId: envConsts.DOC_ID,
                         serviceId: service.id,
                         online: String(location === ONLINE)
                     };
@@ -177,7 +180,7 @@ const AppointmentProvider = ({ children }) => {
                         method: "POST",
                         url: "/doctor",
                         headers: {
-                            "Authorization": Cookies.get("idToken")
+                            Authorization: Cookies.get("idToken")
                         },
                         data: appointmentDataPayload
                     });
@@ -205,12 +208,39 @@ const AppointmentProvider = ({ children }) => {
                     method: "POST",
                     url: "/doctor",
                     headers: {
-                        "Authorization": Cookies.get("idToken")
+                        Authorization: Cookies.get("idToken")
                     },
                     data: deleteAppointmentPayload
                 });
                 const { data = {} } = deleteAppointmentResponse;
                 return data && data.statusCode === 200;
+            } catch (err) {
+                return false;
+            }
+        },
+        fetchSlotsData: async (payload) => {
+            try {
+                const dateObj = new Date(payload.date).setHours(0, 0, 0, 0);
+                const slotDate = formatDateForAPI(dateObj);
+                const fetchSlotsDataPayload = {
+                    resource: "appointmentapi",
+                    body: JSON.stringify({
+                        taskName: "GET_AVAILABLE_TIMESLOTS",
+                        doctorID: envConsts.DOC_ID,
+                        date: slotDate
+                    })
+                };
+                const slotsDataResponse = await DocApi({
+                    method: "POST",
+                    url: "/docschedule",
+                    data: fetchSlotsDataPayload
+                });
+                const { data = {} } = slotsDataResponse;
+                if (data && data.statusCode === 200) {
+                    const slotsDataResponseBody = JSON.parse(data.body);
+                    return Array.isArray(slotsDataResponseBody) ? slotsDataResponseBody : [];
+                }
+                return false;
             } catch(err) {
                 return false;
             }

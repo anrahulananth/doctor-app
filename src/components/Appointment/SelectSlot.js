@@ -1,61 +1,76 @@
 import Calendar from "../Calendar";
-import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
-import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/bi";
-import { FiChevronRight, FiChevronLeft, FiSun, FiMoon } from "react-icons/fi";
-import { useEffect, useMemo } from "react";
 import classNames from "classnames";
-import { appointmentStepsArray, appointmentLocations, slotsData } from "../../constants";
 import { add, toDate, isAfter } from "date-fns";
+import { useCallback, useEffect, useState } from "react";
+import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/bi";
+import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
+import { FiChevronRight, FiChevronLeft, FiSun, FiMoon } from "react-icons/fi";
+import { appointmentStepsArray, appointmentLocations, slotsData } from "../../constants";
 
-const filterDayTime = (dayTime, date) => {
-    if (new Date(date).getTime() > new Date().getTime()) {
-        return true;
-    }
-    const timeOfDay = new Date(date);
-    if (dayTime === "Morning") {
-        timeOfDay.setHours(12, 0, 0);
-        if (isAfter(new Date(date), timeOfDay)) {
-            return false;
-        }
-        return true;
-    }
-    return true;
-};
-
-const filterTime = ({ hours, minutes }, date) => {
-    if (new Date(date).getTime() > new Date().getTime()) {
-        return true;
-    }
-    const timeOfDay = new Date(date);
-    timeOfDay.setHours(hours, minutes, 0);
-    if (isAfter(new Date(date), timeOfDay)) {
-        return false;
-    }
-    return true;
-};
-
-const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedTo }) => {
+const SelectSlot = ({
+    appointmentData,
+    fetchSlotsData,
+    handleSlotData,
+    appointmentStep,
+    proceedTo
+}) => {
     const {
-        location = appointmentLocations.IN_PERSON,
+        location,
         date = new Date().toISOString(),
         slot
     } = appointmentData;
-    const filteredSlotsData = useMemo(() => slotsData
-        .filter((slotData) => filterDayTime(slotData[0], date))
-        .map(timeOfDaySlots => {
-            const filteredTimeOfDaySlots = timeOfDaySlots[1].filter((timeData) => filterTime(timeData, date));
-            return [timeOfDaySlots[0], filteredTimeOfDaySlots];
-        }), [date]);
-    useEffect(() => {
+    const [loader, setLoader] = useState(false);
+    const [filteredSlotsData, setFilteredSlotsData] = useState({
+        Morning: [],
+        Evening: []
+    });
+    const handleFilterSlotsData = useCallback(async (currentDate) => {
+        setLoader(true);
+        const remainingSlots = await fetchSlotsData({ date: currentDate });
+        const filteredData = slotsData
+            .reduce((result, slot) => {
+                if (remainingSlots && remainingSlots.length) {
+                    const { hours, minutes } = slot;
+                    const timeOfDay = new Date(currentDate);
+                    timeOfDay.setHours(hours, minutes, 0);
+                    const isNotBooked = remainingSlots.find((timeSlot) => {
+                        const { startTime, endTime } = timeSlot;
+                        const formattedStartTime = new Date(startTime.replace("[Asia/Calcutta]", ""));
+                        const formattedEndTime = new Date(endTime.replace("[Asia/Calcutta]", ""));
+                        const slotTime = timeOfDay;
+                        return slotTime >= formattedStartTime && slotTime <= formattedEndTime;
+                    });
+                    if (isNotBooked) {
+                        const noon = new Date(currentDate);
+                        noon.setHours(12, 0, 0);
+                        const isSlotTimeAfterCurrentTime = isAfter(new Date(currentDate), timeOfDay);
+                        const isSlotTimeAfterNoonTime = isAfter(timeOfDay, noon);
+                        if (!isSlotTimeAfterCurrentTime) {
+                            result[
+                                isSlotTimeAfterNoonTime ? "Evening" : "Morning"
+                            ].push(slot);
+                        }
+                    }
+                }
+                return result;
+            }, {
+                Morning: [],
+                Evening: []
+            });
+        setFilteredSlotsData(filteredData);
+        setLoader(false);
+        let slotTime = false;
+        if (filteredData["Morning"].length > 1) {
+            slotTime = filteredData["Morning"][0];
+        } else if (filteredData["Evening"].length > 1) {
+            slotTime = filteredData["Evening"][0];
+        }
         handleSlotData({
-            date,
-            location
+            slot: slotTime
         });
     }, []);
     useEffect(() => {
-        handleSlotData({
-            slot: filteredSlotsData[0][1][0]
-        });
+        handleFilterSlotsData(date);
     }, [date]);
     return (
         <>
@@ -108,26 +123,32 @@ const SelectSlot = ({ appointmentData, handleSlotData, appointmentStep, proceedT
                         }
                     </div>
                     <div className="text-md text-text2 font-bold mt-8">Choose a Slot</div>
-                    {filteredSlotsData.map((timeOfDaySlots) => (
-                        <div key={timeOfDaySlots[0]} className="mt-4">
-                            <div className="flex items-center space-x-2 text-md text-text2 font-semibold">
-                                {timeOfDaySlots[0] === "Morning" ? <FiSun className="text-background6" /> : <FiMoon className="text-background6" />}<div>{timeOfDaySlots[0]}</div>
+                    {
+                        loader ?  (
+                            <div className="flex items-center justify-center items-center w-full h-56">
+                                <div className="w-20 h-20 border-l-4 border-primary1 rounded-full animate-spin my-16" />
                             </div>
-                            <div className="border border-background8 my-4" />
-                            <div className="flex flex-wrap justify-start mb-10">
-                                {timeOfDaySlots[1].length > 0 ? timeOfDaySlots[1].map((slotTime) => (
-                                    <button
-                                        onClick={() => handleSlotData({ slot: slotTime })}
-                                        key={slotTime.text}
-                                        className={classNames(
-                                            "border border-background8 rounded-md text-text2 py-2 px-4 m-2 hover:border-primary1",
-                                            slot?.text === slotTime.text ? "bg-background12" : "")}>
-                                        {slotTime.text}
-                                    </button>
-                                )) : "No Slots Available"}
+                        ) : Object.keys(filteredSlotsData).map((timeOfDay) => (
+                            <div key={timeOfDay} className="mt-4">
+                                <div className="flex items-center space-x-2 text-md text-text2 font-semibold">
+                                    {timeOfDay === "Morning" ? <FiSun className="text-background6" /> : <FiMoon className="text-background6" />}<div>{timeOfDay}</div>
+                                </div>
+                                <div className="border border-background8 my-4" />
+                                <div className="flex flex-wrap justify-start mb-10">
+                                    {filteredSlotsData[timeOfDay] && filteredSlotsData[timeOfDay].length > 0 ? filteredSlotsData[timeOfDay].map((slotTime) => (
+                                        <button
+                                            onClick={() => handleSlotData({ slot: slotTime })}
+                                            key={slotTime.text}
+                                            className={classNames(
+                                                "border border-background8 rounded-md text-text2 py-2 px-4 m-2 hover:border-primary1",
+                                                slot?.text === slotTime.text ? "bg-background12" : "")}>
+                                            {slotTime.text}
+                                        </button>
+                                    )) : "No Slots Available"}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    }
                 </div>
             </div>
             <div className="grid grid-flow-row grid-cols-2 my-8">

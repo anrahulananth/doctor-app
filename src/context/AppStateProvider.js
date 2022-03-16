@@ -1,4 +1,5 @@
 import DocApi from "../utils/api";
+import { envConsts } from "../constants";
 import { createContext, useContext, useReducer } from "react";
 import { filterObject, safeJsonParse, setCookie } from "../utils/commonUtils";
 
@@ -8,6 +9,7 @@ const initState = {
     },
     register: "",
     error: "",
+    envConsts: envConsts.development,
     isLoading: false
 };
 
@@ -46,14 +48,17 @@ const appStateReducer = (state = initState, action) => {
 };
 const AppStateContext = createContext();
 export const useAppStateContext = () => useContext(AppStateContext);
-const AppStateProvider = ({ children, appCookies }) => {
+const AppStateProvider = ({ children, appCookies, env }) => {
     const cookies = filterObject(appCookies, ["userData"]);
     const [err, userData] = safeJsonParse(cookies.userData);
-    const authState = Object.assign({}, initState);
-    if (!err && userData.isLoggedIn) {
-        authState.user = userData;
+    const initAppState = Object.assign({}, initState);
+    if (env && envConsts[env]) {
+        initAppState.envConsts = envConsts[env];
     }
-    const [appState, dispatch] = useReducer(appStateReducer, authState);
+    if (!err && userData.isLoggedIn) {
+        initAppState.user = userData;
+    }
+    const [appState, dispatch] = useReducer(appStateReducer, initAppState);
 
     const setLoader = payload => dispatch({
         type: "LOADING",

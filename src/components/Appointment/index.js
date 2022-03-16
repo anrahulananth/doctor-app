@@ -17,7 +17,7 @@ import {
 import Policy from "../Policy";
 
 export default function Appointment() {
-    const { appointment, setData, resetData, proceedTo, addAppointment } = useAppointmentContext();
+    const { appointment, setData, resetData, proceedTo, addAppointment, fetchSlotsData } = useAppointmentContext();
     const { appState, setLoader } = useAppStateContext();
     const {
         appointmentStep,
@@ -86,6 +86,7 @@ export default function Appointment() {
                             <SelectSlot
                                 appointmentStep={appointmentStep}
                                 handleSlotData={handleSetData}
+                                fetchSlotsData={fetchSlotsData}
                                 appointmentData={data}
                                 proceedTo={proceedTo}
                             />,

@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/global.css";
 
-function MyApp({ Component, pageProps, appCookies }) {
+function MyApp({ Component, pageProps, appCookies, env }) {
     const [queryClient] = useState(new QueryClient({
         defaultOptions: {
             queries: {
@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps, appCookies }) {
         <>
             <QueryClientProvider client={queryClient}>
                 <GlobalTheme>
-                    <AppStateProvider appCookies={appCookies}>
+                    <AppStateProvider appCookies={appCookies} env={env}>
                         <Layout>
                             <Component {...pageProps} />
                         </Layout>
@@ -37,7 +37,11 @@ function MyApp({ Component, pageProps, appCookies }) {
 MyApp.getInitialProps = async (appContext) => {
     const appProps = await App.getInitialProps(appContext);
     const reqObj = appContext?.ctx?.req;
-    return { ...appProps, appCookies: parseCookies(reqObj) };
+    return {
+        ...appProps,
+        appCookies: parseCookies(reqObj),
+        env: process.env.NODE_ENV
+    };
 };
 
 export default MyApp;
