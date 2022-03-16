@@ -68,7 +68,7 @@ const Confirmation = ({ proceedTo, appointmentData, appointmentStep }) => {
                                             Date
                                         </div>
                                         <div className="text-base text-text2 font-medium mt-2">
-                                            {format(new Date(date), "io MMMM yyyy")}{`, ${slot?.text}`}
+                                            {format(new Date(date), "do MMMM yyyy")}{`, ${slot?.text}`}
                                         </div>
                                     </div>
                                 </div>
