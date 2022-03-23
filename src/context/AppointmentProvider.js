@@ -1,10 +1,10 @@
 import Cookies from "js-cookie";
 import DocApi from "../utils/api";
 import { useRouter } from "next/router";
-import { sub, add, format } from "date-fns";
+import { sub, add } from "date-fns";
 import { formatDateForAPI } from "../utils/commonUtils";
 import { createContext, useContext, useReducer } from "react";
-import { appointmentSteps, appointmentLocations, API_DATE_FORMAT } from "../constants";
+import { appointmentSteps, appointmentLocations } from "../constants";
 import { useAppStateContext } from "./AppStateProvider";
 const { ONLINE } = appointmentLocations;
 const initState = {
