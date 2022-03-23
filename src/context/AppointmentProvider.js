@@ -93,7 +93,7 @@ const AppointmentProvider = ({ children }) => {
         resetData: () => dispatch({ type: "RESET_DATA" }),
         setData: payload => dispatch({ type: "SET_DATA", payload }),
         proceedTo: payload => dispatch({ type: "PROCEED_TO", payload }),
-        fetchAppointments: async () => {
+        fetchAppointments: async (payload) => {
             handleCookieRedirection();
             try {
                 const endDate = formatDateForAPI(add(new Date(), { days: 30 }));
@@ -103,8 +103,8 @@ const AppointmentProvider = ({ children }) => {
                     body: JSON.stringify({
                         taskName: "UPCOMING_APPOINTMENTS",
                         accesstoken: Cookies.get("accessToken"),
-                        startDate,
-                        endDate,
+                        startDate: payload.startDate || startDate,
+                        endDate: payload.endDate || endDate,
                         docId: envConsts.DOC_ID
                     })
                 };
